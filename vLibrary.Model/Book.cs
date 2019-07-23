@@ -10,9 +10,11 @@ namespace vLibrary.Model
         public string Title { get; set; }
         public int NumberOfPages { get; set; }
         public string Subject { get; set; }
-        public ICollection<BookItem> BookItems { get; set; }
-        public ICollection<Publisher> Publishers { get; set; }
-
+        public byte[] Image { get; set; }
+        public int PublisherId { get; set; }
+        public Publisher Publisher { get; set; }
+        public int BookItemId { get; set; }
+        public BookItem BookItem { get; set; }
         public ICollection<Book_Author> Book_Authors { get; set; }
     }
 }

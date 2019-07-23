@@ -8,7 +8,6 @@ namespace vLibrary.Model
     {
         public string PublisherName { get; set; }
         public string Description { get; set; }
-        public int BookId { get; set; }
-        public Book Book { get; set; }
+        public ICollection<Book> Books { get; set; }
     }
 }

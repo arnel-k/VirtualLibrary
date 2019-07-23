@@ -12,7 +12,13 @@ namespace vLibrary.Model
         public DateTime PublicationDate { get; set; }
         public BookFormat BookFormat { get; set; }
         public BookStatus BookStatus { get; set; }
-        public int BookId { get; set; }
-        public Book Book { get; set; }
+        public int LibraryId { get; set; }
+        public Library Library { get; set; }
+        public int RackId { get; set; }
+        public Rack Rack { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+        public ICollection<Book> Books { get; set; }
+
     }
 }
