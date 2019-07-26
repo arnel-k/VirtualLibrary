@@ -15,14 +15,17 @@ namespace vLibrary.API.Database
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Book_Author> Book_Authors { get; set; }
-        public DbSet<BookItem> BookItems { get; set; }
+        //public DbSet<BookItem> BookItems { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Library> Libraries { get; set; }
         public DbSet<LibraryCard> LibraryCards { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Member> Member { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Rack> Racks { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<BookLeading> BookLeadings { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
         {
 
@@ -30,10 +33,11 @@ namespace vLibrary.API.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Book_Author>().HasKey(ba => new { ba.BookId, ba.AuthorId });
+            modelBuilder.Entity<BookLeading>().HasKey(k => new { k.MemberId, k.BookId });
             modelBuilder.Entity<Account>().Property(r => r.Role).HasConversion(v => v.ToString(), v => (Role)Enum.Parse(typeof(Role), v));
-            //modelBuilder.Entity<User>().HasOne(i => i.Library).WithMany(i => i.User).IsRequired().OnDelete(DeleteBehavior.Cascade);
-            //modelBuilder.Entity<BookItem>().HasOne(i => i.Library).WithMany(i => i.BookItems).IsRequired().OnDelete(DeleteBehavior.Cascade);
-            
+            modelBuilder.Entity<Book>().HasMany(x => x.BookLeadings).WithOne(x => x.Book).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Member>().HasMany(x => x.BookLeadings).WithOne(x => x.Member).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Category>().HasMany(x => x.Books).WithOne(x => x.Category).OnDelete(DeleteBehavior.Restrict);
         }
     }
     

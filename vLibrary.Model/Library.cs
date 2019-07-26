@@ -11,8 +11,8 @@ namespace vLibrary.Model
         public int AccountId { get; set; }
         public Account Account { get; set; }
 
-        public ICollection<BookItem> BookItems { get; set; }
-        //public ICollection<User> User { get; set; }
+        public ICollection<Book> Books { get; set; }
+        public ICollection<Employee> Employees { get; set; }
 
     }
 }

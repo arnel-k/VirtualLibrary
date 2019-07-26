@@ -10,8 +10,8 @@ using vLibrary.API.Database;
 namespace vLibrary.API.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20190723173432_Init")]
-    partial class Init
+    [Migration("20190726044404_26.7_AK_Init")]
+    partial class _267_AK_Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -95,7 +95,9 @@ namespace vLibrary.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BookItemId");
+                    b.Property<int>("BookStatus");
+
+                    b.Property<int>("CategoryId");
 
                     b.Property<Guid>("Guid");
 
@@ -105,9 +107,15 @@ namespace vLibrary.API.Migrations
 
                     b.Property<bool>("IsDeleted");
 
+                    b.Property<int>("LibraryId");
+
                     b.Property<int>("NumberOfPages");
 
+                    b.Property<DateTime>("PublicationDate");
+
                     b.Property<int>("PublisherId");
+
+                    b.Property<int>("RackId");
 
                     b.Property<string>("Subject");
 
@@ -115,48 +123,40 @@ namespace vLibrary.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookItemId");
-
-                    b.HasIndex("PublisherId");
-
-                    b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("vLibrary.Model.BookItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BookFormat");
-
-                    b.Property<int>("BookStatus");
-
-                    b.Property<DateTime>("Borrowed");
-
-                    b.Property<int>("CategoryId");
-
-                    b.Property<DateTime>("DueDate");
-
-                    b.Property<Guid>("Guid");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<int>("LibraryId");
-
-                    b.Property<DateTime>("PublicationDate");
-
-                    b.Property<int>("RackId");
-
-                    b.HasKey("Id");
-
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("LibraryId");
 
+                    b.HasIndex("PublisherId");
+
                     b.HasIndex("RackId");
 
-                    b.ToTable("BookItems");
+                    b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("vLibrary.Model.BookLeading", b =>
+                {
+                    b.Property<int>("MemberId");
+
+                    b.Property<int>("BookId");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<DateTime>("DueDate");
+
+                    b.Property<int?>("NotificationId");
+
+                    b.Property<DateTime?>("ReturnDate");
+
+                    b.Property<bool>("Returned");
+
+                    b.HasKey("MemberId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("NotificationId");
+
+                    b.ToTable("BookLeadings");
                 });
 
             modelBuilder.Entity("vLibrary.Model.Book_Author", b =>
@@ -187,6 +187,43 @@ namespace vLibrary.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("vLibrary.Model.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AddressId");
+
+                    b.Property<DateTime>("BirthDate");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<int>("Gender");
+
+                    b.Property<Guid>("Guid");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<int>("LibraryId");
+
+                    b.Property<string>("Phone");
+
+                    b.Property<byte[]>("Picture");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("LibraryId");
+
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("vLibrary.Model.Library", b =>
@@ -236,6 +273,92 @@ namespace vLibrary.API.Migrations
                     b.ToTable("LibraryCards");
                 });
 
+            modelBuilder.Entity("vLibrary.Model.Member", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AccountId");
+
+                    b.Property<int>("AddressId");
+
+                    b.Property<DateTime>("BirthDate");
+
+                    b.Property<DateTime>("DateOfMemberShip");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<int>("Gender");
+
+                    b.Property<Guid>("Guid");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<int>("NumberOfBooksLoaned");
+
+                    b.Property<string>("Phone");
+
+                    b.Property<byte[]>("Picture");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId")
+                        .IsUnique();
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("Member");
+                });
+
+            modelBuilder.Entity("vLibrary.Model.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<Guid>("Guid");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("vLibrary.Model.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("Guid");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<int>("MemberId");
+
+                    b.Property<DateTime>("PaymantDate");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MemberId");
+
+                    b.ToTable("Payments");
+                });
+
             modelBuilder.Entity("vLibrary.Model.Publisher", b =>
                 {
                     b.Property<int>("Id")
@@ -274,73 +397,44 @@ namespace vLibrary.API.Migrations
                     b.ToTable("Racks");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountId");
-
-                    b.Property<int>("AddressId");
-
-                    b.Property<DateTime>("BirthDate");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<int>("Gender");
-
-                    b.Property<Guid>("Guid");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("Phone");
-
-                    b.Property<byte[]>("Picture");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId")
-                        .IsUnique();
-
-                    b.HasIndex("AddressId");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("vLibrary.Model.Book", b =>
                 {
-                    b.HasOne("vLibrary.Model.BookItem", "BookItem")
+                    b.HasOne("vLibrary.Model.Category", "Category")
                         .WithMany("Books")
-                        .HasForeignKey("BookItemId")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("vLibrary.Model.Library", "Library")
+                        .WithMany("Books")
+                        .HasForeignKey("LibraryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("vLibrary.Model.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("vLibrary.Model.BookItem", b =>
-                {
-                    b.HasOne("vLibrary.Model.Category", "Category")
-                        .WithMany("BookItems")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("vLibrary.Model.Library", "Library")
-                        .WithMany("BookItems")
-                        .HasForeignKey("LibraryId")
-                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("vLibrary.Model.Rack", "Rack")
-                        .WithMany()
+                        .WithMany("Books")
                         .HasForeignKey("RackId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("vLibrary.Model.BookLeading", b =>
+                {
+                    b.HasOne("vLibrary.Model.Book", "Book")
+                        .WithMany("BookLeadings")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("vLibrary.Model.Member", "Member")
+                        .WithMany("BookLeadings")
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("vLibrary.Model.Notification", "Notification")
+                        .WithMany()
+                        .HasForeignKey("NotificationId");
                 });
 
             modelBuilder.Entity("vLibrary.Model.Book_Author", b =>
@@ -353,6 +447,19 @@ namespace vLibrary.API.Migrations
                     b.HasOne("vLibrary.Model.Book", "Book")
                         .WithMany("Book_Authors")
                         .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("vLibrary.Model.Employee", b =>
+                {
+                    b.HasOne("vLibrary.Model.Address", "Address")
+                        .WithMany("Employees")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("vLibrary.Model.Library", "Library")
+                        .WithMany("Employees")
+                        .HasForeignKey("LibraryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -372,16 +479,24 @@ namespace vLibrary.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("vLibrary.Model.User", b =>
+            modelBuilder.Entity("vLibrary.Model.Member", b =>
                 {
                     b.HasOne("vLibrary.Model.Account", "Account")
-                        .WithOne("User")
-                        .HasForeignKey("vLibrary.Model.User", "AccountId")
+                        .WithOne("Member")
+                        .HasForeignKey("vLibrary.Model.Member", "AccountId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("vLibrary.Model.Address", "Address")
-                        .WithMany("User")
+                        .WithMany("Member")
                         .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("vLibrary.Model.Payment", b =>
+                {
+                    b.HasOne("vLibrary.Model.Member", "Member")
+                        .WithMany("Payments")
+                        .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

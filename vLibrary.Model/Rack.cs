@@ -8,6 +8,6 @@ namespace vLibrary.Model
     {
         public int RackNumber { get; set; }
         public string LocationIdentification { get; set; }
-        ICollection<BookItem> BookItems { get; set; }
+        public ICollection<Book> Books { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using vLibrary.Model.Enums;
 
 namespace vLibrary.Model
 {
-    public class Member : Entity
+    public class Employee : Entity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -14,15 +14,10 @@ namespace vLibrary.Model
         public string Phone { get; set; }
         public DateTime BirthDate { get; set; }
         public Gender Gender { get; set; }
-        public DateTime DateOfMemberShip { get; set; }
-        public int NumberOfBooksLoaned { get; set; }
+
         public int AddressId { get; set; }
         public Address Address { get; set; }
-
-        public int AccountId { get; set; }
-        public Account Account { get; set; }
-
-        public ICollection<BookLeading> BookLeadings { get; set; }
-        public ICollection<Payment> Payments { get; set; }
+        public int LibraryId { get; set; }
+        public Library Library { get; set; }
     }
 }

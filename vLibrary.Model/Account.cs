@@ -14,6 +14,8 @@ namespace vLibrary.Model
         public Role Role { get; set; }
         public AccountStatus AccountStatus { get; set; }
         public LibraryCard LibraryCard { get; set; }
-        public User User { get; set; }
+        public Member Member { get; set; }
+
+        
     }
 }
