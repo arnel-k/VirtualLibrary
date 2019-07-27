@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 using vLibrary.API.Database;
 using vLibrary.API.Helpers;
 
@@ -37,6 +38,9 @@ namespace vLibrary.API
             services.AddDbContext<LibraryContext>(o => o.UseSqlServer(Configuration.GetConnectionString("LibraryContext")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddSwaggerGen(c =>
+                c.SwaggerDoc("v1", new Info { Title = "vLibrary API", Version = "v1" }
+                )); 
 
             //konfiguracija "strongly typed" postavki 
 
@@ -103,6 +107,8 @@ namespace vLibrary.API
             app.UseHttpsRedirection();
             //app.UseAuthentication();
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "vLibrary"));
         }
     }
 }
