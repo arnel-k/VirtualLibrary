@@ -10,8 +10,8 @@ using vLibrary.API.Models;
 namespace vLibrary.API.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20190726044404_26.7_AK_Init")]
-    partial class _267_AK_Init
+    [Migration("20190822004309_22.8_AK_PKey")]
+    partial class _228_AK_PKey
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

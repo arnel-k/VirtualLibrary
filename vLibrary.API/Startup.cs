@@ -16,8 +16,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
-using vLibrary.API.Database;
+using vLibrary.API.Filters;
 using vLibrary.API.Helpers;
+using vLibrary.API.Models;
+using vLibrary.API.Repositories;
+using vLibrary.API.Repositories.Interfaces;
+using vLibrary.API.Services;
+using vLibrary.Model;
 
 namespace vLibrary.API
 {
@@ -34,14 +39,19 @@ namespace vLibrary.API
         
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            
             services.AddCors();
             services.AddDbContext<LibraryContext>(o => o.UseSqlServer(Configuration.GetConnectionString("LibraryContext")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(e=>e.Filters.Add<ErrorFilter>()).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v1", new Info { Title = "vLibrary API", Version = "v1" }
-                )); 
+                ));
 
+            services.AddAutoMapper();
+            
+            
             //konfiguracija "strongly typed" postavki 
 
             var appSettingsSection= Configuration.GetSection("AppSettings");
@@ -86,6 +96,12 @@ namespace vLibrary.API
                 });
             //Izmjenit
             //services.AddScoped<IUserService, UserService>();*/
+            services.AddScoped<IMemberRepository<Member>, MemberRepository>();
+            services.AddScoped<IAuthorRepository<Author>, AuthorRepository>();
+            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IMemberService, MemberService>();
+            services.AddScoped<ILoggerService, LoggerService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

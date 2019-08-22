@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using vLibrary.Model;
 using vLibrary.Model.Enums;
 
-namespace vLibrary.API.Database
+namespace vLibrary.API.Models
 {
     public class LibraryContext : DbContext
     {
@@ -33,6 +33,8 @@ namespace vLibrary.API.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Book_Author>().HasKey(ba => new { ba.BookId, ba.AuthorId });
+            modelBuilder.Entity<Book_Author>().HasOne(b => b.Book).WithMany(ba => ba.Book_Authors).HasForeignKey(b=>b.BookId);
+            modelBuilder.Entity<Book_Author>().HasOne(a => a.Author).WithMany(ba => ba.Book_Authors).HasForeignKey(a => a.AuthorId);
             modelBuilder.Entity<BookLeading>().HasKey(k => new { k.MemberId, k.BookId });
             modelBuilder.Entity<Account>().Property(r => r.Role).HasConversion(v => v.ToString(), v => (Role)Enum.Parse(typeof(Role), v));
             modelBuilder.Entity<Book>().HasMany(x => x.BookLeadings).WithOne(x => x.Book).OnDelete(DeleteBehavior.Restrict);
