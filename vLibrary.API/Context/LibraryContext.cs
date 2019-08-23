@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using vLibrary.Model;
-using vLibrary.Model.Enums;
+using vLibrary.Api.Database;
+using vLibrary.Api.Database.Enums;
 
 namespace vLibrary.API.Context
 {

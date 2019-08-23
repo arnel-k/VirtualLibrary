@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using vLibrary.Api.Database;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
 namespace vLibrary.API.Mappers
@@ -7,9 +8,9 @@ namespace vLibrary.API.Mappers
     {
         public Mappers()
         {
-            CreateMap<Model.Author, AuthorDto>();
-            CreateMap<Model.Author, AuthorInsertRequest>().ReverseMap();
-            CreateMap<Model.Author, AuthorUpdateRequest>().ReverseMap();
+            CreateMap<Author, AuthorDto>();
+            CreateMap<Author, AuthorInsertRequest>().ReverseMap();
+            CreateMap<Author, AuthorUpdateRequest>().ReverseMap();
         }
     }
 }

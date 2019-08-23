@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiService.cs" />
     <Compile Include="Authors\frmAuthors.cs">
       <SubType>Form</SubType>
     </Compile>

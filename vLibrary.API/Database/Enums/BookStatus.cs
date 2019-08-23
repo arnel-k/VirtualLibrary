@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace vLibrary.Model.Enums
+namespace vLibrary.Api.Database.Enums
 {
     public enum BookStatus
     {

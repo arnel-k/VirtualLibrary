@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace vLibrary.Model
+namespace vLibrary.Api.Database
 {
 
     public class Entity : IEntity

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using vLibrary.API.Services;
@@ -21,9 +22,10 @@ namespace vLibrary.API.Controllers
             
         }
         [HttpGet]
-        public async Task<IEnumerable<AuthorDto>> Get()
+        public async Task<IEnumerable<AuthorDto>> Get([FromQuery] AuthorsSearchRequest request)
         {
-            return await _authorService.Get();
+            //Thread.Sleep(5000);
+            return await _authorService.Get(request);
         }
         [HttpGet("{guid}")]
         public async Task<IActionResult> GetById(Guid guid)

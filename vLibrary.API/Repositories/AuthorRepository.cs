@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using vLibrary.Api.Database;
 using vLibrary.API.Context;
 using vLibrary.API.Repositories.Interfaces;
-using vLibrary.Model;
+
 
 namespace vLibrary.API.Repositories
 {
-    public class AuthorRepository : Repository<Model.Author>, IAuthorRepository<Model.Author>
+    public class AuthorRepository : Repository<Author>, IAuthorRepository<Author>
     {
         private readonly LibraryContext _ctx;
         public AuthorRepository(LibraryContext ctx ):base(ctx)

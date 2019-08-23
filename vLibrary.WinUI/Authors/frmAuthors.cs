@@ -10,11 +10,13 @@ using System.Windows.Forms;
 using Flurl;
 using Flurl.Http;
 using vLibrary.Model;
+using vLibrary.Model.Requests;
 
 namespace vLibrary.WinUI.Authors
 {
     public partial class frmAuthors : Form
     {
+        private readonly ApiService apiService = new ApiService("authors");
         public frmAuthors()
         {
             InitializeComponent();
@@ -25,10 +27,14 @@ namespace vLibrary.WinUI.Authors
 
         }
 
-        private void BtnSearch_Click(object sender, EventArgs e)
+        private async void BtnSearch_Click(object sender, EventArgs e)
         {
-            var result = "https://localhost:44344/api/Authors".GetJsonAsync<List<AuthorDto>>().Result;
-            dgvAuthors.DataSource = result;
+            var search = new AuthorsSearchRequest
+            {
+                FName = txtSearch.Text
+            };
+            dgvAuthors.AutoGenerateColumns = false;
+            dgvAuthors.DataSource = await apiService.Get<List<AuthorDto>>(search);
         }
     }
 }

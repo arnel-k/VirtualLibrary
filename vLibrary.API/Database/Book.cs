@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using vLibrary.Model.Enums;
+using vLibrary.Api.Database.Enums;
 
-namespace vLibrary.Model
+namespace vLibrary.Api.Database
 {
     public class Book : Entity
     {

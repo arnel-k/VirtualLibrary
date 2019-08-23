@@ -10,7 +10,7 @@ namespace vLibrary.API.Services
 {
     public interface IAuthorService
     {
-        Task<IEnumerable<AuthorDto>> Get();
+        Task<IEnumerable<AuthorDto>> Get(AuthorsSearchRequest request);
         Task<AuthorDto> Insert(AuthorInsertRequest request);
         Task<AuthorDto> Update(Guid guid, AuthorUpdateRequest request);
         Task<AuthorDto> Delete(Guid guid);

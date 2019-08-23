@@ -48,5 +48,10 @@ namespace vLibrary.API.Repositories
         {
             await _ctx.SaveChangesAsync();
         }
+
+        public IQueryable<T> GetAsQueryable()
+        {
+            return _set.AsQueryable();
+        }
     }
 }

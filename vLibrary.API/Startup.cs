@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using vLibrary.Api.Database;
 using vLibrary.API.Context;
 using vLibrary.API.Filters;
 using vLibrary.API.Helpers;
@@ -97,7 +98,7 @@ namespace vLibrary.API
             //Izmjenit
             
             //services.AddScoped<IMemberRepository<Member>, MemberRepository>();
-            services.AddScoped<IAuthorRepository<Model.Author>, AuthorRepository>();
+            services.AddScoped<IAuthorRepository<Author>, AuthorRepository>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IMemberService, MemberService>();
             
