@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace vLibrary.API.Dtos
+namespace vLibrary.Model
 {
     public interface IEntity
-    { 
+    {
+        int Id { get; set; }
         Guid Guid { get; set; }
         bool IsDeleted { get; set; }
     }

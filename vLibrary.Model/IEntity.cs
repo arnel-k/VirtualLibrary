@@ -6,7 +6,6 @@ namespace vLibrary.Model
 {
     public interface IEntity
     {
-        int Id { get; set; }
         Guid Guid { get; set; }
         bool IsDeleted { get; set; }
     }

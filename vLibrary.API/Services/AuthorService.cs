@@ -4,10 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using vLibrary.API.Dtos;
 using vLibrary.API.Repositories.Interfaces;
-using vLibrary.API.Requests;
 using vLibrary.Model;
+using vLibrary.Model.Requests;
 
 namespace vLibrary.API.Services
 {

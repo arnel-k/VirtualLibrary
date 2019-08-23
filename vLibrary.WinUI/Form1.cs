@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace vLibrary.WinUI
 {
-    public partial class Form1 : Form
+    public partial class frmMainForm : Form
     {
-        public Form1()
+        public frmMainForm()
         {
             InitializeComponent();
         }
