@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using vLibrary.API.Repositories;
 using vLibrary.API.Repositories.Interfaces;
 using vLibrary.Model;
-using vLibrary.Model.Requests;
+
 
 namespace vLibrary.API.Services
 {
@@ -27,9 +27,9 @@ namespace vLibrary.API.Services
             
         }
 
-        public Model.Member Insert(MemberInsertRequest request)
-        {
-            throw new NotImplementedException();
-        }
+        //public Model.Member Insert(MemberInsertRequest request)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using vLibrary.API.Models;
+using vLibrary.API.Context;
 using vLibrary.API.Repositories.Interfaces;
 
 namespace vLibrary.API.Repositories
@@ -17,35 +17,34 @@ namespace vLibrary.API.Repositories
             _ctx = ctx;
             _set = _ctx.Set<T>();
         }
-        public async Task Delete(int id)
+        public virtual void Delete(T entity)
         {
-            T entity = await _set.FindAsync(id);
              _set.Remove(entity);
             
         }
 
-        public  async Task<IEnumerable<T>> GetAll()
+        public virtual async Task<IEnumerable<T>> GetAll()
         {
             return await _set.ToListAsync();
         }
 
-        public async Task<T> GetById(int id)
+        public virtual async Task<T> GetById(Guid guid)
         {
-            return await _set.FindAsync(id);
+            return await _set.FindAsync(guid);
         }
 
-        public void Insert(T obj)
+        public virtual void Insert(T obj)
         {
             _set.Add(obj);
             
         }
 
-        public void Update(T obj)
+        public virtual void Update(T obj)
         {
             _set.Attach(obj);
             _ctx.Entry(obj).State = EntityState.Modified;
         }
-        public async Task Save()
+        public virtual async Task Save()
         {
             await _ctx.SaveChangesAsync();
         }

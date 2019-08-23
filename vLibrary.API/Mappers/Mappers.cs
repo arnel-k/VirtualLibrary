@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using vLibrary.API.Requests;
 
 namespace vLibrary.API.Mappers
 {
@@ -10,7 +11,9 @@ namespace vLibrary.API.Mappers
     {
         public Mappers()
         {
-           // CreateMap<"source", "destination" > ();
+            CreateMap<Model.Author, Dtos.AuthorDto>();
+            CreateMap<Model.Author, AuthorInsertRequest>().ReverseMap();
+            CreateMap<Model.Author, AuthorUpdateRequest>().ReverseMap();
         }
     }
 }

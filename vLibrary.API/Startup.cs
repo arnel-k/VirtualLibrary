@@ -16,13 +16,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using vLibrary.API.Context;
 using vLibrary.API.Filters;
 using vLibrary.API.Helpers;
-using vLibrary.API.Models;
 using vLibrary.API.Repositories;
 using vLibrary.API.Repositories.Interfaces;
 using vLibrary.API.Services;
-using vLibrary.Model;
+
 
 namespace vLibrary.API
 {
@@ -93,14 +93,14 @@ namespace vLibrary.API
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
-                });
+                });*/
             //Izmjenit
-            //services.AddScoped<IUserService, UserService>();*/
-            services.AddScoped<IMemberRepository<Member>, MemberRepository>();
-            services.AddScoped<IAuthorRepository<Author>, AuthorRepository>();
+            
+            //services.AddScoped<IMemberRepository<Member>, MemberRepository>();
+            services.AddScoped<IAuthorRepository<Model.Author>, AuthorRepository>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IMemberService, MemberService>();
-            services.AddScoped<ILoggerService, LoggerService>();
+            
             
         }
 

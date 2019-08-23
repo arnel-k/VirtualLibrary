@@ -9,6 +9,6 @@ namespace vLibrary.API.Services
     public interface IMemberService
     {
         Task<IEnumerable<Member>> Get();
-        Model.Member Insert(Model.Requests.MemberInsertRequest request);
+        //Model.Member Insert(Model.Requests.MemberInsertRequest request);
     }
 }

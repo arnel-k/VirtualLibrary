@@ -8,10 +8,10 @@ namespace vLibrary.API.Repositories.Interfaces
     public interface IRepository<T> where T: class
     {
         Task<IEnumerable<T>> GetAll();
-        Task<T> GetById(int id);
+        Task<T> GetById(Guid guid);
         void Insert(T obj);
         void Update(T obj);
-        Task Delete(int id);
+        void Delete(T obj);
         Task Save();
     }
 }

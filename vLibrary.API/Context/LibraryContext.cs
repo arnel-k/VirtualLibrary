@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using vLibrary.Model;
 using vLibrary.Model.Enums;
 
-namespace vLibrary.API.Models
+namespace vLibrary.API.Context
 {
     public class LibraryContext : DbContext
     {

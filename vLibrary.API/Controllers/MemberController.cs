@@ -10,7 +10,7 @@ using vLibrary.Model;
 namespace vLibrary.API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController] 
     public class MemberController : ControllerBase
     {
         private readonly IMemberService _service;

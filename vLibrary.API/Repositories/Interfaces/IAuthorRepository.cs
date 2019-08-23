@@ -7,5 +7,6 @@ namespace vLibrary.API.Repositories.Interfaces
 {
     public interface IAuthorRepository<T> : IRepository<T> where T :class
     {
+        new Task<Model.Author> GetById(Guid guid);
     }
 }
