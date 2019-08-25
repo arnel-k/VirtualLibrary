@@ -101,7 +101,7 @@ namespace vLibrary.API
             
             
             services.AddScoped<IAuthorRepository<Author>, AuthorRepository>();
-           // services.AddScoped<IService<AuthorDto,object>,BaseService<AuthorDto,object,Author>>();
+            //services.AddScoped<IAddressRepository<Address>, AddressRepository>();
             services.AddScoped<ICRUDService<AuthorDto, AuthorsSearchRequest, AuthorInsertRequest, AuthorUpdateRequest>,AuthorService>();
             
             
