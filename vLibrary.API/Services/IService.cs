@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using vLibrary.Model;
-using vLibrary.Model.Requests;
-
 
 namespace vLibrary.API.Services
 {
-    public interface IAuthorService<T,TSearch> : IService<T,TSearch> where T: class
+    public interface IService<T,TSearch>
     {
+        Task<IEnumerable<T>> Get(TSearch search);
+        Task<T> GetById(Guid guid);
     }
 }

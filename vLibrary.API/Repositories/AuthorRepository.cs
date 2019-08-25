@@ -18,7 +18,7 @@ namespace vLibrary.API.Repositories
             _ctx = ctx;
         }
 
-        public new async Task<Author> GetById(Guid guid)
+        public override async Task<Author> GetById(Guid guid)
         {
             var entity = await _ctx.Authors.FirstOrDefaultAsync(x => x.Guid == guid);
             return entity;

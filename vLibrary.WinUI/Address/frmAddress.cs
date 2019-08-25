@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace vLibrary.WinUI
+namespace vLibrary.WinUI.Address
 {
-    public partial class frmMainForm : Form
+    public partial class frmAddress : Form
     {
-        public frmMainForm()
+        public frmAddress()
         {
             InitializeComponent();
         }

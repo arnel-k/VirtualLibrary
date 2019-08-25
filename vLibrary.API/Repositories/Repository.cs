@@ -8,7 +8,7 @@ using vLibrary.API.Repositories.Interfaces;
 
 namespace vLibrary.API.Repositories
 {
-    public class Repository<T> : IRepository<T> where T: class
+    public class Repository<T> :  IRepository<T> where T: class
     {
         private readonly LibraryContext _ctx;
         private DbSet<T> _set;
@@ -17,6 +17,7 @@ namespace vLibrary.API.Repositories
             _ctx = ctx;
             _set = _ctx.Set<T>();
         }
+       
         public virtual void Delete(T entity)
         {
              _set.Remove(entity);

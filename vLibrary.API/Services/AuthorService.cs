@@ -6,33 +6,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using vLibrary.Api.Database;
+using vLibrary.API.Context;
 using vLibrary.API.Repositories.Interfaces;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
 
 namespace vLibrary.API.Services
 {
-    public class AuthorService : IAuthorService
+
+    public class AuthorService : BaseCrudService<AuthorDto, AuthorsSearchRequest, Author, AuthorInsertRequest, AuthorUpdateRequest>, ICRUDService<AuthorDto, AuthorsSearchRequest, AuthorInsertRequest, AuthorUpdateRequest>
     {
-        private readonly IAuthorRepository<Author> _repo;
-        private readonly IMapper _mapper;
-        public AuthorService(IAuthorRepository<Author> repo, IMapper mapper)
+        public AuthorService(IAuthorRepository<Author> repo, IMapper mapper) : base(repo, mapper)
         {
-            _repo = repo;
-            _mapper = mapper;
         }
 
-        public async Task<AuthorDto> Delete(Guid guid)
+        public override async Task<IEnumerable<AuthorDto>> Get(AuthorsSearchRequest request)
         {
-            var entity = await _repo.GetById(guid);
-          
-            _repo.Delete(entity);
-            await _repo.Save();
-            return _mapper.Map<AuthorDto>(entity);
-        }
-
-        public async Task<IEnumerable<AuthorDto>> Get(AuthorsSearchRequest request)
-        {
+           
             var query = _repo.GetAsQueryable();
             if (!string.IsNullOrWhiteSpace(request?.FName))
             {
@@ -46,34 +36,19 @@ namespace vLibrary.API.Services
             }
             var authors = await query.ToListAsync();
             return _mapper.Map<List<AuthorDto>>(authors);
-           
         }
-
-        public async Task<AuthorDto> GetById(Guid guid)
+        public override async Task<AuthorDto> GetById(Guid guid)
         {
             var entity = await _repo.GetById(guid);
             return _mapper.Map<AuthorDto>(entity);
         }
-
-        public async Task<AuthorDto> Insert(AuthorInsertRequest request)
+        public override async Task<AuthorDto> Insert(AuthorInsertRequest insert)
         {
-            request.Guid = Guid.NewGuid();
-            var entity = _mapper.Map<Author>(request);
+            insert.Guid = Guid.NewGuid();
+            var entity = _mapper.Map<Author>(insert);
             _repo.Insert(entity);
             await _repo.Save();
             return _mapper.Map<AuthorDto>(entity);
         }
-
-        public async Task<AuthorDto> Update(Guid guid, AuthorUpdateRequest request)
-        {
-            var entity = await _repo.GetById(guid);
-            _repo.Update(_mapper.Map(request, entity));
-            await _repo.Save();
-            return _mapper.Map<AuthorDto>(entity);
-
-
-        }
-
-       
     }
 }

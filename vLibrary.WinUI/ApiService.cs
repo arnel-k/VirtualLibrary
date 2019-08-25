@@ -27,5 +27,28 @@ namespace vLibrary.WinUI
             
             return await url.GetJsonAsync<T>();
         }
+
+        public async Task<T> GetById<T>(Guid? guid)
+        {
+            var url = $"{Properties.Settings.Default.APIUrl}/{_route}/{guid}";
+            return await url.GetJsonAsync<T>();
+        }
+
+        public async Task<T> Insert<T>(object request)
+        {
+            var url = $"{Properties.Settings.Default.APIUrl}/{_route}";
+            return await url.PostJsonAsync(request).ReceiveJson<T>();
+        }
+
+        public async Task<T> Update<T>(object id, object request)
+        {
+            var url = $"{Properties.Settings.Default.APIUrl}/{_route}/{id}";
+            return await url.PutJsonAsync(request).ReceiveJson<T>();
+        }
+        public async Task<T> Delete<T>(object id)
+        {
+            var url = $"{Properties.Settings.Default.APIUrl}/{_route}/{id}";
+            return await url.DeleteAsync().ReceiveJson<T>();
+        }
     }
 }
