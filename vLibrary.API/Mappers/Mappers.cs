@@ -8,9 +8,14 @@ namespace vLibrary.API.Mappers
     {
         public Mappers()
         {
+            //Author
             CreateMap<Author, AuthorDto>();
             CreateMap<Author, AuthorInsertRequest>().ReverseMap();
             CreateMap<Author, AuthorUpdateRequest>().ReverseMap();
+            //Address
+            CreateMap<Address, AddressDto>();
+            CreateMap<Address, AddressUpsertRequest>().ReverseMap();
+            
         }
     }
 }

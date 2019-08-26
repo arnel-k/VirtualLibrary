@@ -65,6 +65,12 @@
     <Compile Include="Address\frmAddress.Designer.cs">
       <DependentUpon>frmAddress.cs</DependentUpon>
     </Compile>
+    <Compile Include="Address\frmAddressDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Address\frmAddressDetails.Designer.cs">
+      <DependentUpon>frmAddressDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="ApiService.cs" />
     <Compile Include="Authors\frmAuthorDetails.cs">
       <SubType>Form</SubType>
@@ -84,8 +90,15 @@
     <Compile Include="frmIndex.Designer.cs">
       <DependentUpon>frmIndex.cs</DependentUpon>
     </Compile>
+    <Compile Include="HelperMethods\Helper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Address\frmAddress.resx">
+      <DependentUpon>frmAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Address\frmAddressDetails.resx">
+      <DependentUpon>frmAddressDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Authors\frmAuthorDetails.resx">
       <DependentUpon>frmAuthorDetails.cs</DependentUpon>
     </EmbeddedResource>

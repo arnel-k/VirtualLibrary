@@ -23,7 +23,8 @@ namespace vLibrary.API.Services
 
         public virtual async Task<TModel> Insert(TInsert insert)
         {
-            
+            var guid = Guid.NewGuid();
+            insert.GetType().GetProperty("Guid").SetValue(insert, guid);
             var entity = _mapper.Map<TDatabase>(insert);
             _repo.Insert(entity);
             await _repo.Save();
@@ -33,6 +34,11 @@ namespace vLibrary.API.Services
         public virtual async Task<TModel> Update(Guid guid, TUpdate update)
         {
             var entity = await _repo.GetById(guid);
+            if (update.GetType().GetProperty("Guid") != null)
+            {
+                update.GetType().GetProperty("Guid").SetValue(update, guid);
+            }
+            
             _repo.Update(_mapper.Map(update, entity));
             await _repo.Save();
             return _mapper.Map<TModel>(entity);

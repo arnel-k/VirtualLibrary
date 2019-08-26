@@ -104,6 +104,7 @@ namespace vLibrary.WinUI.Authors
             {
                 errorProvider.SetError(txtFName, Properties.Resources.Validation_RequiredFiled);
                 e.Cancel = true;
+                
             }
             else
             {
@@ -117,6 +118,7 @@ namespace vLibrary.WinUI.Authors
             {
                 errorProvider.SetError(txtLName, Properties.Resources.Validation_RequiredFiled);
                 e.Cancel = true;
+                
             }
             else
             {

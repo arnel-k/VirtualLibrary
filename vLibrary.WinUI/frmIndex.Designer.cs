@@ -36,6 +36,9 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.addressesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.newAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -43,7 +46,8 @@
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.authorsToolStripMenuItem});
+            this.authorsToolStripMenuItem,
+            this.addressesToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(1063, 24);
@@ -62,14 +66,14 @@
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.searchToolStripMenuItem.Text = "Search";
             this.searchToolStripMenuItem.Click += new System.EventHandler(this.SearchToolStripMenuItem_Click);
             // 
             // newAuthorToolStripMenuItem
             // 
             this.newAuthorToolStripMenuItem.Name = "newAuthorToolStripMenuItem";
-            this.newAuthorToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.newAuthorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newAuthorToolStripMenuItem.Text = "New Author";
             this.newAuthorToolStripMenuItem.Click += new System.EventHandler(this.NewAuthorToolStripMenuItem_Click);
             // 
@@ -88,6 +92,29 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
+            // 
+            // addressesToolStripMenuItem
+            // 
+            this.addressesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.searchToolStripMenuItem1,
+            this.newAddressToolStripMenuItem});
+            this.addressesToolStripMenuItem.Name = "addressesToolStripMenuItem";
+            this.addressesToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.addressesToolStripMenuItem.Text = "Addresses";
+            // 
+            // searchToolStripMenuItem1
+            // 
+            this.searchToolStripMenuItem1.Name = "searchToolStripMenuItem1";
+            this.searchToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.searchToolStripMenuItem1.Text = "Search";
+            this.searchToolStripMenuItem1.Click += new System.EventHandler(this.SearchToolStripMenuItem1_Click);
+            // 
+            // newAddressToolStripMenuItem
+            // 
+            this.newAddressToolStripMenuItem.Name = "newAddressToolStripMenuItem";
+            this.newAddressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newAddressToolStripMenuItem.Text = "New Address";
+            this.newAddressToolStripMenuItem.Click += new System.EventHandler(this.NewAddressToolStripMenuItem_Click);
             // 
             // frmIndex
             // 
@@ -121,6 +148,9 @@
         private System.Windows.Forms.ToolStripMenuItem authorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newAuthorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addressesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem newAddressToolStripMenuItem;
     }
 }
 

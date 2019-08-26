@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using vLibrary.WinUI.Address;
 using vLibrary.WinUI.Authors;
 
 namespace vLibrary.WinUI
@@ -127,6 +128,20 @@ namespace vLibrary.WinUI
         private void FrmIndex_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void SearchToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmAddress frm = new frmAddress();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void NewAddressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAddressDetails frm = new frmAddressDetails();
+            frm.MdiParent = this;
+            frm.Show();
         }
     }
 }

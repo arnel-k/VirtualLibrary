@@ -16,16 +16,5 @@ namespace vLibrary.API.Controllers
         public AuthorsController(ICRUDService<AuthorDto, AuthorsSearchRequest, AuthorInsertRequest, AuthorUpdateRequest> service) : base(service)
         {
         }
-
-        [HttpPut("{guid}")]
-        public override async Task<ActionResult<AuthorDto>> Update(Guid guid, AuthorUpdateRequest update)
-        {
-            var entity = _service.GetById(guid);
-            if (entity == null)
-            {
-                return NotFound();
-            }
-            return await _service.Update(guid, update);
-        }
     }
 }

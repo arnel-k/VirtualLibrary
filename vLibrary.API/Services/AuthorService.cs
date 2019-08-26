@@ -37,18 +37,7 @@ namespace vLibrary.API.Services
             var authors = await query.ToListAsync();
             return _mapper.Map<List<AuthorDto>>(authors);
         }
-        public override async Task<AuthorDto> GetById(Guid guid)
-        {
-            var entity = await _repo.GetById(guid);
-            return _mapper.Map<AuthorDto>(entity);
-        }
-        public override async Task<AuthorDto> Insert(AuthorInsertRequest insert)
-        {
-            insert.Guid = Guid.NewGuid();
-            var entity = _mapper.Map<Author>(insert);
-            _repo.Insert(entity);
-            await _repo.Save();
-            return _mapper.Map<AuthorDto>(entity);
-        }
+       
+        
     }
 }

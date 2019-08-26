@@ -102,9 +102,9 @@ namespace vLibrary.API
             
             
             services.AddScoped<IAuthorRepository<Author>, AuthorRepository>();
-            //services.AddScoped<IAddressRepository<Address>, AddressRepository>();
+            services.AddScoped<IAddressRepository<Address>, AddressRepository>();
             services.AddScoped<ICRUDService<AuthorDto, AuthorsSearchRequest, AuthorInsertRequest, AuthorUpdateRequest>,AuthorService>();
-            
+            services.AddScoped<ICRUDService<AddressDto,AddressSearchRequest,AddressUpsertRequest,AddressUpsertRequest>,AddressService>();
             
         }
 
