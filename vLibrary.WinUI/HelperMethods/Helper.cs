@@ -22,5 +22,15 @@ namespace vLibrary.WinUI.HelperMethods
                 errorProvider.SetError(txt, null);
             }
         }
+
+        //public static async void GetSearchData(DataGridView dg, T search,object dto, TextBox txt)
+        //{
+        //    var search = new Helper<T>
+        //    {
+        //        FName = txtSearch.Text
+        //    };
+        //    dgvAuthors.AutoGenerateColumns = false;
+        //    dgvAuthors.DataSource = await apiService.Get<List<AuthorDto>>(search);
+        //}
     }
 }

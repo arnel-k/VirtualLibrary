@@ -7,9 +7,9 @@ namespace vLibrary.Model.Requests
 {
     public class LibraryUpsertRequest
     {
+        public Guid Guid { get; set; }
         [Required(ErrorMessage = "Library name is required !")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "Account is required !")]
-        public int AccountDtoId { get; set; }
+     
     }
 }

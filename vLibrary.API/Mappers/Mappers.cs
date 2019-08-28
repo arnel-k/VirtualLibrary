@@ -23,17 +23,17 @@ namespace vLibrary.API.Mappers
             CreateMap<Book, BookUpsertRequest>().ReverseMap();
             CreateMap<Book, BookInsertRequest>().ReverseMap();
 
-            CreateMap<Library, LibraryDto>().ForMember(dest => dest.AccountDtoId, opt => opt.MapFrom(src => src.Account.Guid));
+            CreateMap<Library, LibraryDto>();
             CreateMap<Library, LibraryUpsertRequest>().ReverseMap();
 
             CreateMap<Publisher, PublisherDto>();
-            CreateMap<Publisher, PublisherUpsertRequest>();
+            CreateMap<Publisher, PublisherUpsertRequest>().ReverseMap();
 
             CreateMap<Category, CategoryDto>();
             CreateMap<Category, CategoryUpsertRequest>().ReverseMap();
 
             CreateMap<Rack, RackDto>();
-            CreateMap<Rack, RackUpsertRequest>();
+            CreateMap<Rack, RackUpsertRequest>().ReverseMap();
             
         }
     }

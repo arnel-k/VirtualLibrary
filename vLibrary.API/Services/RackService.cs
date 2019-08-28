@@ -20,9 +20,10 @@ namespace vLibrary.API.Services
         {
 
             var query = _repo.GetAsQueryable();
-            if (!string.IsNullOrWhiteSpace(request?.RackNumber.ToString()))
+
+            if (!string.IsNullOrWhiteSpace(request?.RackNumber))
             {
-                query = query.Where(x => x.RackNumber.ToString().StartsWith(request.RackNumber.ToString()));
+                query = query.Where(x => x.RackNumber == int.Parse(request.RackNumber));
 
             }
 

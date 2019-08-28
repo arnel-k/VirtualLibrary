@@ -15,6 +15,8 @@ namespace vLibrary.Model
         public DateTime PublicationDate { get; set; }
         public BookStatus BookStatus { get; set; }
         public Guid PublisherDtoGuid { get; set; }
+        //Probat ovako 
+        public PublisherDto PublisherDto { get; set; }
         public Guid LibraryDtoGuid { get; set; }
         public Guid RackDtoGuid { get; set; }
         public Guid CategoryDtoGuid { get; set; }

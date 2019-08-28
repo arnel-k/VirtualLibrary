@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace vLibrary.API.Migrations
 {
-    public partial class _267_AK_Init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -77,6 +77,21 @@ namespace vLibrary.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Libraries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Guid = table.Column<Guid>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Libraries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Notifications",
                 columns: table => new
                 {
@@ -126,28 +141,6 @@ namespace vLibrary.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Libraries",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Guid = table.Column<Guid>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    AccountId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Libraries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Libraries_Accounts_AccountId",
-                        column: x => x.AccountId,
-                        principalTable: "Accounts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "LibraryCards",
                 columns: table => new
                 {
@@ -172,6 +165,41 @@ namespace vLibrary.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Guid = table.Column<Guid>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Picture = table.Column<byte[]>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    BirthDate = table.Column<DateTime>(nullable: false),
+                    Gender = table.Column<int>(nullable: false),
+                    AddressId = table.Column<int>(nullable: false),
+                    LibraryId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Employees_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Employees_Libraries_LibraryId",
+                        column: x => x.LibraryId,
+                        principalTable: "Libraries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Member",
                 columns: table => new
                 {
@@ -189,7 +217,8 @@ namespace vLibrary.API.Migrations
                     DateOfMemberShip = table.Column<DateTime>(nullable: false),
                     NumberOfBooksLoaned = table.Column<int>(nullable: false),
                     AddressId = table.Column<int>(nullable: false),
-                    AccountId = table.Column<int>(nullable: false)
+                    AccountId = table.Column<int>(nullable: false),
+                    LibraryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -206,6 +235,12 @@ namespace vLibrary.API.Migrations
                         principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Member_Libraries_LibraryId",
+                        column: x => x.LibraryId,
+                        principalTable: "Libraries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -253,41 +288,6 @@ namespace vLibrary.API.Migrations
                         name: "FK_Books_Racks_RackId",
                         column: x => x.RackId,
                         principalTable: "Racks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Employees",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Guid = table.Column<Guid>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Picture = table.Column<byte[]>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Phone = table.Column<string>(nullable: true),
-                    BirthDate = table.Column<DateTime>(nullable: false),
-                    Gender = table.Column<int>(nullable: false),
-                    AddressId = table.Column<int>(nullable: false),
-                    LibraryId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Employees_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Employees_Libraries_LibraryId",
-                        column: x => x.LibraryId,
-                        principalTable: "Libraries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -420,11 +420,6 @@ namespace vLibrary.API.Migrations
                 column: "LibraryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Libraries_AccountId",
-                table: "Libraries",
-                column: "AccountId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_LibraryCards_AccountId",
                 table: "LibraryCards",
                 column: "AccountId",
@@ -440,6 +435,11 @@ namespace vLibrary.API.Migrations
                 name: "IX_Member_AddressId",
                 table: "Member",
                 column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Member_LibraryId",
+                table: "Member",
+                column: "LibraryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_MemberId",
@@ -480,19 +480,19 @@ namespace vLibrary.API.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Libraries");
-
-            migrationBuilder.DropTable(
                 name: "Publishers");
 
             migrationBuilder.DropTable(
                 name: "Racks");
 
             migrationBuilder.DropTable(
+                name: "Accounts");
+
+            migrationBuilder.DropTable(
                 name: "Addresses");
 
             migrationBuilder.DropTable(
-                name: "Accounts");
+                name: "Libraries");
         }
     }
 }

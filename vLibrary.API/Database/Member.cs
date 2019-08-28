@@ -22,6 +22,8 @@ namespace vLibrary.Api.Database
         public int AccountId { get; set; }
         public Account Account { get; set; }
 
+        public int LibraryId { get; set; }
+        public Library Library { get; set; }
         public ICollection<BookLeading> BookLeadings { get; set; }
         public ICollection<Payment> Payments { get; set; }
     }

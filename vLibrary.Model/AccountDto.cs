@@ -15,9 +15,6 @@ namespace vLibrary.Model
         public byte[] PasswordSalt { get; set; }
         public Role Role { get; set; }
         public AccountStatus AccountStatus { get; set; }
-        public LibraryCardDto LibraryCardDto { get; set; }
-        public MemberDto MemberDto { get; set; }
-
         
     }
 }

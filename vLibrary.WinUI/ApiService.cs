@@ -22,7 +22,7 @@ namespace vLibrary.WinUI
             if(search != null)
             {
                 url += "?";
-                url += await search.ToQueryString(); ;
+                url += await search.ToQueryString(); 
             }
             
             return await url.GetJsonAsync<T>();

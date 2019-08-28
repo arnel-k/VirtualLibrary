@@ -6,6 +6,6 @@ namespace vLibrary.Model.Requests
 {
     public class RackSearchRequest
     {
-        public int RackNumber { get; set; }
+        public string RackNumber { get; set; }
     }
 }
