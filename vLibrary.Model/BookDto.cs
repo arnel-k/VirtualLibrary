@@ -14,13 +14,10 @@ namespace vLibrary.Model
         public byte[] Image { get; set; }
         public DateTime PublicationDate { get; set; }
         public BookStatus BookStatus { get; set; }
-        public int PublisherDtoId { get; set; }
-        public PublisherDto PublisherDto { get; set; }
-        public int LibraryDtoId { get; set; }
-        public LibraryDto LibraryDto { get; set; }
-        public int RackDtoId { get; set; }
-        public RackDto RackDto { get; set; }
-        public int CategoryDtoId { get; set; }
-        public CategoryDto CategoryDto { get; set; }
+        public Guid PublisherDtoGuid { get; set; }
+        public Guid LibraryDtoGuid { get; set; }
+        public Guid RackDtoGuid { get; set; }
+        public Guid CategoryDtoGuid { get; set; }
+       
     }
 }

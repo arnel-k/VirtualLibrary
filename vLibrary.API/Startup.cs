@@ -49,6 +49,7 @@ namespace vLibrary.API
             //production : services.AddMvc(e=>e.Filters.Add<ErrorFilter>()).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            
             services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v1", new Info { Title = "vLibrary API", Version = "v1" }
                 ));
@@ -103,9 +104,19 @@ namespace vLibrary.API
             
             services.AddScoped<IAuthorRepository<Author>, AuthorRepository>();
             services.AddScoped<IAddressRepository<Address>, AddressRepository>();
+            services.AddScoped<IBookRepository<Book>, BookRepository>();
+            services.AddScoped<ILibraryRepository<Library>, LibraryRepository>();
+            services.AddScoped<ICategoryRepository<Category>, CategoryRepository>();
+            services.AddScoped<IRackRepository<Rack>, RackRepository>();
+            services.AddScoped<IPublisherRepository<Publisher>, PublisherRepository>();
+
             services.AddScoped<ICRUDService<AuthorDto, AuthorsSearchRequest, AuthorInsertRequest, AuthorUpdateRequest>,AuthorService>();
             services.AddScoped<ICRUDService<AddressDto,AddressSearchRequest,AddressUpsertRequest,AddressUpsertRequest>,AddressService>();
-            
+            services.AddScoped<ICRUDService<BookDto, BookSearchRequest, BookUpsertRequest, BookUpsertRequest>, BookService>();
+            services.AddScoped<ICRUDService<LibraryDto, LibrarySearchRequest, LibraryUpsertRequest, LibraryUpsertRequest>, LibraryService>();
+            services.AddScoped<ICRUDService<CategoryDto, CategorySearchRequest, CategoryUpsertRequest, CategoryUpsertRequest>, CategoryService>();
+            services.AddScoped<ICRUDService<RackDto, RackSearchRequest, RackUpsertRequest, RackUpsertRequest>, RackService>();
+            services.AddScoped<ICRUDService<PublisherDto, PublisherSearchRequest, PublisherUpsertRequest, PublisherUpsertRequest>, PublisherService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
