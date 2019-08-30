@@ -34,6 +34,9 @@ namespace vLibrary.API.Mappers
 
             CreateMap<Rack, RackDto>();
             CreateMap<Rack, RackUpsertRequest>().ReverseMap();
+
+            CreateMap<Member, MemberDto>();
+            CreateMap<Member, MemberSearchRequest>();
             
         }
     }
