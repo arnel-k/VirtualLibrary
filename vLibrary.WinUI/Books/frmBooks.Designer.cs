@@ -41,14 +41,12 @@
             this.lName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subject = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Image = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PublicationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PublisherDtoGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LibraryDtoGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RackDtoGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CategoryDtoGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ISBN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PublisherDtoGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RackDtoGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RackLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Image = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBooks)).BeginInit();
             this.ctxBookMenu.SuspendLayout();
@@ -60,6 +58,7 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(471, 20);
             this.txtSearch.TabIndex = 5;
+            this.txtSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSearch_KeyPress);
             // 
             // btnSearch
             // 
@@ -98,20 +97,20 @@
             this.lName,
             this.Subject,
             this.Description,
-            this.Image,
             this.PublicationDate,
-            this.PublisherDtoGuid,
-            this.LibraryDtoGuid,
-            this.RackDtoGuid,
             this.CategoryDtoGuid,
-            this.ISBN,
-            this.Category});
+            this.PublisherDtoGuid,
+            this.RackDtoGuid,
+            this.RackLocation,
+            this.Image});
             this.dgvBooks.Location = new System.Drawing.Point(3, 16);
             this.dgvBooks.Name = "dgvBooks";
             this.dgvBooks.ReadOnly = true;
             this.dgvBooks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvBooks.Size = new System.Drawing.Size(708, 319);
             this.dgvBooks.TabIndex = 0;
+            this.dgvBooks.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvBooks_CellMouseDown);
+            this.dgvBooks.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DgvBooks_MouseDoubleClick);
             // 
             // ctxBookMenu
             // 
@@ -124,15 +123,16 @@
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click_1);
             // 
             // updateToolStripMenuItem
             // 
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.updateToolStripMenuItem.Text = "Update";
+            this.updateToolStripMenuItem.Click += new System.EventHandler(this.UpdateToolStripMenuItem_Click);
             // 
             // AuthorId
             // 
@@ -140,7 +140,6 @@
             this.AuthorId.HeaderText = "BookId";
             this.AuthorId.Name = "AuthorId";
             this.AuthorId.ReadOnly = true;
-            this.AuthorId.Visible = false;
             // 
             // fName
             // 
@@ -149,7 +148,6 @@
             this.fName.HeaderText = "ISBN";
             this.fName.Name = "fName";
             this.fName.ReadOnly = true;
-            this.fName.Visible = false;
             // 
             // lName
             // 
@@ -158,7 +156,6 @@
             this.lName.HeaderText = "Title";
             this.lName.Name = "lName";
             this.lName.ReadOnly = true;
-            this.lName.Visible = false;
             // 
             // Subject
             // 
@@ -167,7 +164,6 @@
             this.Subject.HeaderText = "Subject";
             this.Subject.Name = "Subject";
             this.Subject.ReadOnly = true;
-            this.Subject.Visible = false;
             // 
             // Description
             // 
@@ -176,16 +172,6 @@
             this.Description.HeaderText = "Number Of Pages";
             this.Description.Name = "Description";
             this.Description.ReadOnly = true;
-            this.Description.Visible = false;
-            // 
-            // Image
-            // 
-            this.Image.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Image.DataPropertyName = "Image";
-            this.Image.HeaderText = "Image";
-            this.Image.Name = "Image";
-            this.Image.ReadOnly = true;
-            this.Image.Visible = false;
             // 
             // PublicationDate
             // 
@@ -194,57 +180,46 @@
             this.PublicationDate.HeaderText = "Publication Date";
             this.PublicationDate.Name = "PublicationDate";
             this.PublicationDate.ReadOnly = true;
-            this.PublicationDate.Visible = false;
-            // 
-            // PublisherDtoGuid
-            // 
-            this.PublisherDtoGuid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.PublisherDtoGuid.DataPropertyName = "PublisherDtoGuid";
-            this.PublisherDtoGuid.HeaderText = "Publisher";
-            this.PublisherDtoGuid.Name = "PublisherDtoGuid";
-            this.PublisherDtoGuid.ReadOnly = true;
-            this.PublisherDtoGuid.Visible = false;
-            // 
-            // LibraryDtoGuid
-            // 
-            this.LibraryDtoGuid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.LibraryDtoGuid.DataPropertyName = "LibraryDtoGuid";
-            this.LibraryDtoGuid.HeaderText = "Library";
-            this.LibraryDtoGuid.Name = "LibraryDtoGuid";
-            this.LibraryDtoGuid.ReadOnly = true;
-            this.LibraryDtoGuid.Visible = false;
-            // 
-            // RackDtoGuid
-            // 
-            this.RackDtoGuid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.RackDtoGuid.DataPropertyName = "RackDtoGuid";
-            this.RackDtoGuid.HeaderText = "Rack Number";
-            this.RackDtoGuid.Name = "RackDtoGuid";
-            this.RackDtoGuid.ReadOnly = true;
-            this.RackDtoGuid.Visible = false;
             // 
             // CategoryDtoGuid
             // 
             this.CategoryDtoGuid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CategoryDtoGuid.DataPropertyName = "CategoryDtoGuid";
+            this.CategoryDtoGuid.DataPropertyName = "CategoryName";
             this.CategoryDtoGuid.HeaderText = "Category";
             this.CategoryDtoGuid.Name = "CategoryDtoGuid";
             this.CategoryDtoGuid.ReadOnly = true;
-            this.CategoryDtoGuid.Visible = false;
             // 
-            // ISBN
+            // PublisherDtoGuid
             // 
-            this.ISBN.DataPropertyName = "ISBN";
-            this.ISBN.HeaderText = "ISBN";
-            this.ISBN.Name = "ISBN";
-            this.ISBN.ReadOnly = true;
+            this.PublisherDtoGuid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PublisherDtoGuid.DataPropertyName = "PublisherName";
+            this.PublisherDtoGuid.HeaderText = "Publisher";
+            this.PublisherDtoGuid.Name = "PublisherDtoGuid";
+            this.PublisherDtoGuid.ReadOnly = true;
             // 
-            // Category
+            // RackDtoGuid
             // 
-            this.Category.DataPropertyName = "Category";
-            this.Category.HeaderText = "Category";
-            this.Category.Name = "Category";
-            this.Category.ReadOnly = true;
+            this.RackDtoGuid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.RackDtoGuid.DataPropertyName = "RackNumber";
+            this.RackDtoGuid.HeaderText = "Rack Number";
+            this.RackDtoGuid.Name = "RackDtoGuid";
+            this.RackDtoGuid.ReadOnly = true;
+            // 
+            // RackLocation
+            // 
+            this.RackLocation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.RackLocation.DataPropertyName = "RackLocation";
+            this.RackLocation.HeaderText = "Rack Location";
+            this.RackLocation.Name = "RackLocation";
+            this.RackLocation.ReadOnly = true;
+            // 
+            // Image
+            // 
+            this.Image.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Image.DataPropertyName = "Image";
+            this.Image.HeaderText = "Image";
+            this.Image.Name = "Image";
+            this.Image.ReadOnly = true;
             // 
             // frmBooks
             // 
@@ -280,13 +255,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn lName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Subject;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Image;
         private System.Windows.Forms.DataGridViewTextBoxColumn PublicationDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PublisherDtoGuid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LibraryDtoGuid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RackDtoGuid;
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoryDtoGuid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ISBN;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Category;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PublisherDtoGuid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RackDtoGuid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RackLocation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Image;
     }
 }

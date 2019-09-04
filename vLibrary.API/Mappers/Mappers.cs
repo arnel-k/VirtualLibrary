@@ -19,7 +19,12 @@ namespace vLibrary.API.Mappers
             CreateMap<Book, BookDto>().ForMember(dest => dest.PublisherDtoGuid, opt => opt.MapFrom(src => src.Publisher.Guid))
                .ForMember(dest => dest.LibraryDtoGuid, opt => opt.MapFrom(src => src.Library.Guid))
                .ForMember(dest => dest.CategoryDtoGuid, opt => opt.MapFrom(src => src.Category.Guid))
-               .ForMember(dest => dest.RackDtoGuid, opt => opt.MapFrom(src => src.Rack.Guid));
+               .ForMember(dest => dest.RackDtoGuid, opt => opt.MapFrom(src => src.Rack.Guid))
+               .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
+               .ForMember(dest => dest.PublisherName, opt => opt.MapFrom(src => src.Publisher.PublisherName))
+               .ForMember(dest => dest.RackNumber, opt => opt.MapFrom(src=>src.Rack.RackNumber))
+               .ForMember(dest => dest.RackLocation, opt => opt.MapFrom(src=>src.Rack.LocationIdentification));
+
             CreateMap<Book, BookUpsertRequest>().ReverseMap();
             CreateMap<Book, BookInsertRequest>().ReverseMap();
 

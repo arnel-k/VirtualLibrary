@@ -27,6 +27,7 @@ namespace vLibrary.WinUI
             
             return await url.GetJsonAsync<T>();
         }
+        
 
         public async Task<T> GetById<T>(Guid? guid)
         {

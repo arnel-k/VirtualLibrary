@@ -15,6 +15,7 @@ namespace vLibrary.WinUI.Books
     public partial class frmBooks : Form
     {
         private readonly ApiService apiService = new ApiService("book");
+
         public DataGridView DG
         {
             get
@@ -39,24 +40,22 @@ namespace vLibrary.WinUI.Books
         //Get data into the datagrid 
         public async void GetSearchData()
         {
+            
             var search = new BookSearchRequest
             {
                 Title = txtSearch.Text
             };
             dgvBooks.AutoGenerateColumns = false;
             var response = await apiService.Get<List<BookDto>>(search);
-            //izvrsiti konverziju
-            var category = await apiService.Get<List<CategoryDto>>("");
-            category.Where(c => c.Guid == response.Select(x => x.LibraryDtoGuid).FirstOrDefault());
-            dgvBooks.DataSource = new
-            {
-                ISBN = response.Select(x => x.ISBN),
-                Category = category.Where(c => c.Guid == response.Select(x => x.LibraryDtoGuid).FirstOrDefault())
-            };
+            dgvBooks.DataSource = response;
+
+           
         }
         private void BtnSearch_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             GetSearchData();
+            
         }
 
         private async void  DeleteToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -75,6 +74,48 @@ namespace vLibrary.WinUI.Books
                     dgvBooks.Update();
                     dgvBooks.Refresh();
                 }
+            }
+        }
+
+        private void DgvBooks_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (dgvBooks.SelectedRows.Count > 0)
+            {
+                var id = dgvBooks.SelectedRows[0].Cells[0].Value;
+                frmBookDetails frm = new frmBookDetails(Guid.Parse(id.ToString()));
+                frm.Show();
+            }
+        }
+
+        private void UpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dgvBooks.SelectedRows.Count > 0)
+            {
+                var id = dgvBooks.SelectedRows[0].Cells[0].Value;
+                frmBookDetails frm = new frmBookDetails(Guid.Parse(id.ToString()));
+                frm.Show();
+            }
+        }
+
+        private void DgvBooks_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int rowSelected = e.RowIndex;
+            if (e.Button == MouseButtons.Right)
+            {
+                if (e.RowIndex != -1)
+                {
+                    this.dgvBooks.ClearSelection();
+                    this.dgvBooks.Rows[rowSelected].Selected = true;
+                    this.ContextMenuStrip = ctxBookMenu;
+                }
+            }
+        }
+
+        private void TxtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                GetSearchData();
             }
         }
     }

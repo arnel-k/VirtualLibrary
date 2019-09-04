@@ -117,6 +117,9 @@
     <EmbeddedResource Include="Authors\frmAuthors.resx">
       <DependentUpon>frmAuthors.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Books\frmBookDetails.resx">
+      <DependentUpon>frmBookDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Books\frmBooks.resx">
       <DependentUpon>frmBooks.cs</DependentUpon>
     </EmbeddedResource>
