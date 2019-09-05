@@ -46,9 +46,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.cmbCategory = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.cmbRackNumber = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.cmbRackLocation = new System.Windows.Forms.ComboBox();
+            this.cmbRackNumberLocation = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.grpBookPicture = new System.Windows.Forms.GroupBox();
@@ -57,6 +55,8 @@
             this.bindingBookPublisher = new System.Windows.Forms.BindingSource(this.components);
             this.bindingBookRackNumber = new System.Windows.Forms.BindingSource(this.components);
             this.bindingBookRackLocation = new System.Windows.Forms.BindingSource(this.components);
+            this.btnAddImage = new System.Windows.Forms.Button();
+            this.errorBookDetailsProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.grpBookPicture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingBookStatus)).BeginInit();
@@ -64,14 +64,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingBookPublisher)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingBookRackNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingBookRackLocation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorBookDetailsProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(532, 540);
+            this.btnSave.Location = new System.Drawing.Point(532, 583);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 15;
+            this.btnSave.TabIndex = 30;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
@@ -82,6 +83,7 @@
             this.txtSubject.Name = "txtSubject";
             this.txtSubject.Size = new System.Drawing.Size(240, 20);
             this.txtSubject.TabIndex = 14;
+            this.txtSubject.Validating += new System.ComponentModel.CancelEventHandler(this.TxtSubject_Validating);
             // 
             // label3
             // 
@@ -98,6 +100,7 @@
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(240, 20);
             this.txtTitle.TabIndex = 12;
+            this.txtTitle.Validating += new System.ComponentModel.CancelEventHandler(this.TxtTitle_Validating);
             // 
             // label2
             // 
@@ -114,6 +117,7 @@
             this.txtISBN.Name = "txtISBN";
             this.txtISBN.Size = new System.Drawing.Size(240, 20);
             this.txtISBN.TabIndex = 10;
+            this.txtISBN.Validating += new System.ComponentModel.CancelEventHandler(this.TxtISBN_Validating);
             // 
             // label1
             // 
@@ -129,7 +133,9 @@
             this.txtNumofPages.Location = new System.Drawing.Point(65, 224);
             this.txtNumofPages.Name = "txtNumofPages";
             this.txtNumofPages.Size = new System.Drawing.Size(240, 20);
-            this.txtNumofPages.TabIndex = 17;
+            this.txtNumofPages.TabIndex = 16;
+            this.txtNumofPages.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtNumofPages_KeyPress);
+            this.txtNumofPages.Validating += new System.ComponentModel.CancelEventHandler(this.TxtNumofPages_Validating);
             // 
             // label4
             // 
@@ -155,7 +161,8 @@
             this.cmbBookStatus.Location = new System.Drawing.Point(65, 262);
             this.cmbBookStatus.Name = "cmbBookStatus";
             this.cmbBookStatus.Size = new System.Drawing.Size(240, 21);
-            this.cmbBookStatus.TabIndex = 19;
+            this.cmbBookStatus.TabIndex = 18;
+            this.cmbBookStatus.Validating += new System.ComponentModel.CancelEventHandler(this.CmbBookStatus_Validating);
             // 
             // label6
             // 
@@ -171,7 +178,7 @@
             this.dateTimePublicationDate.Location = new System.Drawing.Point(367, 87);
             this.dateTimePublicationDate.Name = "dateTimePublicationDate";
             this.dateTimePublicationDate.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePublicationDate.TabIndex = 21;
+            this.dateTimePublicationDate.TabIndex = 22;
             // 
             // cmbPublisher
             // 
@@ -179,7 +186,8 @@
             this.cmbPublisher.Location = new System.Drawing.Point(367, 134);
             this.cmbPublisher.Name = "cmbPublisher";
             this.cmbPublisher.Size = new System.Drawing.Size(240, 21);
-            this.cmbPublisher.TabIndex = 23;
+            this.cmbPublisher.TabIndex = 24;
+            this.cmbPublisher.Validating += new System.ComponentModel.CancelEventHandler(this.CmbPublisher_Validating);
             // 
             // label7
             // 
@@ -196,7 +204,8 @@
             this.cmbCategory.Location = new System.Drawing.Point(65, 301);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(240, 21);
-            this.cmbCategory.TabIndex = 25;
+            this.cmbCategory.TabIndex = 20;
+            this.cmbCategory.Validating += new System.ComponentModel.CancelEventHandler(this.CmbCategory_Validating);
             // 
             // label8
             // 
@@ -207,39 +216,23 @@
             this.label8.TabIndex = 24;
             this.label8.Text = "Category";
             // 
-            // cmbRackNumber
+            // cmbRackNumberLocation
             // 
-            this.cmbRackNumber.FormattingEnabled = true;
-            this.cmbRackNumber.Location = new System.Drawing.Point(367, 179);
-            this.cmbRackNumber.Name = "cmbRackNumber";
-            this.cmbRackNumber.Size = new System.Drawing.Size(240, 21);
-            this.cmbRackNumber.TabIndex = 29;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(364, 163);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(76, 13);
-            this.label10.TabIndex = 28;
-            this.label10.Text = "Rack Number:";
-            // 
-            // cmbRackLocation
-            // 
-            this.cmbRackLocation.FormattingEnabled = true;
-            this.cmbRackLocation.Location = new System.Drawing.Point(367, 218);
-            this.cmbRackLocation.Name = "cmbRackLocation";
-            this.cmbRackLocation.Size = new System.Drawing.Size(240, 21);
-            this.cmbRackLocation.TabIndex = 31;
+            this.cmbRackNumberLocation.FormattingEnabled = true;
+            this.cmbRackNumberLocation.Location = new System.Drawing.Point(367, 178);
+            this.cmbRackNumberLocation.Name = "cmbRackNumberLocation";
+            this.cmbRackNumberLocation.Size = new System.Drawing.Size(240, 21);
+            this.cmbRackNumberLocation.TabIndex = 26;
+            this.cmbRackNumberLocation.Validating += new System.ComponentModel.CancelEventHandler(this.CmbRackNumberLocation_Validating);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(364, 202);
+            this.label11.Location = new System.Drawing.Point(364, 162);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(77, 13);
+            this.label11.Size = new System.Drawing.Size(122, 13);
             this.label11.TabIndex = 30;
-            this.label11.Text = "Rack Location";
+            this.label11.Text = "Rack Number | Location";
             // 
             // pictureBox1
             // 
@@ -252,23 +245,36 @@
             // grpBookPicture
             // 
             this.grpBookPicture.Controls.Add(this.pictureBox1);
-            this.grpBookPicture.Location = new System.Drawing.Point(367, 285);
+            this.grpBookPicture.Location = new System.Drawing.Point(367, 224);
             this.grpBookPicture.Name = "grpBookPicture";
             this.grpBookPicture.Size = new System.Drawing.Size(240, 193);
             this.grpBookPicture.TabIndex = 34;
             this.grpBookPicture.TabStop = false;
             this.grpBookPicture.Text = "Book Picture";
             // 
+            // btnAddImage
+            // 
+            this.btnAddImage.Location = new System.Drawing.Point(531, 439);
+            this.btnAddImage.Name = "btnAddImage";
+            this.btnAddImage.Size = new System.Drawing.Size(75, 23);
+            this.btnAddImage.TabIndex = 28;
+            this.btnAddImage.Text = "Add Image";
+            this.btnAddImage.UseVisualStyleBackColor = true;
+            this.btnAddImage.Click += new System.EventHandler(this.BtnAddImage_Click);
+            // 
+            // errorBookDetailsProvider
+            // 
+            this.errorBookDetailsProvider.ContainerControl = this;
+            // 
             // frmBookDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 632);
+            this.Controls.Add(this.btnAddImage);
             this.Controls.Add(this.grpBookPicture);
-            this.Controls.Add(this.cmbRackLocation);
+            this.Controls.Add(this.cmbRackNumberLocation);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.cmbRackNumber);
-            this.Controls.Add(this.label10);
             this.Controls.Add(this.cmbCategory);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cmbPublisher);
@@ -292,6 +298,7 @@
             this.Name = "frmBookDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Book Details";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmBookDetails_FormClosing);
             this.Load += new System.EventHandler(this.FrmBookDetails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.grpBookPicture.ResumeLayout(false);
@@ -300,6 +307,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingBookPublisher)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingBookRackNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingBookRackLocation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorBookDetailsProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -324,9 +332,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmbCategory;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox cmbRackNumber;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox cmbRackLocation;
+        private System.Windows.Forms.ComboBox cmbRackNumberLocation;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox grpBookPicture;
@@ -335,5 +341,7 @@
         private System.Windows.Forms.BindingSource bindingBookPublisher;
         private System.Windows.Forms.BindingSource bindingBookRackNumber;
         private System.Windows.Forms.BindingSource bindingBookRackLocation;
+        private System.Windows.Forms.Button btnAddImage;
+        private System.Windows.Forms.ErrorProvider errorBookDetailsProvider;
     }
 }

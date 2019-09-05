@@ -37,9 +37,11 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AuthorId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LibraryGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PublicationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CategoryDtoGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,9 +95,11 @@
             this.dgvBooks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBooks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AuthorId,
+            this.LibraryGuid,
             this.fName,
             this.lName,
             this.Subject,
+            this.BookStatus,
             this.Description,
             this.PublicationDate,
             this.CategoryDtoGuid,
@@ -140,6 +144,15 @@
             this.AuthorId.HeaderText = "BookId";
             this.AuthorId.Name = "AuthorId";
             this.AuthorId.ReadOnly = true;
+            this.AuthorId.Visible = false;
+            // 
+            // LibraryGuid
+            // 
+            this.LibraryGuid.DataPropertyName = "LibraryDtoGuid";
+            this.LibraryGuid.HeaderText = "Library Guid";
+            this.LibraryGuid.Name = "LibraryGuid";
+            this.LibraryGuid.ReadOnly = true;
+            this.LibraryGuid.Visible = false;
             // 
             // fName
             // 
@@ -164,6 +177,14 @@
             this.Subject.HeaderText = "Subject";
             this.Subject.Name = "Subject";
             this.Subject.ReadOnly = true;
+            // 
+            // BookStatus
+            // 
+            this.BookStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.BookStatus.DataPropertyName = "BookStatus";
+            this.BookStatus.HeaderText = "Book Status";
+            this.BookStatus.Name = "BookStatus";
+            this.BookStatus.ReadOnly = true;
             // 
             // Description
             // 
@@ -220,6 +241,8 @@
             this.Image.HeaderText = "Image";
             this.Image.Name = "Image";
             this.Image.ReadOnly = true;
+            this.Image.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Image.Visible = false;
             // 
             // frmBooks
             // 
@@ -251,9 +274,11 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn AuthorId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LibraryGuid;
         private System.Windows.Forms.DataGridViewTextBoxColumn fName;
         private System.Windows.Forms.DataGridViewTextBoxColumn lName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Subject;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn PublicationDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoryDtoGuid;

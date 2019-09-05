@@ -142,6 +142,7 @@ namespace vLibrary.WinUI
         {
             frmAddressDetails frm = new frmAddressDetails();
             frm.MdiParent = this;
+    
             frm.Show();
         }
 
@@ -156,6 +157,7 @@ namespace vLibrary.WinUI
         {
             frmBookDetails frm = new frmBookDetails();
             frm.MdiParent = this;
+            frm.LoadDataIntoInsertForm();
             frm.Show();
         }
     }

@@ -100,30 +100,13 @@ namespace vLibrary.WinUI.Authors
 
         private void TxtFName_Validating(object sender, CancelEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtFName.Text))
-            {
-                errorProvider.SetError(txtFName, Properties.Resources.Validation_RequiredFiled);
-                e.Cancel = true;
-                
-            }
-            else
-            {
-                errorProvider.SetError(txtFName, null);
-            }
+            HelperMethods.Helper.TextBoxValidation(sender, e, errorProvider, txtFName);
+          
         }
 
         private void TxtLName_Validating(object sender, CancelEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtLName.Text))
-            {
-                errorProvider.SetError(txtLName, Properties.Resources.Validation_RequiredFiled);
-                e.Cancel = true;
-                
-            }
-            else
-            {
-                errorProvider.SetError(txtLName, null);
-            }
+            HelperMethods.Helper.TextBoxValidation(sender, e, errorProvider, txtLName);
         }
 
         private void FrmAuthorDetails_FormClosing(object sender, FormClosingEventArgs e)

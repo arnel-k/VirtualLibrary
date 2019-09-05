@@ -93,14 +93,14 @@
             // searchToolStripMenuItem1
             // 
             this.searchToolStripMenuItem1.Name = "searchToolStripMenuItem1";
-            this.searchToolStripMenuItem1.Size = new System.Drawing.Size(143, 22);
+            this.searchToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.searchToolStripMenuItem1.Text = "&Search";
             this.searchToolStripMenuItem1.Click += new System.EventHandler(this.SearchToolStripMenuItem1_Click);
             // 
             // newAddressToolStripMenuItem
             // 
             this.newAddressToolStripMenuItem.Name = "newAddressToolStripMenuItem";
-            this.newAddressToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.newAddressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newAddressToolStripMenuItem.Text = "&New Address";
             this.newAddressToolStripMenuItem.Click += new System.EventHandler(this.NewAddressToolStripMenuItem_Click);
             // 
@@ -124,7 +124,7 @@
             // 
             this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
             this.addNewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.addNewToolStripMenuItem.Text = "&Add New";
+            this.addNewToolStripMenuItem.Text = "&New Book";
             this.addNewToolStripMenuItem.Click += new System.EventHandler(this.AddNewToolStripMenuItem_Click);
             // 
             // statusStrip

@@ -28,6 +28,7 @@ namespace vLibrary.API.Mappers
             CreateMap<Book, BookUpsertRequest>().ReverseMap();
             CreateMap<Book, BookInsertRequest>().ReverseMap();
 
+
             CreateMap<Library, LibraryDto>();
             CreateMap<Library, LibraryUpsertRequest>().ReverseMap();
 

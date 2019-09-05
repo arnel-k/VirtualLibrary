@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using vLibrary.Model;
 using vLibrary.Model.Enums;
 using vLibrary.Model.Requests;
+using System.Diagnostics;
+using System.IO;
 
 namespace vLibrary.WinUI.Books
 {
@@ -23,71 +25,199 @@ namespace vLibrary.WinUI.Books
         private readonly ApiService _categoryService = new ApiService("category");
         private readonly ApiService _publisherService = new ApiService("publisher");
         private readonly ApiService _rackService = new ApiService("rack");
+        private readonly ApiService _libraryService = new ApiService("library");
+
+        private Byte[] image;
         public frmBookDetails(Guid? id = null)
         {
             InitializeComponent();
             _id = id;
         }
+        public static Bitmap ByteToImage(byte[] blob)
+        {
+            MemoryStream mStream = new MemoryStream();
+            byte[] pData = blob;
+            mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
+            Bitmap bm = new Bitmap(mStream, false);
+            mStream.Dispose();
+            return bm;
+        }
 
-        private async void FrmBookDetails_Load(object sender, EventArgs e)
+        public  byte[] ImageToByte(Image img)
+        {
+            MemoryStream ms = new MemoryStream();
+
+            pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+
+            byte[] buff = ms.GetBuffer();
+            return buff;
+        }
+        public async void LoadData()
         {
             if (_id.HasValue)
             {
-                var book = await _bookService.GetById<BookDto>(_id);
-                var category = await _categoryService.Get<List<CategoryDto>>(null);
-                var publisher = await _publisherService.Get<List<PublisherDto>>(null);
-                var rack = await _rackService.Get<List<RackDto>>(null);
-                txtISBN.Text = book.ISBN;
-                txtTitle.Text = book.Title;
-                txtSubject.Text = book.Subject;
-                txtNumofPages.Text = book.NumberOfPages.ToString();
+                HelperMethods.Helper.GuidIsSet = true;
+            }
+            var book = await _bookService.GetById<BookDto>(_id);
+            var category = await _categoryService.Get<List<CategoryDto>>(null);
+            var publisher = await _publisherService.Get<List<PublisherDto>>(null);
+            var rack = await _rackService.Get<List<RackDto>>(null);
 
-                bindingBookStatus.DataSource = Enum.GetValues(typeof(BookStatus));
-                cmbBookStatus.DataSource = bindingBookStatus.DataSource;
-                cmbBookStatus.SelectedItem = book.BookStatus;
+            txtISBN.Text = book.ISBN;
+            txtTitle.Text = book.Title;
+            txtSubject.Text = book.Subject;
+            txtNumofPages.Text = book.NumberOfPages.ToString();
 
-                bindingBookCategory.DataSource = category.Select(x => x.CategoryName).ToList();
-                cmbCategory.DataSource = bindingBookCategory.DataSource;
-                cmbCategory.SelectedItem = book.CategoryName;
+            bindingBookStatus.DataSource = Enum.GetValues(typeof(BookStatus));
+            cmbBookStatus.DataSource = bindingBookStatus.DataSource;
+            cmbBookStatus.SelectedItem = book.BookStatus;
 
-                bindingBookPublisher.DataSource = publisher.Select(x=>x.PublisherName).ToList();
-                cmbPublisher.DataSource = bindingBookPublisher.DataSource;
-                cmbPublisher.SelectedItem = book.PublisherName;
+            bindingBookCategory.DataSource = category.Select(x => x.CategoryName).ToList();
+            cmbCategory.DataSource = bindingBookCategory.DataSource;
+            cmbCategory.SelectedItem = book.CategoryName;
 
-                bindingBookRackLocation.DataSource = rack.Select(x => x.LocationIdentification).ToList();
-                cmbRackLocation.DataSource = bindingBookRackLocation.DataSource;
-                cmbRackLocation.SelectedItem = book.RackLocation;
+            bindingBookPublisher.DataSource = publisher.Select(x => x.PublisherName).ToList();
+            cmbPublisher.DataSource = bindingBookPublisher.DataSource;
+            cmbPublisher.SelectedItem = book.PublisherName;
 
-                bindingBookRackNumber.DataSource = rack.Select(x => x.RackNumber).ToList();
-                cmbRackNumber.DataSource = bindingBookRackNumber.DataSource;
-                cmbRackNumber.SelectedItem = book.RackNumber;
-
-                dateTimePublicationDate.Value = book.PublicationDate;
+            
+            cmbRackNumberLocation.BeginUpdate();
+            foreach (var i in rack)
+            {
+                cmbRackNumberLocation.Items.Add(String.Format("{0} | {1}", i.RackNumber, i.LocationIdentification));
 
             }
-        }
 
+            cmbRackNumberLocation.EndUpdate();
+
+            var s = rack.Where(r => r.RackNumber.ToString() == book.RackNumber).Select(x => new
+            {
+                value = String.Format("{0} | {1}", x.RackNumber, x.LocationIdentification)
+            }).FirstOrDefault();
+
+
+            cmbRackNumberLocation.SelectedItem = s.value;
+
+
+            dateTimePublicationDate.Value = book.PublicationDate;
+            if (book.Image.Length > 0)
+            {
+                pictureBox1.Image = ByteToImage(book.Image);
+                pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+
+        }
+        public async void LoadDataIntoInsertForm()
+        {
+            
+            var category = await _categoryService.Get<List<CategoryDto>>(null);
+            var publisher = await _publisherService.Get<List<PublisherDto>>(null);
+            var rack = await _rackService.Get<List<RackDto>>(null);
+
+            cmbBookStatus.Items.Add("---Select a value---");
+            cmbBookStatus.SelectedIndex = 0;
+            bindingBookStatus.DataSource = Enum.GetValues(typeof(BookStatus));
+           
+            cmbBookStatus.BeginUpdate();
+            foreach (var i in (BookStatus[]) Enum.GetValues(typeof(BookStatus)))
+            {
+                cmbBookStatus.Items.Add($"{i}");
+            }
+            cmbBookStatus.EndUpdate();
+
+            cmbCategory.Items.Add("---Select a value---");
+            cmbCategory.SelectedIndex = 0;
+            bindingBookCategory.DataSource = category;
+            cmbCategory.BeginUpdate();
+            foreach(var i in category)
+            {
+                cmbCategory.Items.Add($"{i.CategoryName}");
+            }
+            cmbCategory.EndUpdate();
+
+            cmbPublisher.Items.Add("---Select a value---");
+            cmbPublisher.SelectedIndex = 0;
+            bindingBookPublisher.DataSource = publisher;
+            cmbPublisher.BeginUpdate();
+            
+            foreach(var i in publisher)
+            {
+                cmbPublisher.Items.Add($"{i.PublisherName}");
+            }
+            cmbPublisher.EndUpdate();
+
+            cmbRackNumberLocation.Items.Add("---Select a value---");
+            cmbRackNumberLocation.SelectedIndex = 0;
+            bindingBookRackLocation.DataSource = rack;
+            
+            cmbRackNumberLocation.BeginUpdate();
+            
+            foreach (var i in rack)
+            {
+                cmbRackNumberLocation.Items.Add(String.Format("{0} | {1}", i.RackNumber, i.LocationIdentification));
+
+            }
+
+            cmbRackNumberLocation.EndUpdate();
+           
+        
+
+        }
+        private void FrmBookDetails_Load(object sender, EventArgs e)
+        {
+            if (_id.HasValue)
+            {
+                LoadData();
+            }
+        }
+        
         private async void BtnSave_Click(object sender, EventArgs e)
         {
             BookDto response = null;
+            BookDto book = null;
+            if (_id.HasValue)
+            {
+               book  = await _bookService.GetById<BookDto>(_id);
+            }
+            var libraries = await _libraryService.Get<List<LibraryDto>> (null);
             var category = await _categoryService.Get<List<CategoryDto>>(null);
-
+            var publisher = await _publisherService.Get<List<PublisherDto>>(null);
+            var rack = await _rackService.Get<List<RackDto>>(null);
+            var indexOfPipe = cmbRackNumberLocation.SelectedItem.ToString().IndexOf("|");
+            var request = new BookUpsertRequest();
             if (this.ValidateChildren())
             {
-                var request = new BookInsertRequest
+                ///TODO: Picture imput validation
+                if(pictureBox1.Image == null)
                 {
-                    ISBN = txtISBN.Text,
-                    NumberOfPages = Int32.Parse(txtNumofPages.Text),
-                    PublicationDate = dateTimePublicationDate.Value,
-                    Subject = txtSubject.Text,
-                    Title = txtTitle.Text,
-                   // BookStatus = (BookStatus)Enum.Parse(typeof(BookStatus), cmbBookStatus.SelectedText),
+                    image = book.Image;
+                }
+                else
+                {
+                    request.Image = image;
+                }
+                
+                
+                {
+                    request.ISBN = txtISBN.Text;
+                    request.NumberOfPages = Int32.Parse(txtNumofPages.Text);
+                    request.PublicationDate = dateTimePublicationDate.Value.Date;
+                    request.Subject = txtSubject.Text;
+                    request.Title = txtTitle.Text;
+                    request.BookStatus = (BookStatus)Enum.Parse(typeof(BookStatus), cmbBookStatus.SelectedItem.ToString());
+                    request.CategoryDtoGuid = category.Where(c => c.CategoryName == cmbCategory.SelectedItem.ToString()).Select(g => g.Guid).FirstOrDefault();
+                    request.PublisherDtoGuid = publisher.Where(p => p.PublisherName == cmbPublisher.SelectedItem.ToString()).Select(g => g.Guid).FirstOrDefault();
+                    request.LibraryDtoGuid = libraries.Select(x => x.Guid).FirstOrDefault();
+                    request.RackDtoGuid = rack.Where(r => r.RackNumber.ToString() == cmbRackNumberLocation.SelectedItem.ToString().Substring(0, indexOfPipe).Trim()).Select(g => g.Guid).FirstOrDefault();
+                    request.Image = image;
+                   
                     
 
                 };
-
+               // Debug.WriteLine(request.RackDtoGuid);
                 if (_id.HasValue)
                 {
+                    
                     response = await _bookService.Update<BookDto>(_id, request);
                     DialogResult dialogUpdate = MessageBox.Show("Book details updated!", "Conforamtion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (response != null)
@@ -108,6 +238,7 @@ namespace vLibrary.WinUI.Books
 
                 else
                 {
+                    
                     response = await _bookService.Insert<BookDto>(request);
                     DialogResult dialogInsert = MessageBox.Show("Book details saved!\nAdd new author?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (response != null)
@@ -130,6 +261,77 @@ namespace vLibrary.WinUI.Books
             }
 
 
+        }
+
+        private void BtnAddImage_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Title = "Open Image";
+                dlg.Filter = "Image Files (*.bmp;*.jpg;*.jpeg,*.png)|*.BMP;*.JPG;*.JPEG;*.PNG";
+                if(dlg.ShowDialog() == DialogResult.OK)
+                {
+                    pictureBox1.ImageLocation = dlg.FileName;
+                    pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                    image = File.ReadAllBytes(dlg.FileName);
+                }
+            }
+        }
+
+        private void TxtISBN_Validating(object sender, CancelEventArgs e)
+        {
+            HelperMethods.Helper.TextBoxValidation(sender, e,errorBookDetailsProvider, txtISBN);
+        }
+
+        private void TxtTitle_Validating(object sender, CancelEventArgs e)
+        {
+            HelperMethods.Helper.TextBoxValidation(sender, e, errorBookDetailsProvider, txtTitle);
+        }
+
+        private void TxtSubject_Validating(object sender, CancelEventArgs e)
+        {
+            HelperMethods.Helper.TextBoxValidation(sender, e, errorBookDetailsProvider, txtSubject);
+        }
+
+        private void TxtNumofPages_Validating(object sender, CancelEventArgs e)
+        {
+            HelperMethods.Helper.TextBoxValidation(sender, e, errorBookDetailsProvider, txtNumofPages);
+        }
+
+        private void CmbBookStatus_Validating(object sender, CancelEventArgs e)
+        {
+            HelperMethods.Helper.ComboBoxValidation(sender, e, errorBookDetailsProvider, cmbBookStatus);
+        }
+
+        private void CmbCategory_Validating(object sender, CancelEventArgs e)
+        {
+            HelperMethods.Helper.ComboBoxValidation(sender, e, errorBookDetailsProvider, cmbCategory);
+        }
+
+        private void CmbPublisher_Validating(object sender, CancelEventArgs e)
+        {
+            HelperMethods.Helper.ComboBoxValidation(sender, e, errorBookDetailsProvider, cmbPublisher);
+        }
+
+        private void CmbRackNumberLocation_Validating(object sender, CancelEventArgs e)
+        {
+            HelperMethods.Helper.ComboBoxValidation(sender, e, errorBookDetailsProvider, cmbRackNumberLocation);
+        }
+
+        private void FrmBookDetails_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = false;
+        }
+
+        private void TxtNumofPages_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+            if (char.IsLetter(e.KeyChar))
+            {
+                MessageBox.Show("You can only type numbers!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+            
         }
     }
 }
