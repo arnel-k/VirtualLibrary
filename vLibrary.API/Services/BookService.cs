@@ -41,7 +41,14 @@ namespace vLibrary.API.Services
             }
 
             var books = await query.Include(p => p.Publisher).Include(c => c.Category).Include(r => r.Rack).Include(lib => lib.Library).ToListAsync();
+            
             return _mapper.Map<List<BookDto>>(books);
+        }
+
+        public override async Task<BookDto> GetById(Guid guid)
+        {
+            var book = await _repo.GetAsQueryable().Where(b=>b.Guid == guid).Include(p => p.Publisher).Include(c => c.Category).Include(r => r.Rack).Include(lib => lib.Library).FirstOrDefaultAsync();
+            return _mapper.Map<BookDto>(book);
         }
 
         public override async Task<BookDto> Insert(BookUpsertRequest insert)

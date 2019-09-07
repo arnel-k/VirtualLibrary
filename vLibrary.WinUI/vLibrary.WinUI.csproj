@@ -84,6 +84,18 @@
     <Compile Include="Authors\frmAuthors.Designer.cs">
       <DependentUpon>frmAuthors.cs</DependentUpon>
     </Compile>
+    <Compile Include="Books\frmBookDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Books\frmBookDetails.Designer.cs">
+      <DependentUpon>frmBookDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Books\frmBooks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Books\frmBooks.Designer.cs">
+      <DependentUpon>frmBooks.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmIndex.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +116,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Authors\frmAuthors.resx">
       <DependentUpon>frmAuthors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Books\frmBookDetails.resx">
+      <DependentUpon>frmBookDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Books\frmBooks.resx">
+      <DependentUpon>frmBooks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmIndex.resx">
       <DependentUpon>frmIndex.cs</DependentUpon>

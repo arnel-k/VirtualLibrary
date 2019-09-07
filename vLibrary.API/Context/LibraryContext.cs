@@ -40,6 +40,7 @@ namespace vLibrary.API.Context
             modelBuilder.Entity<Book>().HasMany(x => x.BookLeadings).WithOne(x => x.Book).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Member>().HasMany(x => x.BookLeadings).WithOne(x => x.Member).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Category>().HasMany(x => x.Books).WithOne(x => x.Category).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Library>().HasMany(x => x.Members).WithOne(x => x.Library).OnDelete(DeleteBehavior.Restrict);
         }
     }
     

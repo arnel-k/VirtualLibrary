@@ -7,6 +7,7 @@ namespace vLibrary.Model.Requests
 {
     public class RackUpsertRequest
     {
+        public Guid Guid { get; set; }
         [Required(ErrorMessage = "Rack number  is required !")]
         public int RackNumber { get; set; }
         [Required(ErrorMessage = "Location  is required !")]

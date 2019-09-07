@@ -19,7 +19,7 @@ namespace vLibrary.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("vLibrary.Model.Account", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -38,12 +38,14 @@ namespace vLibrary.API.Migrations
                     b.Property<string>("Role")
                         .IsRequired();
 
+                    b.Property<string>("UserName");
+
                     b.HasKey("Id");
 
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Address", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,7 +68,7 @@ namespace vLibrary.API.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Author", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,7 +89,7 @@ namespace vLibrary.API.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Book", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -132,7 +134,7 @@ namespace vLibrary.API.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.BookLeading", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.BookLeading", b =>
                 {
                     b.Property<int>("MemberId");
 
@@ -157,7 +159,7 @@ namespace vLibrary.API.Migrations
                     b.ToTable("BookLeadings");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Book_Author", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Book_Author", b =>
                 {
                     b.Property<int>("BookId");
 
@@ -170,7 +172,7 @@ namespace vLibrary.API.Migrations
                     b.ToTable("Book_Authors");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Category", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -187,7 +189,7 @@ namespace vLibrary.API.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Employee", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -224,13 +226,11 @@ namespace vLibrary.API.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Library", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Library", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountId");
 
                     b.Property<Guid>("Guid");
 
@@ -240,12 +240,10 @@ namespace vLibrary.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
-
                     b.ToTable("Libraries");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.LibraryCard", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.LibraryCard", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -271,7 +269,7 @@ namespace vLibrary.API.Migrations
                     b.ToTable("LibraryCards");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Member", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Member", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -297,6 +295,8 @@ namespace vLibrary.API.Migrations
 
                     b.Property<string>("LastName");
 
+                    b.Property<int>("LibraryId");
+
                     b.Property<int>("NumberOfBooksLoaned");
 
                     b.Property<string>("Phone");
@@ -310,10 +310,12 @@ namespace vLibrary.API.Migrations
 
                     b.HasIndex("AddressId");
 
+                    b.HasIndex("LibraryId");
+
                     b.ToTable("Member");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Notification", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Notification", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -334,7 +336,7 @@ namespace vLibrary.API.Migrations
                     b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Payment", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Payment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -357,7 +359,7 @@ namespace vLibrary.API.Migrations
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Publisher", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Publisher", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -376,7 +378,7 @@ namespace vLibrary.API.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Rack", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Rack", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -395,104 +397,101 @@ namespace vLibrary.API.Migrations
                     b.ToTable("Racks");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Book", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Book", b =>
                 {
-                    b.HasOne("vLibrary.Model.Category", "Category")
+                    b.HasOne("vLibrary.Api.Database.Category", "Category")
                         .WithMany("Books")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("vLibrary.Model.Library", "Library")
+                    b.HasOne("vLibrary.Api.Database.Library", "Library")
                         .WithMany("Books")
                         .HasForeignKey("LibraryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("vLibrary.Model.Publisher", "Publisher")
+                    b.HasOne("vLibrary.Api.Database.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("vLibrary.Model.Rack", "Rack")
+                    b.HasOne("vLibrary.Api.Database.Rack", "Rack")
                         .WithMany("Books")
                         .HasForeignKey("RackId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("vLibrary.Model.BookLeading", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.BookLeading", b =>
                 {
-                    b.HasOne("vLibrary.Model.Book", "Book")
+                    b.HasOne("vLibrary.Api.Database.Book", "Book")
                         .WithMany("BookLeadings")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("vLibrary.Model.Member", "Member")
+                    b.HasOne("vLibrary.Api.Database.Member", "Member")
                         .WithMany("BookLeadings")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("vLibrary.Model.Notification", "Notification")
+                    b.HasOne("vLibrary.Api.Database.Notification", "Notification")
                         .WithMany()
                         .HasForeignKey("NotificationId");
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Book_Author", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Book_Author", b =>
                 {
-                    b.HasOne("vLibrary.Model.Author", "Author")
+                    b.HasOne("vLibrary.Api.Database.Author", "Author")
                         .WithMany("Book_Authors")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("vLibrary.Model.Book", "Book")
+                    b.HasOne("vLibrary.Api.Database.Book", "Book")
                         .WithMany("Book_Authors")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Employee", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Employee", b =>
                 {
-                    b.HasOne("vLibrary.Model.Address", "Address")
+                    b.HasOne("vLibrary.Api.Database.Address", "Address")
                         .WithMany("Employees")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("vLibrary.Model.Library", "Library")
+                    b.HasOne("vLibrary.Api.Database.Library", "Library")
                         .WithMany("Employees")
                         .HasForeignKey("LibraryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Library", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.LibraryCard", b =>
                 {
-                    b.HasOne("vLibrary.Model.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("vLibrary.Model.LibraryCard", b =>
-                {
-                    b.HasOne("vLibrary.Model.Account", "Account")
+                    b.HasOne("vLibrary.Api.Database.Account", "Account")
                         .WithOne("LibraryCard")
-                        .HasForeignKey("vLibrary.Model.LibraryCard", "AccountId")
+                        .HasForeignKey("vLibrary.Api.Database.LibraryCard", "AccountId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Member", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Member", b =>
                 {
-                    b.HasOne("vLibrary.Model.Account", "Account")
+                    b.HasOne("vLibrary.Api.Database.Account", "Account")
                         .WithOne("Member")
-                        .HasForeignKey("vLibrary.Model.Member", "AccountId")
+                        .HasForeignKey("vLibrary.Api.Database.Member", "AccountId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("vLibrary.Model.Address", "Address")
+                    b.HasOne("vLibrary.Api.Database.Address", "Address")
                         .WithMany("Member")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("vLibrary.Api.Database.Library", "Library")
+                        .WithMany("Members")
+                        .HasForeignKey("LibraryId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("vLibrary.Model.Payment", b =>
+            modelBuilder.Entity("vLibrary.Api.Database.Payment", b =>
                 {
-                    b.HasOne("vLibrary.Model.Member", "Member")
+                    b.HasOne("vLibrary.Api.Database.Member", "Member")
                         .WithMany("Payments")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade);

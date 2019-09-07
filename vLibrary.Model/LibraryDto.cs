@@ -7,9 +7,7 @@ namespace vLibrary.Model
 
     public class LibraryDto : Entity
     {
+        public Guid Guid { get; set; }
         public string Name { get; set; }
-        public int AccountDtoId { get; set; }
-        public AccountDto AccountDto { get; set; }
-
     }
 }

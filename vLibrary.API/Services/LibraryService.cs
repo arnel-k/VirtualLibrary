@@ -13,6 +13,7 @@ namespace vLibrary.API.Services
 {
     public class LibraryService : BaseCrudService<LibraryDto, LibrarySearchRequest, Library, LibraryUpsertRequest, LibraryUpsertRequest>, ICRUDService<LibraryDto, LibrarySearchRequest, LibraryUpsertRequest, LibraryUpsertRequest>
     {
+         
         public LibraryService(ILibraryRepository<Library> repo, IMapper mapper) : base(repo, mapper)
         {
         }

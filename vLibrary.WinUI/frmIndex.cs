@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using vLibrary.WinUI.Address;
 using vLibrary.WinUI.Authors;
+using vLibrary.WinUI.Books;
 
 namespace vLibrary.WinUI
 {
@@ -141,6 +142,22 @@ namespace vLibrary.WinUI
         {
             frmAddressDetails frm = new frmAddressDetails();
             frm.MdiParent = this;
+    
+            frm.Show();
+        }
+
+        private void SearchToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            frmBooks frm = new frmBooks();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void AddNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmBookDetails frm = new frmBookDetails();
+            frm.MdiParent = this;
+            frm.LoadDataIntoInsertForm();
             frm.Show();
         }
     }
