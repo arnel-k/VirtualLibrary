@@ -26,31 +26,30 @@ namespace vLibrary.WinUI.Books
         private readonly ApiService _publisherService = new ApiService("publisher");
         private readonly ApiService _rackService = new ApiService("rack");
         private readonly ApiService _libraryService = new ApiService("library");
-
+        private bool _addButtonWasClicked = false;
         private Byte[] image;
         public frmBookDetails(Guid? id = null)
         {
             InitializeComponent();
             _id = id;
         }
-        public static Bitmap ByteToImage(byte[] blob)
+        public static Image ByteToImage(byte[] bArray)
         {
-            MemoryStream mStream = new MemoryStream();
-            byte[] pData = blob;
-            mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
-            Bitmap bm = new Bitmap(mStream, false);
-            mStream.Dispose();
-            return bm;
+            using (var mStream = new MemoryStream(bArray))
+            {
+                return Image.FromStream(mStream);
+            }
         }
 
         public  byte[] ImageToByte(Image img)
         {
-            MemoryStream ms = new MemoryStream();
+            using (var ms = new MemoryStream())
+            {
 
-            pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+               img.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
 
-            byte[] buff = ms.GetBuffer();
-            return buff;
+                return ms.ToArray();
+            }
         }
         public async void LoadData()
         {
@@ -170,7 +169,10 @@ namespace vLibrary.WinUI.Books
                 LoadData();
             }
         }
-        
+        private bool ByteArrayCompare(byte[] b1, byte[] b2)
+        {
+            return b1.SequenceEqual(b2);
+        }
         private async void BtnSave_Click(object sender, EventArgs e)
         {
             BookDto response = null;
@@ -187,17 +189,24 @@ namespace vLibrary.WinUI.Books
             var request = new BookUpsertRequest();
             if (this.ValidateChildren())
             {
-                ///TODO: Picture imput validation
-                if(pictureBox1.Image == null)
-                {
-                    image = book.Image;
-                }
-                else
+                
+                if (book == null)
                 {
                     request.Image = image;
                 }
-                
-                
+                else if (_addButtonWasClicked == true && book != null)
+                {
+                    if (book.Image.Length <= 0 || ByteArrayCompare(book.Image, ImageToByte(pictureBox1.Image)) == false)
+                    {
+                        request.Image = image;
+                    }
+                    
+                }
+                else
+                {
+                    image = book.Image;
+                }
+
                 {
                     request.ISBN = txtISBN.Text;
                     request.NumberOfPages = Int32.Parse(txtNumofPages.Text);
@@ -265,6 +274,7 @@ namespace vLibrary.WinUI.Books
 
         private void BtnAddImage_Click(object sender, EventArgs e)
         {
+            _addButtonWasClicked = true;
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Title = "Open Image";
