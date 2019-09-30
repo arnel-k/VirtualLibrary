@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using vLibrary.WinUI.Address;
 using vLibrary.WinUI.Authors;
 using vLibrary.WinUI.Books;
+using vLibrary.WinUI.Publishers;
 
 namespace vLibrary.WinUI
 {
@@ -158,6 +159,20 @@ namespace vLibrary.WinUI
             frmBookDetails frm = new frmBookDetails();
             frm.MdiParent = this;
             frm.LoadDataIntoInsertForm();
+            frm.Show();
+        }
+
+        private void searchToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            frmPublishers frm = new frmPublishers();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void newBookToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmPublisherDetails frm = new frmPublisherDetails();
+            frm.MdiParent = this;
             frm.Show();
         }
     }

@@ -39,6 +39,9 @@
             this.booksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.publishersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.newBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -51,7 +54,8 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.authorsToolStripMenuItem,
             this.addressesToolStripMenuItem,
-            this.booksToolStripMenuItem});
+            this.booksToolStripMenuItem,
+            this.publishersToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(1063, 24);
@@ -93,14 +97,14 @@
             // searchToolStripMenuItem1
             // 
             this.searchToolStripMenuItem1.Name = "searchToolStripMenuItem1";
-            this.searchToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.searchToolStripMenuItem1.Size = new System.Drawing.Size(143, 22);
             this.searchToolStripMenuItem1.Text = "&Search";
             this.searchToolStripMenuItem1.Click += new System.EventHandler(this.SearchToolStripMenuItem1_Click);
             // 
             // newAddressToolStripMenuItem
             // 
             this.newAddressToolStripMenuItem.Name = "newAddressToolStripMenuItem";
-            this.newAddressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newAddressToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.newAddressToolStripMenuItem.Text = "&New Address";
             this.newAddressToolStripMenuItem.Click += new System.EventHandler(this.NewAddressToolStripMenuItem_Click);
             // 
@@ -116,16 +120,39 @@
             // searchToolStripMenuItem2
             // 
             this.searchToolStripMenuItem2.Name = "searchToolStripMenuItem2";
-            this.searchToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.searchToolStripMenuItem2.Size = new System.Drawing.Size(128, 22);
             this.searchToolStripMenuItem2.Text = "&Search";
             this.searchToolStripMenuItem2.Click += new System.EventHandler(this.SearchToolStripMenuItem2_Click);
             // 
             // addNewToolStripMenuItem
             // 
             this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
-            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.addNewToolStripMenuItem.Text = "&New Book";
             this.addNewToolStripMenuItem.Click += new System.EventHandler(this.AddNewToolStripMenuItem_Click);
+            // 
+            // publishersToolStripMenuItem
+            // 
+            this.publishersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.searchToolStripMenuItem3,
+            this.newBookToolStripMenuItem});
+            this.publishersToolStripMenuItem.Name = "publishersToolStripMenuItem";
+            this.publishersToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.publishersToolStripMenuItem.Text = "&Publishers";
+            // 
+            // searchToolStripMenuItem3
+            // 
+            this.searchToolStripMenuItem3.Name = "searchToolStripMenuItem3";
+            this.searchToolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.searchToolStripMenuItem3.Text = "&Search";
+            this.searchToolStripMenuItem3.Click += new System.EventHandler(this.searchToolStripMenuItem3_Click);
+            // 
+            // newBookToolStripMenuItem
+            // 
+            this.newBookToolStripMenuItem.Name = "newBookToolStripMenuItem";
+            this.newBookToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newBookToolStripMenuItem.Text = "&New Publisher";
+            this.newBookToolStripMenuItem.Click += new System.EventHandler(this.newBookToolStripMenuItem_Click);
             // 
             // statusStrip
             // 
@@ -181,6 +208,9 @@
         private System.Windows.Forms.ToolStripMenuItem booksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem addNewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem publishersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem newBookToolStripMenuItem;
     }
 }
 
