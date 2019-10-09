@@ -96,6 +96,30 @@
     <Compile Include="Books\frmBooks.Designer.cs">
       <DependentUpon>frmBooks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Categories\frmCategories.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Categories\frmCategories.Designer.cs">
+      <DependentUpon>frmCategories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Categories\frmCategoryDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Categories\frmCategoryDetails.Designer.cs">
+      <DependentUpon>frmCategoryDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\frmEmployees.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Employee\frmEmployees.Designer.cs">
+      <DependentUpon>frmEmployees.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\frmEmplyeeDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Employee\frmEmplyeeDetails.Designer.cs">
+      <DependentUpon>frmEmplyeeDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmIndex.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +141,18 @@
     <Compile Include="Publishers\frmPublishers.Designer.cs">
       <DependentUpon>frmPublishers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Racks\frmRackDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Racks\frmRackDetails.Designer.cs">
+      <DependentUpon>frmRackDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Racks\frmRacks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Racks\frmRacks.Designer.cs">
+      <DependentUpon>frmRacks.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Address\frmAddress.resx">
       <DependentUpon>frmAddress.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,6 +170,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Books\frmBooks.resx">
       <DependentUpon>frmBooks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\frmCategories.resx">
+      <DependentUpon>frmCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\frmCategoryDetails.resx">
+      <DependentUpon>frmCategoryDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Employee\frmEmployees.resx">
+      <DependentUpon>frmEmployees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Employee\frmEmplyeeDetails.resx">
+      <DependentUpon>frmEmplyeeDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmIndex.resx">
       <DependentUpon>frmIndex.cs</DependentUpon>
@@ -153,6 +201,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Publishers\frmPublishers.resx">
       <DependentUpon>frmPublishers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Racks\frmRackDetails.resx">
+      <DependentUpon>frmRackDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Racks\frmRacks.resx">
+      <DependentUpon>frmRacks.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

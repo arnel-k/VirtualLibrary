@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vLibrary.API.Context;
 
 namespace vLibrary.API.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20191001163336_1.10_AK_R_restrictions")]
+    partial class _110_AK_R_restrictions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,6 +54,8 @@ namespace vLibrary.API.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("City");
+
+                    b.Property<string>("Country");
 
                     b.Property<Guid>("Guid");
 
@@ -201,8 +205,7 @@ namespace vLibrary.API.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<string>("Gender")
-                        .IsRequired();
+                    b.Property<int>("Gender");
 
                     b.Property<Guid>("Guid");
 
@@ -406,12 +409,12 @@ namespace vLibrary.API.Migrations
                     b.HasOne("vLibrary.Api.Database.Library", "Library")
                         .WithMany("Books")
                         .HasForeignKey("LibraryId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("vLibrary.Api.Database.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("vLibrary.Api.Database.Rack", "Rack")
                         .WithMany("Books")
@@ -454,7 +457,7 @@ namespace vLibrary.API.Migrations
                     b.HasOne("vLibrary.Api.Database.Address", "Address")
                         .WithMany("Employees")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("vLibrary.Api.Database.Library", "Library")
                         .WithMany("Employees")
@@ -480,7 +483,7 @@ namespace vLibrary.API.Migrations
                     b.HasOne("vLibrary.Api.Database.Address", "Address")
                         .WithMany("Member")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("vLibrary.Api.Database.Library", "Library")
                         .WithMany("Members")

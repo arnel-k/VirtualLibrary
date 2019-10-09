@@ -53,9 +53,11 @@ namespace vLibrary.API.Services
 
         public override async Task<BookDto> Insert(BookUpsertRequest insert)
         {
-            var guid = Guid.NewGuid();
-            //insert.GetType().GetProperty("Guid").SetValue(insert, guid);
             
+            var guid = Guid.NewGuid();
+           
+            //insert.GetType().GetProperty("Guid").SetValue(insert, guid);
+
             var library = await _libraryRepository.GetById(insert.LibraryDtoGuid);
             var category = await _categoryRepository.GetById(insert.CategoryDtoGuid);
             var publisher = await _publisherRepository.GetById(insert.PublisherDtoGuid);

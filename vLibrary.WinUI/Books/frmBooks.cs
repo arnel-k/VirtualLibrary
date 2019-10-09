@@ -67,9 +67,6 @@ namespace vLibrary.WinUI.Books
                 var repsonse = await apiService.Delete<BookDto>(id);
                 if (repsonse != null)
                 {
-                    //Int32 rowToDelete = dgvAuthors.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-                    //dgvAuthors.Rows.RemoveAt(rowToDelete);
-                    //dgvAuthors.ClearSelection();
                     GetSearchData();
                     dgvBooks.Update();
                     dgvBooks.Refresh();

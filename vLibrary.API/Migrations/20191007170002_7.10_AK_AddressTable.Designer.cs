@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vLibrary.API.Context;
 
 namespace vLibrary.API.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20191007170002_7.10_AK_AddressTable")]
+    partial class _710_AK_AddressTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -454,7 +456,7 @@ namespace vLibrary.API.Migrations
                     b.HasOne("vLibrary.Api.Database.Address", "Address")
                         .WithMany("Employees")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("vLibrary.Api.Database.Library", "Library")
                         .WithMany("Employees")
@@ -480,7 +482,7 @@ namespace vLibrary.API.Migrations
                     b.HasOne("vLibrary.Api.Database.Address", "Address")
                         .WithMany("Member")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("vLibrary.Api.Database.Library", "Library")
                         .WithMany("Members")

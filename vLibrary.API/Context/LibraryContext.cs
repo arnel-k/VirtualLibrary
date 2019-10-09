@@ -37,10 +37,16 @@ namespace vLibrary.API.Context
             modelBuilder.Entity<Book_Author>().HasOne(a => a.Author).WithMany(ba => ba.Book_Authors).HasForeignKey(a => a.AuthorId);
             modelBuilder.Entity<BookLeading>().HasKey(k => new { k.MemberId, k.BookId });
             modelBuilder.Entity<Account>().Property(r => r.Role).HasConversion(v => v.ToString(), v => (Role)Enum.Parse(typeof(Role), v));
+            modelBuilder.Entity<Employee>().Property(g => g.Gender).HasConversion(v => v.ToString(), v => (Gender)Enum.Parse(typeof(Gender), v));
             modelBuilder.Entity<Book>().HasMany(x => x.BookLeadings).WithOne(x => x.Book).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Member>().HasMany(x => x.BookLeadings).WithOne(x => x.Member).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Category>().HasMany(x => x.Books).WithOne(x => x.Category).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Rack>().HasMany(x => x.Books).WithOne(x => x.Rack).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Library>().HasMany(x => x.Members).WithOne(x => x.Library).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Library>().HasMany(x => x.Books).WithOne(x => x.Library).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Publisher>().HasMany(x => x.Books).WithOne(x => x.Publisher).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Address>().HasMany(x => x.Employees).WithOne(x => x.Address).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Address>().HasMany(x => x.Member).WithOne(x => x.Address).OnDelete(DeleteBehavior.Restrict);
         }
     }
     

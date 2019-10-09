@@ -22,11 +22,6 @@ namespace vLibrary.WinUI.Publishers
         {
             InitializeComponent();
             _id = id;
-
-        }
-        public frmPublisherDetails()
-        {
-            InitializeComponent();
         }
 
         private async void frmPublisherDetails_Load(object sender, EventArgs e)
@@ -75,7 +70,7 @@ namespace vLibrary.WinUI.Publishers
                 else
                 {
                     response = await _service.Insert<PublisherDto>(request);
-                    DialogResult dialogInsert = MessageBox.Show("Author details saved!\nAdd new author?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult dialogInsert = MessageBox.Show("Publisher details saved!\nAdd new author?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (response != null)
                     {
                         if (dialogInsert == DialogResult.Yes)

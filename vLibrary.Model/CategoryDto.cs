@@ -7,6 +7,7 @@ namespace vLibrary.Model
     public class CategoryDto : Entity
     {
         public string CategoryName { get; set; }
-        
+        public ICollection<BookDto> BookDtos { get; set; }
+
     }
 }

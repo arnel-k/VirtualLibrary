@@ -87,18 +87,22 @@ namespace vLibrary.WinUI.Address
         {
             var id = dgvAddress.SelectedRows[0].Cells[0].Value;
             DialogResult dialogResult = MessageBox.Show("Do you wan't to remove it?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes)
+            try
             {
-                var repsonse = await apiService.Delete<AddressDto>(id);
-                if (repsonse != null)
+                if (dialogResult == DialogResult.Yes)
                 {
-                    //Int32 rowToDelete = dgvAuthors.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-                    //dgvAuthors.Rows.RemoveAt(rowToDelete);
-                    //dgvAuthors.ClearSelection();
-                    GetSearchData();
-                    dgvAddress.Update();
-                    dgvAddress.Refresh();
+                    var repsonse = await apiService.Delete<AddressDto>(id);
+                    if (repsonse != null)
+                    {
+                        GetSearchData();
+                        dgvAddress.Update();
+                        dgvAddress.Refresh();
+                    }
                 }
+            }
+            catch
+            {
+                MessageBox.Show($"The record is used in a relation, it can't be deleted!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
