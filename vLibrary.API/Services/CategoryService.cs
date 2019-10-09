@@ -23,11 +23,11 @@ namespace vLibrary.API.Services
             if (!string.IsNullOrWhiteSpace(request?.CategoryName))
             {
                 query = query.Where(x => x.CategoryName.StartsWith(request.CategoryName));
-
+                
             }
 
-            var libraries = await query.ToListAsync();
-            return _mapper.Map<List<CategoryDto>>(libraries);
+            var categories = await query.ToListAsync();
+            return _mapper.Map<List<CategoryDto>>(categories);
         }
     }
 }

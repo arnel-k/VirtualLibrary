@@ -16,10 +16,7 @@ namespace vLibrary.Model.Requests
         [MinLength(3)]
         [MaxLength(50)]
         public string City { get; set; }
-        [Required(ErrorMessage = "Country required !")]
-        [MinLength(3)]
-        [MaxLength(50)]
-        public string Country { get; set; }
+        
         [Required(ErrorMessage = "Zip Code required !")]
         [MinLength(3)]
         [MaxLength(50)]

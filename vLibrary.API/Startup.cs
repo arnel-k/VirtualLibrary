@@ -110,6 +110,7 @@ namespace vLibrary.API
             services.AddScoped<IRackRepository<Rack>, RackRepository>();
             services.AddScoped<IPublisherRepository<Publisher>, PublisherRepository>();
             services.AddScoped<IMemberRepository<Member>, MemberRepository>();
+            services.AddScoped<IEmployeeRepository<Employee>, EmployeeRepository>();
 
             services.AddScoped<ICRUDService<AuthorDto, AuthorsSearchRequest, AuthorInsertRequest, AuthorUpdateRequest>,AuthorService>();
             services.AddScoped<ICRUDService<AddressDto,AddressSearchRequest,AddressUpsertRequest,AddressUpsertRequest>,AddressService>();
@@ -119,6 +120,7 @@ namespace vLibrary.API
             services.AddScoped<ICRUDService<RackDto, RackSearchRequest, RackUpsertRequest, RackUpsertRequest>, RackService>();
             services.AddScoped<ICRUDService<PublisherDto, PublisherSearchRequest, PublisherUpsertRequest, PublisherUpsertRequest>, PublisherService>();
             services.AddScoped<ICRUDService<MemberDto, MemberSearchRequest, MemberUpsertRequests, MemberUpsertRequests>, MemberService>();
+            services.AddScoped<ICRUDService<EmployeeDto, EmployeeSearchRequest, EmployeeUpsertRequest, EmployeeUpsertRequest>, EmployeeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

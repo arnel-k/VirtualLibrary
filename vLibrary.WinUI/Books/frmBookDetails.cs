@@ -249,7 +249,7 @@ namespace vLibrary.WinUI.Books
                 {
                     
                     response = await _bookService.Insert<BookDto>(request);
-                    DialogResult dialogInsert = MessageBox.Show("Book details saved!\nAdd new author?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult dialogInsert = MessageBox.Show("Book details saved!\nAdd new book?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (response != null)
                     {
                         if (dialogInsert == DialogResult.Yes)

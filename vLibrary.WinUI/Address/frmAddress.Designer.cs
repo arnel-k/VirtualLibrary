@@ -32,16 +32,15 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvAddress = new System.Windows.Forms.DataGridView();
-            this.AddressId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Street = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.City = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Country = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ZipCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsDeleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.btnSearch = new System.Windows.Forms.Button();
             this.ctxMenuAddress = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.updateToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddressId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Street = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.City = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ZipCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsDeleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAddress)).BeginInit();
             this.ctxMenuAddress.SuspendLayout();
@@ -80,7 +79,6 @@
             this.AddressId,
             this.Street,
             this.City,
-            this.Country,
             this.ZipCode,
             this.IsDeleted});
             this.dgvAddress.Location = new System.Drawing.Point(3, 16);
@@ -91,56 +89,6 @@
             this.dgvAddress.TabIndex = 0;
             this.dgvAddress.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvAddress_CellMouseDown);
             this.dgvAddress.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DgvAddress_MouseDoubleClick);
-            // 
-            // AddressId
-            // 
-            this.AddressId.DataPropertyName = "Guid";
-            this.AddressId.HeaderText = "AddressId";
-            this.AddressId.Name = "AddressId";
-            this.AddressId.ReadOnly = true;
-            this.AddressId.Visible = false;
-            // 
-            // Street
-            // 
-            this.Street.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Street.DataPropertyName = "Street";
-            this.Street.HeaderText = "Street";
-            this.Street.Name = "Street";
-            this.Street.ReadOnly = true;
-            // 
-            // City
-            // 
-            this.City.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.City.DataPropertyName = "City";
-            this.City.HeaderText = "City";
-            this.City.Name = "City";
-            this.City.ReadOnly = true;
-            // 
-            // Country
-            // 
-            this.Country.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Country.DataPropertyName = "Country";
-            this.Country.HeaderText = "Country";
-            this.Country.Name = "Country";
-            this.Country.ReadOnly = true;
-            // 
-            // ZipCode
-            // 
-            this.ZipCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ZipCode.DataPropertyName = "ZipCode";
-            this.ZipCode.HeaderText = "Zip Code";
-            this.ZipCode.Name = "ZipCode";
-            this.ZipCode.ReadOnly = true;
-            // 
-            // IsDeleted
-            // 
-            this.IsDeleted.DataPropertyName = "IsDeleted";
-            this.IsDeleted.HeaderText = "IsDeleted";
-            this.IsDeleted.Name = "IsDeleted";
-            this.IsDeleted.ReadOnly = true;
-            this.IsDeleted.ThreeState = true;
-            this.IsDeleted.Visible = false;
-            this.IsDeleted.Width = 182;
             // 
             // btnSearch
             // 
@@ -174,6 +122,48 @@
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.DeleteToolStripMenuItem1_Click);
             // 
+            // AddressId
+            // 
+            this.AddressId.DataPropertyName = "Guid";
+            this.AddressId.HeaderText = "AddressId";
+            this.AddressId.Name = "AddressId";
+            this.AddressId.ReadOnly = true;
+            this.AddressId.Visible = false;
+            // 
+            // Street
+            // 
+            this.Street.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Street.DataPropertyName = "Street";
+            this.Street.HeaderText = "Street";
+            this.Street.Name = "Street";
+            this.Street.ReadOnly = true;
+            // 
+            // City
+            // 
+            this.City.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.City.DataPropertyName = "City";
+            this.City.HeaderText = "City";
+            this.City.Name = "City";
+            this.City.ReadOnly = true;
+            // 
+            // ZipCode
+            // 
+            this.ZipCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ZipCode.DataPropertyName = "ZipCode";
+            this.ZipCode.HeaderText = "Zip Code";
+            this.ZipCode.Name = "ZipCode";
+            this.ZipCode.ReadOnly = true;
+            // 
+            // IsDeleted
+            // 
+            this.IsDeleted.DataPropertyName = "IsDeleted";
+            this.IsDeleted.HeaderText = "IsDeleted";
+            this.IsDeleted.Name = "IsDeleted";
+            this.IsDeleted.ReadOnly = true;
+            this.IsDeleted.ThreeState = true;
+            this.IsDeleted.Visible = false;
+            this.IsDeleted.Width = 182;
+            // 
             // frmAddress
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,14 +189,13 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvAddress;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AddressId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Street;
-        private System.Windows.Forms.DataGridViewTextBoxColumn City;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Country;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ZipCode;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn IsDeleted;
         private System.Windows.Forms.ContextMenuStrip ctxMenuAddress;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AddressId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Street;
+        private System.Windows.Forms.DataGridViewTextBoxColumn City;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ZipCode;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsDeleted;
     }
 }

@@ -25,6 +25,7 @@ namespace vLibrary.API.Mappers
                .ForMember(dest => dest.RackNumber, opt => opt.MapFrom(src=>src.Rack.RackNumber))
                .ForMember(dest => dest.RackLocation, opt => opt.MapFrom(src=>src.Rack.LocationIdentification));
 
+
             CreateMap<Book, BookUpsertRequest>().ReverseMap();
             CreateMap<Book, BookInsertRequest>().ReverseMap();
 
@@ -43,6 +44,12 @@ namespace vLibrary.API.Mappers
 
             CreateMap<Member, MemberDto>();
             CreateMap<Member, MemberSearchRequest>();
+
+            CreateMap<Employee, EmployeeDto>()
+                .ForMember(dest => dest.AddressDtoGuid, opt => opt.MapFrom(src => src.Address.Guid))
+                .ForMember(dest => dest.LibraryDtoGuid, opt => opt.MapFrom(src => src.Library.Guid));
+            CreateMap<Employee, EmployeeUpsertRequest>().ReverseMap();
+            CreateMap<Employee, EmployeeInsertRequest>().ReverseMap();
             
         }
     }

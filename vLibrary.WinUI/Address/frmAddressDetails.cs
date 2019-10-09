@@ -32,7 +32,7 @@ namespace vLibrary.WinUI.Address
                 txtStreet.Text = address.Street;
                 txtCity.Text = address.City;
                 txtZipCode.Text = address.ZipCode;
-                txtCoutry.Text = address.Country;
+                
             }
         }
 
@@ -47,7 +47,6 @@ namespace vLibrary.WinUI.Address
                 {
                     Street = txtStreet.Text,
                     City = txtCity.Text,
-                    Country = txtCity.Text,
                     ZipCode = txtZipCode.Text
                 };
 
@@ -82,7 +81,7 @@ namespace vLibrary.WinUI.Address
                             txtStreet.Clear();
                             txtCity.Clear();
                             txtZipCode.Clear();
-                            txtCoutry.Clear();
+                            
                         }
                         else if (dialogInsert == DialogResult.No)
                         {
@@ -108,10 +107,7 @@ namespace vLibrary.WinUI.Address
             HelperMethods.Helper.TextBoxValidation(sender, e, errorProvider, txtZipCode);
         }
 
-        private void TxtCoutry_Validating(object sender, CancelEventArgs e)
-        {
-            HelperMethods.Helper.TextBoxValidation(sender, e, errorProvider, txtCoutry);
-        }
+      
 
         private void FrmAddressDetails_FormClosing(object sender, FormClosingEventArgs e)
         {

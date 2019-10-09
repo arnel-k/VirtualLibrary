@@ -10,6 +10,10 @@ using System.Windows.Forms;
 using vLibrary.WinUI.Address;
 using vLibrary.WinUI.Authors;
 using vLibrary.WinUI.Books;
+using vLibrary.WinUI.Categories;
+using vLibrary.WinUI.Employee;
+using vLibrary.WinUI.Publishers;
+using vLibrary.WinUI.Racks;
 
 namespace vLibrary.WinUI
 {
@@ -156,6 +160,63 @@ namespace vLibrary.WinUI
         private void AddNewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmBookDetails frm = new frmBookDetails();
+            frm.MdiParent = this;
+            frm.LoadDataIntoInsertForm();
+            frm.Show();
+        }
+
+        private void searchToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            frmPublishers frm = new frmPublishers();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void newBookToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmPublisherDetails frm = new frmPublisherDetails();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void searchToolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            frmCategories frm = new frmCategories();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void newCategoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCategoryDetails frm = new frmCategoryDetails();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void searchToolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            frmRacks frm = new frmRacks();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void newRackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmRackDetails frm = new frmRackDetails();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void searchToolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            frmEmployees frm = new frmEmployees();
+            frm.MdiParent = this;
+            frm.Show();
+        }
+
+        private void newEmployeeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmEmplyeeDetails frm = new frmEmplyeeDetails();
             frm.MdiParent = this;
             frm.LoadDataIntoInsertForm();
             frm.Show();

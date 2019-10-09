@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vLibrary.API", "vLibrary.AP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vLibrary.WinUI", "vLibrary.WinUI\vLibrary.WinUI.csproj", "{D44DA7A3-09CB-4AB2-9288-4D93905959F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vLibrary.Model", "vLibrary.Model\vLibrary.Model.csproj", "{4990835F-DEBB-45F9-ADFA-132906AC7A93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vLibrary.Model", "vLibrary.Model\vLibrary.Model.csproj", "{4990835F-DEBB-45F9-ADFA-132906AC7A93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

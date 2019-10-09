@@ -53,8 +53,6 @@ namespace vLibrary.API.Migrations
 
                     b.Property<string>("City");
 
-                    b.Property<string>("Country");
-
                     b.Property<Guid>("Guid");
 
                     b.Property<bool>("IsDeleted");
@@ -203,7 +201,8 @@ namespace vLibrary.API.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<int>("Gender");
+                    b.Property<string>("Gender")
+                        .IsRequired();
 
                     b.Property<Guid>("Guid");
 
@@ -407,17 +406,17 @@ namespace vLibrary.API.Migrations
                     b.HasOne("vLibrary.Api.Database.Library", "Library")
                         .WithMany("Books")
                         .HasForeignKey("LibraryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("vLibrary.Api.Database.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("vLibrary.Api.Database.Rack", "Rack")
                         .WithMany("Books")
                         .HasForeignKey("RackId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("vLibrary.Api.Database.BookLeading", b =>
@@ -455,7 +454,7 @@ namespace vLibrary.API.Migrations
                     b.HasOne("vLibrary.Api.Database.Address", "Address")
                         .WithMany("Employees")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("vLibrary.Api.Database.Library", "Library")
                         .WithMany("Employees")
@@ -481,7 +480,7 @@ namespace vLibrary.API.Migrations
                     b.HasOne("vLibrary.Api.Database.Address", "Address")
                         .WithMany("Member")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("vLibrary.Api.Database.Library", "Library")
                         .WithMany("Members")

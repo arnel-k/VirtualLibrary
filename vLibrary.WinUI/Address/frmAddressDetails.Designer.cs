@@ -36,15 +36,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtStreet = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtCoutry = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(238, 281);
+            this.btnSave.Location = new System.Drawing.Point(238, 245);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 17;
@@ -103,23 +101,6 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Street:";
             // 
-            // txtCoutry
-            // 
-            this.txtCoutry.Location = new System.Drawing.Point(73, 216);
-            this.txtCoutry.Name = "txtCoutry";
-            this.txtCoutry.Size = new System.Drawing.Size(240, 20);
-            this.txtCoutry.TabIndex = 15;
-            this.txtCoutry.Validating += new System.ComponentModel.CancelEventHandler(this.TxtCoutry_Validating);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(70, 199);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 13);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Country";
-            // 
             // errorProvider
             // 
             this.errorProvider.ContainerControl = this;
@@ -128,9 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(386, 384);
-            this.Controls.Add(this.txtCoutry);
-            this.Controls.Add(this.label4);
+            this.ClientSize = new System.Drawing.Size(386, 332);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtZipCode);
             this.Controls.Add(this.label3);
@@ -161,8 +140,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtStreet;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtCoutry;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }
