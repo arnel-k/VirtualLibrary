@@ -23,6 +23,7 @@ namespace vLibrary.WinUI.Employee
         private readonly ApiService _employeeService = new ApiService("employee");
         private readonly ApiService _libraryService = new ApiService("library");
         private readonly ApiService _addressService = new ApiService("address");
+        private readonly ApiService _accountService = new ApiService("account");
         private bool _addButtonWasClicked = false;
         private Byte[] image;
         public frmEmplyeeDetails(Guid? id = null, Guid? addressId = null)
@@ -118,14 +119,17 @@ namespace vLibrary.WinUI.Employee
             EmployeeDto response = null;
             EmployeeDto employee = null;
             AddressDto addressResponse = null;
+            AccountDto accountResponse = null;
             if (_id.HasValue)
             {
                 employee = await _employeeService.GetById<EmployeeDto>(_id);
             }
             var libraries = await _libraryService.Get<List<LibraryDto>>(null);
             var addresses = await _libraryService.Get<List<AddressDto>>(null);
+            
             var request = new EmployeeUpsertRequest();
             var address = new AddressUpsertRequest();
+            var account = new AccountUpsertRequest();
             if (this.ValidateChildren())
             {
 
@@ -150,6 +154,18 @@ namespace vLibrary.WinUI.Employee
                     address.Street = txtStreet.Text;
                     address.City = txtCity.Text;
                     address.ZipCode = txtZipCode.Text;
+                    account.UserName = txtUserName.Text;
+                    if(txtPassword.Text == txtPsswdConfirm.Text)
+                    {
+                        account.Password = txtPassword.Text;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Password is not the same!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    account.Role = Role.Librarian;
+                    account.AccountStatus = AccountStatus.Active;
+                    
                     if (_addressId.HasValue)
                     {
                         try
@@ -209,7 +225,7 @@ namespace vLibrary.WinUI.Employee
 
                 else
                 {
-                   
+                    accountResponse = await _accountService.Insert<AccountDto>(account);
                     response = await _employeeService.Insert<EmployeeDto>(request);
                     DialogResult dialogInsert = MessageBox.Show("Employee details saved!\nAdd new employee?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (response != null)
@@ -223,6 +239,10 @@ namespace vLibrary.WinUI.Employee
                             txtStreet.Clear();
                             txtCity.Clear();
                             txtZipCode.Clear();
+                            txtUserName.Clear();
+                            txtPassword.Clear();
+                            txtPsswdConfirm.Clear();
+
                         }
                         else if (dialogInsert == DialogResult.No)
                         {
@@ -303,6 +323,21 @@ namespace vLibrary.WinUI.Employee
                 MessageBox.Show("You can only type numbers!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void txtPassword_Validating(object sender, CancelEventArgs e)
+        {
+            HelperMethods.Helper.TextBoxValidation(sender, e, errorEmployeeDetailsProvider, txtPassword);
+        }
+
+        private void txtPsswdConfirm_Validating(object sender, CancelEventArgs e)
+        {
+            HelperMethods.Helper.TextBoxValidation(sender, e, errorEmployeeDetailsProvider, txtPsswdConfirm);
+        }
+
+        private void txtUserName_Validating(object sender, CancelEventArgs e)
+        {
+            HelperMethods.Helper.TextBoxValidation(sender, e, errorEmployeeDetailsProvider, txtUserName);
         }
     }
 

@@ -67,7 +67,7 @@ namespace vLibrary.API
 
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
-            /*services.AddAuthentication(x =>
+            services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -78,10 +78,11 @@ namespace vLibrary.API
                     {
                         OnTokenValidated = ctx =>
                         {
-                            var userService = ctx.HttpContext.RequestServices.GetRequiredService<>();
-                            var userId = int.Parse(ctx.Principal.Identity.Name);
-                            var user = userService.GetById(userId);
-                            if (user == null)
+                            //Testirat kako radi
+                            var accountService = ctx.HttpContext.RequestServices.GetRequiredService<ICRUDService<AccountDto, AccountSearchRequest, AccountUpsertRequest, AccountUpsertRequest>>();
+                            var accountId = Guid.Parse(ctx.Principal.Identity.Name);
+                            var account = accountService.GetById(accountId);
+                            if (account == null)
                             {
                                 //neautorizovan ako korisnik vise ne postoji
                                 ctx.Fail("Unautohrized");
@@ -98,7 +99,7 @@ namespace vLibrary.API
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
-                });*/
+                });
             //Izmjenit
             
             
@@ -111,6 +112,7 @@ namespace vLibrary.API
             services.AddScoped<IPublisherRepository<Publisher>, PublisherRepository>();
             services.AddScoped<IMemberRepository<Member>, MemberRepository>();
             services.AddScoped<IEmployeeRepository<Employee>, EmployeeRepository>();
+            services.AddScoped<IAccountRepository<Account>, AccountRepository>();
 
             services.AddScoped<ICRUDService<AuthorDto, AuthorsSearchRequest, AuthorInsertRequest, AuthorUpdateRequest>,AuthorService>();
             services.AddScoped<ICRUDService<AddressDto,AddressSearchRequest,AddressUpsertRequest,AddressUpsertRequest>,AddressService>();
@@ -121,6 +123,8 @@ namespace vLibrary.API
             services.AddScoped<ICRUDService<PublisherDto, PublisherSearchRequest, PublisherUpsertRequest, PublisherUpsertRequest>, PublisherService>();
             services.AddScoped<ICRUDService<MemberDto, MemberSearchRequest, MemberUpsertRequests, MemberUpsertRequests>, MemberService>();
             services.AddScoped<ICRUDService<EmployeeDto, EmployeeSearchRequest, EmployeeUpsertRequest, EmployeeUpsertRequest>, EmployeeService>();
+            services.AddScoped<ICRUDService<AccountDto, AccountSearchRequest, AccountUpsertRequest, AccountUpsertRequest>, AccountService>();
+            services.AddScoped<IAccountService<AccountDto, AccountSearchRequest>, AccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -140,7 +144,7 @@ namespace vLibrary.API
                 .AllowAnyMethod()
                 .AllowAnyHeader());
             app.UseHttpsRedirection();
-            //app.UseAuthentication();
+            app.UseAuthentication();
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "vLibrary"));

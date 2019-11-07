@@ -27,5 +27,7 @@ namespace vLibrary.Model.Requests
         public int AddressId { get; set; }
         [Required(ErrorMessage = "Library is required!")]
         public int LibraryId { get; set; }
+        [Required(ErrorMessage = "Account is required!")]
+        public int AccountId { get; set; }
     }
 }

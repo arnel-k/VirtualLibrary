@@ -10,9 +10,8 @@ namespace vLibrary.Model
 
     public class AccountDto : Entity
     {
-        
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
+
+        public string Username { get; set; }
         public Role Role { get; set; }
         public AccountStatus AccountStatus { get; set; }
         

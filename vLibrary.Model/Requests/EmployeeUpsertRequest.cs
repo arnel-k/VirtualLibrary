@@ -26,5 +26,8 @@ namespace vLibrary.Model.Requests
         
         [Required(ErrorMessage = "Library is required!")]
         public Guid LibraryDtoGuid { get; set; }
+
+        [Required(ErrorMessage = "Account is required!")]
+        public Guid AccountDtoGuid { get; set; }
     }
 }

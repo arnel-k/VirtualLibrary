@@ -55,17 +55,27 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtStreet = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtPsswdConfirm = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtUserName = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.grpEmployeePicture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingGender)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorEmployeeDetailsProvider)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.grpAddress.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddImage
             // 
-            this.btnAddImage.Location = new System.Drawing.Point(606, 288);
+            this.btnAddImage.Location = new System.Drawing.Point(638, 298);
             this.btnAddImage.Name = "btnAddImage";
             this.btnAddImage.Size = new System.Drawing.Size(75, 23);
             this.btnAddImage.TabIndex = 35;
@@ -78,7 +88,7 @@
             this.grpEmployeePicture.Controls.Add(this.pictureBox1);
             this.grpEmployeePicture.Location = new System.Drawing.Point(441, 39);
             this.grpEmployeePicture.Name = "grpEmployeePicture";
-            this.grpEmployeePicture.Size = new System.Drawing.Size(240, 193);
+            this.grpEmployeePicture.Size = new System.Drawing.Size(272, 237);
             this.grpEmployeePicture.TabIndex = 36;
             this.grpEmployeePicture.TabStop = false;
             this.grpEmployeePicture.Text = "Employee Picture";
@@ -87,13 +97,13 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(25, 29);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(194, 147);
+            this.pictureBox1.Size = new System.Drawing.Size(223, 184);
             this.pictureBox1.TabIndex = 32;
             this.pictureBox1.TabStop = false;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(606, 688);
+            this.btnSave.Location = new System.Drawing.Point(638, 687);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 39;
@@ -296,11 +306,90 @@
             this.label9.Text = "Street: ";
             this.label9.UseCompatibleTextRendering = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.txtPsswdConfirm);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.txtPassword);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Location = new System.Drawing.Point(412, 455);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(301, 175);
+            this.groupBox2.TabIndex = 51;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Password";
+            // 
+            // txtPsswdConfirm
+            // 
+            this.txtPsswdConfirm.Location = new System.Drawing.Point(29, 90);
+            this.txtPsswdConfirm.Name = "txtPsswdConfirm";
+            this.txtPsswdConfirm.Size = new System.Drawing.Size(240, 20);
+            this.txtPsswdConfirm.TabIndex = 56;
+            this.txtPsswdConfirm.Validating += new System.ComponentModel.CancelEventHandler(this.txtPsswdConfirm_Validating);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(26, 73);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(117, 13);
+            this.label10.TabIndex = 55;
+            this.label10.Text = "Password Confirmation:";
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(29, 41);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(240, 20);
+            this.txtPassword.TabIndex = 54;
+            this.txtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txtPassword_Validating);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(26, 24);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(57, 17);
+            this.label11.TabIndex = 53;
+            this.label11.Text = "Password:";
+            this.label11.UseCompatibleTextRendering = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.txtUserName);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Location = new System.Drawing.Point(412, 328);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(301, 100);
+            this.groupBox3.TabIndex = 52;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Username";
+            // 
+            // txtUserName
+            // 
+            this.txtUserName.Location = new System.Drawing.Point(29, 44);
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.Size = new System.Drawing.Size(240, 20);
+            this.txtUserName.TabIndex = 56;
+            this.txtUserName.Validating += new System.ComponentModel.CancelEventHandler(this.txtUserName_Validating);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(26, 27);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(60, 17);
+            this.label12.TabIndex = 55;
+            this.label12.Text = "Username:";
+            this.label12.UseCompatibleTextRendering = true;
+            // 
             // frmEmplyeeDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(758, 736);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.grpAddress);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSave);
@@ -322,6 +411,10 @@
             this.groupBox1.PerformLayout();
             this.grpAddress.ResumeLayout(false);
             this.grpAddress.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -353,5 +446,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtFName;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txtPsswdConfirm;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox txtUserName;
+        private System.Windows.Forms.Label label12;
     }
 }

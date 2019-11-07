@@ -14,6 +14,7 @@ namespace vLibrary.Model
         public Gender Gender { get; set; }
         public Guid AddressDtoGuid { get; set; }
         public Guid LibraryDtoGuid { get; set; }
-        
+        public Guid AccountDtoGuid { get; set; }
+
     }
 }
