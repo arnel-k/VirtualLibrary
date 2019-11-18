@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,12 +10,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
+using vLibrary.WinUI.HelperMethods;
 
 namespace vLibrary.WinUI.Racks
 {
     public partial class frmRacks : Form
     {
         private readonly ApiService _apiService = new ApiService("rack");
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
         public frmRacks()
         {
             InitializeComponent();
@@ -34,7 +37,7 @@ namespace vLibrary.WinUI.Racks
                 RackNumber = txtSearch.Text
             };
             dgvRacks.AutoGenerateColumns = false;
-            dgvRacks.DataSource = await _apiService.Get<List<RackDto>>(search);
+            dgvRacks.DataSource = await _apiService.Get<List<RackDto>>(search, token);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -50,7 +53,7 @@ namespace vLibrary.WinUI.Racks
             {
                 if (dialogResult == DialogResult.Yes)
                 {
-                    var repsonse = await _apiService.Delete<RackDto>(id);
+                    var repsonse = await _apiService.Delete<RackDto>(id, token);
 
                     if (repsonse != null)
                     {

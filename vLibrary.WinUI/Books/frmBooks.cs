@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,13 +10,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
+using vLibrary.WinUI.HelperMethods;
 
 namespace vLibrary.WinUI.Books
 {
     public partial class frmBooks : Form
     {
         private readonly ApiService apiService = new ApiService("book");
-
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
         public DataGridView DG
         {
             get
@@ -46,7 +48,7 @@ namespace vLibrary.WinUI.Books
                 Title = txtSearch.Text
             };
             dgvBooks.AutoGenerateColumns = false;
-            var response = await apiService.Get<List<BookDto>>(search);
+            var response = await apiService.Get<List<BookDto>>(search, token);
             dgvBooks.DataSource = response;
 
            
@@ -64,7 +66,7 @@ namespace vLibrary.WinUI.Books
             DialogResult dialogResult = MessageBox.Show("Do you wan't to remove it?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
-                var repsonse = await apiService.Delete<BookDto>(id);
+                var repsonse = await apiService.Delete<BookDto>(id, token);
                 if (repsonse != null)
                 {
                     GetSearchData();

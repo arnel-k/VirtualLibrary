@@ -15,10 +15,12 @@ namespace vLibrary.API.Services
     {
         private readonly IAddressRepository<Address> _addressRepository;
         private readonly ILibraryRepository<Library> _libraryRepository;
-        public EmployeeService(IEmployeeRepository<Employee> repo, IAddressRepository<Address> addressRepository, ILibraryRepository<Library> libraryRepository,IMapper mapper) : base(repo, mapper)
+        private readonly IAccountRepository<Account> _accountRepository;
+        public EmployeeService(IEmployeeRepository<Employee> repo, IAccountRepository<Account> accountRepository, IAddressRepository<Address> addressRepository, ILibraryRepository<Library> libraryRepository,IMapper mapper) : base(repo, mapper)
         {
             _addressRepository = addressRepository;
             _libraryRepository = libraryRepository;
+            _accountRepository = accountRepository;
         }
 
         public override async Task<IEnumerable<EmployeeDto>> Get(EmployeeSearchRequest request)
@@ -29,13 +31,13 @@ namespace vLibrary.API.Services
                 query = query.Where(x => x.FirstName.StartsWith(request.EmployeeName));
 
             }
-            var employees = await query.Include(a => a.Address).Include(l => l.Library).ToListAsync();
+            var employees = await query.Include(ac=>ac.Account).Include(a => a.Address).Include(l => l.Library).ToListAsync();
             return _mapper.Map<List<EmployeeDto>>(employees);
         }
 
         public override async Task<EmployeeDto> GetById(Guid guid)
         {
-            var employee = await _repo.GetAsQueryable().Where(e => e.Guid == guid).Include(a => a.Address).Include(l => l.Library).FirstOrDefaultAsync();
+            var employee = await _repo.GetAsQueryable().Where(e => e.Guid == guid).Include(ac=>ac.Account).Include(a => a.Address).Include(l => l.Library).FirstOrDefaultAsync();
             return _mapper.Map<EmployeeDto>(employee);
 
         }
@@ -45,13 +47,15 @@ namespace vLibrary.API.Services
             var guid = Guid.NewGuid();
             var library = await _libraryRepository.GetById(insert.LibraryDtoGuid);
             var address = await _addressRepository.GetById(insert.AddressDtoGuid);
-            //var account = await _accountRepository.
+            var account = await _accountRepository.GetById(insert.AccountDtoGuid);
+          
 
             ///TODO: add accountid 
             var toInsert = new EmployeeInsertRequest
             {
                 Guid = guid,
                 BirthDate = insert.BirthDate,
+                AccountId = account.Id,
                 AddressId = address.Id,
                 LibraryId = library.Id,
                 FirstName = insert.FirstName,
@@ -83,13 +87,14 @@ namespace vLibrary.API.Services
 
             var library = await _libraryRepository.GetById(update.LibraryDtoGuid);
             var address = await _addressRepository.GetById(update.AddressDtoGuid);
-
+            var account = await _addressRepository.GetById(update.AccountDtoGuid);
             var toInsert = new EmployeeInsertRequest
             {
                 Guid = guid,
                 BirthDate = update.BirthDate.Value,
                 AddressId = address.Id,
                 LibraryId = library.Id,
+                AccountId = account.Id,   ///TODO: check 
                 FirstName = update.FirstName,
                 LastName = update.LastName,
                 Gender = update.Gender,

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
+using vLibrary.WinUI.HelperMethods;
 
 namespace vLibrary.WinUI.Publishers
 {
@@ -17,7 +19,7 @@ namespace vLibrary.WinUI.Publishers
         private Guid? _id = null;
         private readonly ApiService _service = new ApiService("publisher");
         private frmPublishers _frmPublishers = (frmPublishers)Application.OpenForms["frmPublishers"];
-
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
         public frmPublisherDetails(Guid? id = null)
         {
             InitializeComponent();
@@ -28,7 +30,7 @@ namespace vLibrary.WinUI.Publishers
         {
             if (_id.HasValue)
             {
-                var publisher = await _service.GetById<Model.PublisherDto>(_id);
+                var publisher = await _service.GetById<Model.PublisherDto>(_id, token);
                 txtPublisherName.Text = publisher.PublisherName;
                 txtDescription.Text = publisher.Description;
             }
@@ -49,7 +51,7 @@ namespace vLibrary.WinUI.Publishers
 
                 if (_id.HasValue)
                 {
-                    response = await _service.Update<PublisherDto>(_id, request);
+                    response = await _service.Update<PublisherDto>(_id, request, token);
                     DialogResult dialogUpdate = MessageBox.Show("Publisher details updated!", "Conforamtion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (response != null)
                     {
@@ -69,7 +71,7 @@ namespace vLibrary.WinUI.Publishers
 
                 else
                 {
-                    response = await _service.Insert<PublisherDto>(request);
+                    response = await _service.Insert<PublisherDto>(request, token);
                     DialogResult dialogInsert = MessageBox.Show("Publisher details saved!\nAdd new author?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (response != null)
                     {

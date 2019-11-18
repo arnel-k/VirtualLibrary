@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,13 +10,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
+using vLibrary.WinUI.HelperMethods;
 
 namespace vLibrary.WinUI.Employee
 {
     public partial class frmEmployees : Form
     {
         private readonly ApiService apiService = new ApiService("employee");
-
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
         public DataGridView DG
         {
             get
@@ -36,7 +38,7 @@ namespace vLibrary.WinUI.Employee
                 EmployeeName = txtSearch.Text
             };
             dgvEmployees.AutoGenerateColumns = false;
-            var response = await apiService.Get<List<EmployeeDto>>(search);
+            var response = await apiService.Get<List<EmployeeDto>>(search, token);
             dgvEmployees.DataSource = response;
 
 
@@ -56,7 +58,7 @@ namespace vLibrary.WinUI.Employee
             {
                 if (dialogResult == DialogResult.Yes)
                 {
-                    var repsonse = await apiService.Delete<EmployeeDto>(id);
+                    var repsonse = await apiService.Delete<EmployeeDto>(id, token);
                     if (repsonse != null)
                     {
 

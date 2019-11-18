@@ -6,6 +6,7 @@ namespace vLibrary.Api.Database.Enums
 {
     public enum Role
     {
+        
         Librarian = 1,
         Member = 2
     }

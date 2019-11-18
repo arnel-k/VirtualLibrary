@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
+using vLibrary.WinUI.HelperMethods;
 
 namespace vLibrary.WinUI.Categories
 {
@@ -17,6 +19,7 @@ namespace vLibrary.WinUI.Categories
         private Guid? _id = null;
         private readonly ApiService _service = new ApiService("category");
         private frmCategories _frmCategories = (frmCategories)Application.OpenForms["frmCategories"];
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
         public frmCategoryDetails(Guid? id = null)
         {
             InitializeComponent();
@@ -29,7 +32,7 @@ namespace vLibrary.WinUI.Categories
         {
             if (_id.HasValue)
             {
-                var category = await _service.GetById<Model.CategoryDto>(_id);
+                var category = await _service.GetById<Model.CategoryDto>(_id, token);
                 txtCategoryName.Text = category.CategoryName;
                 
             }
@@ -49,7 +52,7 @@ namespace vLibrary.WinUI.Categories
 
                 if (_id.HasValue)
                 {
-                    response = await _service.Update<CategoryDto>(_id, request);
+                    response = await _service.Update<CategoryDto>(_id, request, token);
                     DialogResult dialogUpdate = MessageBox.Show("Category details updated!", "Conforamtion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (response != null)
                     {
@@ -69,7 +72,7 @@ namespace vLibrary.WinUI.Categories
 
                 else
                 {
-                    response = await _service.Insert<CategoryDto>(request);
+                    response = await _service.Insert<CategoryDto>(request, token);
                     DialogResult dialogInsert = MessageBox.Show("Category details saved!\nAdd new author?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (response != null)
                     {

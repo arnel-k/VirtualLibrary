@@ -15,7 +15,12 @@ namespace vLibrary.WinUI
             _route = route;
         }
 
-        public async Task<T> Get<T>(object search)
+        public async Task<T> Authenticate<T> (object t)
+        {
+            var url = $"{Properties.Settings.Default.APIUrl}/{_route}";
+            return await url.PostJsonAsync(t).ReceiveJson<T>();
+        }
+        public async Task<T> Get<T>(object search, string token)
         {
 
             var url = $"{Properties.Settings.Default.APIUrl}/{_route}";
@@ -25,31 +30,31 @@ namespace vLibrary.WinUI
                 url += await search.ToQueryString(); 
             }
             
-            return await url.GetJsonAsync<T>();
+            return await url.WithOAuthBearerToken(token).GetJsonAsync<T>();
         }
         
 
-        public async Task<T> GetById<T>(Guid? guid)
+        public async Task<T> GetById<T>(Guid? guid, string token)
         {
             var url = $"{Properties.Settings.Default.APIUrl}/{_route}/{guid}";
-            return await url.GetJsonAsync<T>();
+            return await url.WithOAuthBearerToken(token).GetJsonAsync<T>();
         }
 
-        public async Task<T> Insert<T>(object request)
+        public async Task<T> Insert<T>(object request, string token)
         {
             var url = $"{Properties.Settings.Default.APIUrl}/{_route}";
-            return await url.PostJsonAsync(request).ReceiveJson<T>();
+            return await url.WithOAuthBearerToken(token).PostJsonAsync(request).ReceiveJson<T>();
         }
 
-        public async Task<T> Update<T>(object id, object request)
+        public async Task<T> Update<T>(object id, object request, string token)
         {
             var url = $"{Properties.Settings.Default.APIUrl}/{_route}/{id}";
-            return await url.PutJsonAsync(request).ReceiveJson<T>();
+            return await url.WithOAuthBearerToken(token).PutJsonAsync(request).ReceiveJson<T>();
         }
-        public async Task<T> Delete<T>(object id)
+        public async Task<T> Delete<T>(object id, string token)
         {
             var url = $"{Properties.Settings.Default.APIUrl}/{_route}/{id}";
-            return await url.DeleteAsync().ReceiveJson<T>();
+            return await url.WithOAuthBearerToken(token).DeleteAsync().ReceiveJson<T>();
         }
     }
 }

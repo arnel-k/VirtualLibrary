@@ -66,7 +66,7 @@ namespace vLibrary.API.Services
             return _mapper.Map<AccountDto>(entity);
         }
 
-        ///TODO : Update, Delet
+        ///TODO : Update, Delete
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
+using vLibrary.WinUI.HelperMethods;
 using vLibrary.WinUI.Publishers;
 
 namespace vLibrary.WinUI.Categories
@@ -16,7 +18,7 @@ namespace vLibrary.WinUI.Categories
     public partial class frmCategories : Form
     {
         private readonly ApiService _apiService = new ApiService("category");
-        
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
         public frmCategories()
         {
             InitializeComponent();
@@ -36,7 +38,7 @@ namespace vLibrary.WinUI.Categories
                 CategoryName = txtSearch.Text
             };
             dgvCategories.AutoGenerateColumns = false;
-            dgvCategories.DataSource = await _apiService.Get<List<CategoryDto>>(search);
+            dgvCategories.DataSource = await _apiService.Get<List<CategoryDto>>(search, token);
         }
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -52,7 +54,7 @@ namespace vLibrary.WinUI.Categories
             {
                 if (dialogResult == DialogResult.Yes)
                 {
-                    var repsonse = await _apiService.Delete<CategoryDto>(id);
+                    var repsonse = await _apiService.Delete<CategoryDto>(id, token);
 
                     if (repsonse != null)
                     {

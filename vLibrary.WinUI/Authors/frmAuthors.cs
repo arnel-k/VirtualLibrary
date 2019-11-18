@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -11,6 +12,7 @@ using Flurl;
 using Flurl.Http;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
+using vLibrary.WinUI.HelperMethods;
 
 namespace vLibrary.WinUI.Authors
 {
@@ -18,6 +20,7 @@ namespace vLibrary.WinUI.Authors
     {
         
         private readonly ApiService apiService = new ApiService("authors");
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
         public DataGridView DG
         {
             get
@@ -60,7 +63,7 @@ namespace vLibrary.WinUI.Authors
                 FName = txtSearch.Text
             };
             dgvAuthors.AutoGenerateColumns = false;
-            dgvAuthors.DataSource = await apiService.Get<List<AuthorDto>>(search);
+            dgvAuthors.DataSource = await apiService.Get<List<AuthorDto>>(search, token);
         }
 
         private async void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -69,7 +72,7 @@ namespace vLibrary.WinUI.Authors
             DialogResult dialogResult = MessageBox.Show("Do you wan't to remove it?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if(dialogResult == DialogResult.Yes)
             {
-                var repsonse = await apiService.Delete<AuthorDto>(id);
+                var repsonse = await apiService.Delete<AuthorDto>(id, token);
                 if (repsonse != null)
                 {
                     //Int32 rowToDelete = dgvAuthors.Rows.GetFirstRow(DataGridViewElementStates.Selected);

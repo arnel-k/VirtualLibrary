@@ -15,5 +15,6 @@ namespace vLibrary.Model.Requests
         public string Password { get; set; }
         public Role Role { get; set; }
         public AccountStatus AccountStatus { get; set; }
+        
     }
 }

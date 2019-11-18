@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,12 +10,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
+using vLibrary.WinUI.HelperMethods;
 
 namespace vLibrary.WinUI.Publishers
 {
     public partial class frmPublishers : Form
     {
         private readonly ApiService _apiService = new ApiService("publisher");
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
         public frmPublishers()
         {
             InitializeComponent();
@@ -39,7 +42,7 @@ namespace vLibrary.WinUI.Publishers
                 PublisherName = txtSearch.Text
             };
             dgvPublishers.AutoGenerateColumns = false;
-            dgvPublishers.DataSource = await _apiService.Get<List<PublisherDto>>(search);
+            dgvPublishers.DataSource = await _apiService.Get<List<PublisherDto>>(search, token);
         }
 
         private async void deleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -50,7 +53,7 @@ namespace vLibrary.WinUI.Publishers
             {
                 if (dialogResult == DialogResult.Yes)
                 {
-                    var repsonse = await _apiService.Delete<PublisherDto>(id);
+                    var repsonse = await _apiService.Delete<PublisherDto>(id, token);
                     if (repsonse != null)
                     {
                         GetSearchData();

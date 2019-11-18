@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
+using vLibrary.WinUI.HelperMethods;
 
 namespace vLibrary.WinUI.Racks
 {
@@ -17,6 +19,7 @@ namespace vLibrary.WinUI.Racks
         private Guid? _id = null;
         private readonly ApiService _service = new ApiService("rack");
         private frmRacks _frmRacks = (frmRacks)Application.OpenForms["frmRacks"];
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
         public frmRackDetails(Guid? id = null)
         {
             InitializeComponent();
@@ -27,7 +30,7 @@ namespace vLibrary.WinUI.Racks
         {
             if (_id.HasValue)
             {
-                var rack = await _service.GetById<Model.RackDto>(_id);
+                var rack = await _service.GetById<Model.RackDto>(_id, token);
                 txtRackNumber.Text = rack.RackNumber.ToString();
                 txtLocationIdentification.Text = rack.LocationIdentification;
 
@@ -48,7 +51,7 @@ namespace vLibrary.WinUI.Racks
 
                 if (_id.HasValue)
                 {
-                    response = await _service.Update<RackDto>(_id, request);
+                    response = await _service.Update<RackDto>(_id, request, token);
                     DialogResult dialogUpdate = MessageBox.Show("Rack details updated!", "Conforamtion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (response != null)
                     {
@@ -68,7 +71,7 @@ namespace vLibrary.WinUI.Racks
 
                 else
                 {
-                    response = await _service.Insert<RackDto>(request);
+                    response = await _service.Insert<RackDto>(request, token);
                     DialogResult dialogInsert = MessageBox.Show("Rack details saved!\nAdd new author?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (response != null)
                     {

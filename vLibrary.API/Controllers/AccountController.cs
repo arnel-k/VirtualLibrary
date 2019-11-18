@@ -52,13 +52,8 @@ namespace vLibrary.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-
-            return Ok(new
-            {
-                Username = account.Username,
-                Role = account.Role,
-                Token = tokenString
-            });
+            account.Token = tokenString;
+            return Ok(account);
         }
 
         [AllowAnonymous]

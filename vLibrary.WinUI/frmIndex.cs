@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -12,6 +13,7 @@ using vLibrary.WinUI.Authors;
 using vLibrary.WinUI.Books;
 using vLibrary.WinUI.Categories;
 using vLibrary.WinUI.Employee;
+using vLibrary.WinUI.Login;
 using vLibrary.WinUI.Publishers;
 using vLibrary.WinUI.Racks;
 
@@ -132,7 +134,9 @@ namespace vLibrary.WinUI
 
         private void FrmIndex_Load(object sender, EventArgs e)
         {
-
+            frmLogin frm = new frmLogin();
+            frm.ShowDialog(this);
+            
         }
 
         private void SearchToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -220,6 +224,11 @@ namespace vLibrary.WinUI
             frm.MdiParent = this;
             frm.LoadDataIntoInsertForm();
             frm.Show();
+        }
+
+        private void appSettToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($"{ConfigurationManager.AppSettings["token"]}");
         }
     }
 }

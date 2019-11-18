@@ -12,6 +12,8 @@ using vLibrary.Model.Enums;
 using vLibrary.Model.Requests;
 using System.Diagnostics;
 using System.IO;
+using vLibrary.WinUI.HelperMethods;
+using System.Configuration;
 
 namespace vLibrary.WinUI.Books
 {
@@ -28,6 +30,8 @@ namespace vLibrary.WinUI.Books
         private readonly ApiService _libraryService = new ApiService("library");
         private bool _addButtonWasClicked = false;
         private Byte[] image;
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
+
         public frmBookDetails(Guid? id = null)
         {
             InitializeComponent();
@@ -57,10 +61,10 @@ namespace vLibrary.WinUI.Books
             {
                 HelperMethods.Helper.GuidIsSet = true;
             }
-            var book = await _bookService.GetById<BookDto>(_id);
-            var category = await _categoryService.Get<List<CategoryDto>>(null);
-            var publisher = await _publisherService.Get<List<PublisherDto>>(null);
-            var rack = await _rackService.Get<List<RackDto>>(null);
+            var book = await _bookService.GetById<BookDto>(_id, token);
+            var category = await _categoryService.Get<List<CategoryDto>>(null, token);
+            var publisher = await _publisherService.Get<List<PublisherDto>>(null, token);
+            var rack = await _rackService.Get<List<RackDto>>(null, token);
 
             txtISBN.Text = book.ISBN;
             txtTitle.Text = book.Title;
@@ -109,9 +113,9 @@ namespace vLibrary.WinUI.Books
         public async void LoadDataIntoInsertForm()
         {
             
-            var category = await _categoryService.Get<List<CategoryDto>>(null);
-            var publisher = await _publisherService.Get<List<PublisherDto>>(null);
-            var rack = await _rackService.Get<List<RackDto>>(null);
+            var category = await _categoryService.Get<List<CategoryDto>>(null, token);
+            var publisher = await _publisherService.Get<List<PublisherDto>>(null, token);
+            var rack = await _rackService.Get<List<RackDto>>(null, token);
 
             cmbBookStatus.Items.Add("---Select a value---");
             cmbBookStatus.SelectedIndex = 0;
@@ -179,12 +183,12 @@ namespace vLibrary.WinUI.Books
             BookDto book = null;
             if (_id.HasValue)
             {
-               book  = await _bookService.GetById<BookDto>(_id);
+               book  = await _bookService.GetById<BookDto>(_id, token);
             }
-            var libraries = await _libraryService.Get<List<LibraryDto>> (null);
-            var category = await _categoryService.Get<List<CategoryDto>>(null);
-            var publisher = await _publisherService.Get<List<PublisherDto>>(null);
-            var rack = await _rackService.Get<List<RackDto>>(null);
+            var libraries = await _libraryService.Get<List<LibraryDto>> (null, token);
+            var category = await _categoryService.Get<List<CategoryDto>>(null, token);
+            var publisher = await _publisherService.Get<List<PublisherDto>>(null, token);
+            var rack = await _rackService.Get<List<RackDto>>(null, token);
             var indexOfPipe = cmbRackNumberLocation.SelectedItem.ToString().IndexOf("|");
             var request = new BookUpsertRequest();
             if (this.ValidateChildren())
@@ -227,7 +231,7 @@ namespace vLibrary.WinUI.Books
                 if (_id.HasValue)
                 {
                     
-                    response = await _bookService.Update<BookDto>(_id, request);
+                    response = await _bookService.Update<BookDto>(_id, request, token);
                     DialogResult dialogUpdate = MessageBox.Show("Book details updated!", "Conforamtion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (response != null)
                     {
@@ -248,7 +252,7 @@ namespace vLibrary.WinUI.Books
                 else
                 {
                     
-                    response = await _bookService.Insert<BookDto>(request);
+                    response = await _bookService.Insert<BookDto>(request, token);
                     DialogResult dialogInsert = MessageBox.Show("Book details saved!\nAdd new book?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (response != null)
                     {

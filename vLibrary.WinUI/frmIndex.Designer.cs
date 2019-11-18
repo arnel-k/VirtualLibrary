@@ -86,14 +86,14 @@
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.searchToolStripMenuItem.Text = "&Search";
             this.searchToolStripMenuItem.Click += new System.EventHandler(this.SearchToolStripMenuItem_Click);
             // 
             // newAuthorToolStripMenuItem
             // 
             this.newAuthorToolStripMenuItem.Name = "newAuthorToolStripMenuItem";
-            this.newAuthorToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.newAuthorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newAuthorToolStripMenuItem.Text = "&New Author";
             this.newAuthorToolStripMenuItem.Click += new System.EventHandler(this.NewAuthorToolStripMenuItem_Click);
             // 
@@ -224,14 +224,14 @@
             // searchToolStripMenuItem6
             // 
             this.searchToolStripMenuItem6.Name = "searchToolStripMenuItem6";
-            this.searchToolStripMenuItem6.Size = new System.Drawing.Size(180, 22);
+            this.searchToolStripMenuItem6.Size = new System.Drawing.Size(153, 22);
             this.searchToolStripMenuItem6.Text = "&Search";
             this.searchToolStripMenuItem6.Click += new System.EventHandler(this.searchToolStripMenuItem6_Click);
             // 
             // newEmployeeToolStripMenuItem
             // 
             this.newEmployeeToolStripMenuItem.Name = "newEmployeeToolStripMenuItem";
-            this.newEmployeeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newEmployeeToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.newEmployeeToolStripMenuItem.Text = "&New Employee";
             this.newEmployeeToolStripMenuItem.Click += new System.EventHandler(this.newEmployeeToolStripMenuItem_Click);
             // 

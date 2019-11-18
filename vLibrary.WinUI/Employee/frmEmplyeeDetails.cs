@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Windows.Forms;
 using vLibrary.Model;
 using vLibrary.Model.Enums;
 using vLibrary.Model.Requests;
+using vLibrary.WinUI.HelperMethods;
 
 namespace vLibrary.WinUI.Employee
 {
@@ -26,6 +28,7 @@ namespace vLibrary.WinUI.Employee
         private readonly ApiService _accountService = new ApiService("account");
         private bool _addButtonWasClicked = false;
         private Byte[] image;
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
         public frmEmplyeeDetails(Guid? id = null, Guid? addressId = null)
         {
             InitializeComponent();
@@ -59,7 +62,7 @@ namespace vLibrary.WinUI.Employee
                 HelperMethods.Helper.GuidIsSet = true;
             }
 
-            var employee = await _employeeService.GetById<EmployeeDto>(_id);
+            var employee = await _employeeService.GetById<EmployeeDto>(_id,token);
             txtFName.Text = employee.FirstName;
             txtLName.Text = employee.LastName;
             txtEmail.Text = employee.Email;
@@ -86,7 +89,7 @@ namespace vLibrary.WinUI.Employee
         }
         public async void LoadUpdateData()
         {
-            var addressData = await _addressService.GetById<AddressDto>(_addressId);
+            var addressData = await _addressService.GetById<AddressDto>(_addressId, token);
 
             txtStreet.Text = addressData.Street;
             txtCity.Text = addressData.City;
@@ -122,11 +125,11 @@ namespace vLibrary.WinUI.Employee
             AccountDto accountResponse = null;
             if (_id.HasValue)
             {
-                employee = await _employeeService.GetById<EmployeeDto>(_id);
+                employee = await _employeeService.GetById<EmployeeDto>(_id, token);
             }
-            var libraries = await _libraryService.Get<List<LibraryDto>>(null);
-            var addresses = await _libraryService.Get<List<AddressDto>>(null);
-            
+            var libraries = await _libraryService.Get<List<LibraryDto>>(null, token);
+            var addresses = await _libraryService.Get<List<AddressDto>>(null, token);
+            var accounts = await _accountService.Get<List<AccountDto>>(null, token);
             var request = new EmployeeUpsertRequest();
             var address = new AddressUpsertRequest();
             var account = new AccountUpsertRequest();
@@ -170,7 +173,8 @@ namespace vLibrary.WinUI.Employee
                     {
                         try
                         {
-                            addressResponse = await _addressService.Update<AddressDto>(_addressId, address);
+                            
+                            addressResponse = await _addressService.Update<AddressDto>(_addressId, address, token);
                         }
                         catch (Exception ex)
                         {
@@ -181,15 +185,15 @@ namespace vLibrary.WinUI.Employee
                     {
                         try
                         {
-                            addressResponse = await _addressService.Insert<AddressDto>(address);
+                            addressResponse = await _addressService.Insert<AddressDto>(address,token);
                         }
                         catch (Exception ex)
                         {
                             MessageBox.Show("Address insertion error", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
-                    
-                    
+
+                    accountResponse = await _accountService.Insert<AccountDto>(account, token);
                     request.FirstName = txtFName.Text;
                     request.LastName = txtLName.Text;
                     request.BirthDate = dateTimeBirthDate.Value.Date;
@@ -197,15 +201,16 @@ namespace vLibrary.WinUI.Employee
                     request.Picture = image;
                     request.Email = txtEmail.Text;
                     request.Phone = txtPhone.Text;
+                    request.AccountDtoGuid = accountResponse.Guid;
                     request.AddressDtoGuid = addressResponse.Guid;
                     request.LibraryDtoGuid = libraries.Select(x => x.Guid).FirstOrDefault();
-
+                    
                 };
                 
                 if (_id.HasValue )
                 {
                     
-                    response = await _employeeService.Update<EmployeeDto>(_id, request);
+                    response = await _employeeService.Update<EmployeeDto>(_id, request, token);
                     DialogResult dialogUpdate = MessageBox.Show("Employee details updated!", "Conforamtion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (response != null)
                     {
@@ -225,8 +230,8 @@ namespace vLibrary.WinUI.Employee
 
                 else
                 {
-                    accountResponse = await _accountService.Insert<AccountDto>(account);
-                    response = await _employeeService.Insert<EmployeeDto>(request);
+                    
+                    response = await _employeeService.Insert<EmployeeDto>(request, token); ///TODO: error 500
                     DialogResult dialogInsert = MessageBox.Show("Employee details saved!\nAdd new employee?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (response != null)
                     {

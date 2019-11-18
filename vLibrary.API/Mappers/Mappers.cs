@@ -47,7 +47,8 @@ namespace vLibrary.API.Mappers
 
             CreateMap<Employee, EmployeeDto>()
                 .ForMember(dest => dest.AddressDtoGuid, opt => opt.MapFrom(src => src.Address.Guid))
-                .ForMember(dest => dest.LibraryDtoGuid, opt => opt.MapFrom(src => src.Library.Guid));
+                .ForMember(dest => dest.LibraryDtoGuid, opt => opt.MapFrom(src => src.Library.Guid))
+                .ForMember(dest => dest.AccountDtoGuid, opt => opt.MapFrom(src => src.Account.Guid));
             CreateMap<Employee, EmployeeUpsertRequest>().ReverseMap();
             CreateMap<Employee, EmployeeInsertRequest>().ReverseMap();
 

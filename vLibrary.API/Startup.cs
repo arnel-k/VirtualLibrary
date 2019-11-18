@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -55,8 +56,10 @@ namespace vLibrary.API
                 ));
 
             _ = services.AddAutoMapper();
-            
-            
+
+            /*services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<LibraryContext>();*/
             //konfiguracija "strongly typed" postavki 
 
             var appSettingsSection= Configuration.GetSection("AppSettings");

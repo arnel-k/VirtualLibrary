@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,12 +10,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
+using vLibrary.WinUI.HelperMethods;
 
 namespace vLibrary.WinUI.Address
 {
     public partial class frmAddress : Form
     {
         private readonly ApiService apiService = new ApiService("address");
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
         public DataGridView DG
         {
             get
@@ -33,7 +36,7 @@ namespace vLibrary.WinUI.Address
                 StreetName = txtSearch.Text
             };
             dgvAddress.AutoGenerateColumns = false;
-            dgvAddress.DataSource = await apiService.Get<List<AddressDto>>(search);
+            dgvAddress.DataSource = await apiService.Get<List<AddressDto>>(search, token );
         }
         private void BtnSearch_Click(object sender, EventArgs e)
         {
@@ -91,7 +94,7 @@ namespace vLibrary.WinUI.Address
             {
                 if (dialogResult == DialogResult.Yes)
                 {
-                    var repsonse = await apiService.Delete<AddressDto>(id);
+                    var repsonse = await apiService.Delete<AddressDto>(id, token);
                     if (repsonse != null)
                     {
                         GetSearchData();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
+using vLibrary.WinUI.HelperMethods;
 
 namespace vLibrary.WinUI.Authors
 {
@@ -17,7 +19,7 @@ namespace vLibrary.WinUI.Authors
         private Guid? _id = null;
         private readonly ApiService _service = new ApiService("authors");
         private frmAuthors _frmAuthors = (frmAuthors)Application.OpenForms["frmAuthors"];
-        
+        private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
         public frmAuthorDetails(Guid? id = null)
         {
             InitializeComponent();
@@ -45,7 +47,7 @@ namespace vLibrary.WinUI.Authors
 
                 if (_id.HasValue)
                 {
-                    response = await _service.Update<AuthorDto>(_id, request);
+                    response = await _service.Update<AuthorDto>(_id, request, token);
                     DialogResult dialogUpdate = MessageBox.Show("Author details updated!", "Conforamtion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (response != null)
                     {
@@ -65,7 +67,7 @@ namespace vLibrary.WinUI.Authors
 
                 else
                 {
-                    response = await _service.Insert<AuthorDto>(request);
+                    response = await _service.Insert<AuthorDto>(request, token);
                     DialogResult dialogInsert = MessageBox.Show("Author details saved!\nAdd new author?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (response != null)
                     {
@@ -91,7 +93,7 @@ namespace vLibrary.WinUI.Authors
         {
             if (_id.HasValue)
             {
-                var author = await _service.GetById<Model.AuthorDto>(_id);
+                var author = await _service.GetById<Model.AuthorDto>(_id, token);
                 txtFName.Text = author.FName;
                 txtLName.Text = author.LName;
                 txtDescription.Text = author.Description;
