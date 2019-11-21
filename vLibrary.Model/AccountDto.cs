@@ -11,7 +11,7 @@ namespace vLibrary.Model
     public class AccountDto : Entity
     {
 
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public Role Role { get; set; }
         public AccountStatus AccountStatus { get; set; }
         public string Token { get; set; }

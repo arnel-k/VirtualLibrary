@@ -11,9 +11,7 @@ using vLibrary.Model.Requests;
 
 namespace vLibrary.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [Helpers.AppRole(Role.Librarian)]
+   // [Helpers.AppRole(Role.Librarian)]
     public class EmployeeController : BaseCRUDController<EmployeeDto, EmployeeSearchRequest, EmployeeUpsertRequest, EmployeeUpsertRequest>
     {
         

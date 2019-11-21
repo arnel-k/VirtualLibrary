@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using vLibrary.Api.Database;
+using vLibrary.API.Exceptions;
+using vLibrary.API.Helpers;
 using vLibrary.API.Repositories.Interfaces;
 using vLibrary.Model;
 using vLibrary.Model.Requests;
@@ -13,13 +15,11 @@ namespace vLibrary.API.Services
 {
     public class EmployeeService : BaseCrudService<EmployeeDto, EmployeeSearchRequest, Employee, EmployeeUpsertRequest, EmployeeUpsertRequest>
     {
-        private readonly IAddressRepository<Address> _addressRepository;
-        private readonly ILibraryRepository<Library> _libraryRepository;
+      
         private readonly IAccountRepository<Account> _accountRepository;
-        public EmployeeService(IEmployeeRepository<Employee> repo, IAccountRepository<Account> accountRepository, IAddressRepository<Address> addressRepository, ILibraryRepository<Library> libraryRepository,IMapper mapper) : base(repo, mapper)
+        public EmployeeService(IEmployeeRepository<Employee> repo, IAccountRepository<Account> accountRepository,  IMapper mapper) : base(repo, mapper)
         {
-            _addressRepository = addressRepository;
-            _libraryRepository = libraryRepository;
+            
             _accountRepository = accountRepository;
         }
 
@@ -44,31 +44,33 @@ namespace vLibrary.API.Services
 
         public override async Task<EmployeeDto> Insert(EmployeeUpsertRequest insert)
         {
-            var guid = Guid.NewGuid();
-            var library = await _libraryRepository.GetById(insert.LibraryDtoGuid);
-            var address = await _addressRepository.GetById(insert.AddressDtoGuid);
-            var account = await _accountRepository.GetById(insert.AccountDtoGuid);
-          
+            var query = _accountRepository.GetAsQueryable();
+            if (string.IsNullOrWhiteSpace(insert.Password)) throw new UserException("Password is required!");
+            if (query.Any(x => x.UserName == insert.UserName)) throw new UserException($"Username {insert.UserName} is already taken !");
+            byte[] passwordHash, passwordSalt;
 
-            ///TODO: add accountid 
-            var toInsert = new EmployeeInsertRequest
+            PasswordHashing.CreatePasswordHash(insert.Password, out passwordHash, out passwordSalt);
+            
+            var entity = _mapper.Map<Employee>(insert);
+            var account = new Account
             {
-                Guid = guid,
-                BirthDate = insert.BirthDate,
-                AccountId = account.Id,
-                AddressId = address.Id,
-                LibraryId = library.Id,
-                FirstName = insert.FirstName,
-                LastName = insert.LastName,
-                Gender = insert.Gender,
-                Email = insert.Email,
-                Picture = insert.Picture,
-                Phone = insert.Phone,
-                
-
+                Guid = Guid.NewGuid(),
+                UserName = insert.UserName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Role = (vLibrary.Api.Database.Enums.Role)insert.Role,
+                AccountStatus = (vLibrary.Api.Database.Enums.AccountStatus)insert.AccountStatus
             };
-
-            var entity = _mapper.Map<Employee>(toInsert);
+            var address = new Address
+            {
+                Guid = Guid.NewGuid(),
+                Street = insert.Street,
+                City = insert.City,
+                ZipCode = insert.ZipCode
+            };
+            entity.Account = account;
+            entity.Address = address;
+            entity.LibraryId = 1;
             _repo.Insert(entity);
             await _repo.Save();
             return _mapper.Map<EmployeeDto>(entity);
@@ -78,35 +80,32 @@ namespace vLibrary.API.Services
         public override async Task<EmployeeDto> Update(Guid guid, EmployeeUpsertRequest update)
         {
             var entity = await _repo.GetById(guid);
+            var query = _accountRepository.GetAsQueryable();
+            if (string.IsNullOrWhiteSpace(update.Password)) throw new UserException("Password is required!");
+            //if (query.Any(x => x.UserName == update.UserName)) throw new UserException($"Username {update.UserName} is already taken !");
+            byte[] passwordHash, passwordSalt;
 
-            if(update.GetType().GetProperty("Guid") != null)
-            {
-                update.GetType().GetProperty("Guid").SetValue(update, guid);
+            PasswordHashing.CreatePasswordHash(update.Password, out passwordHash, out passwordSalt);
 
-            }
+            if (update.GetType().GetProperty("Guid") != null)
+             {
+                 update.GetType().GetProperty("Guid").SetValue(update, guid);
 
-            var library = await _libraryRepository.GetById(update.LibraryDtoGuid);
-            var address = await _addressRepository.GetById(update.AddressDtoGuid);
-            var account = await _addressRepository.GetById(update.AccountDtoGuid);
-            var toInsert = new EmployeeInsertRequest
-            {
-                Guid = guid,
-                BirthDate = update.BirthDate.Value,
-                AddressId = address.Id,
-                LibraryId = library.Id,
-                AccountId = account.Id,   ///TODO: check 
-                FirstName = update.FirstName,
-                LastName = update.LastName,
-                Gender = update.Gender,
-                Email = update.Email,
-                Picture = update.Picture,
-                Phone = update.Phone
-            };
-            _repo.Update(_mapper.Map(toInsert, entity));
+             }
+            
+            entity.Address.City = update.City;
+            entity.Address.Street = update.Street;
+            entity.Address.ZipCode = update.ZipCode;
+            entity.Account.AccountStatus = (vLibrary.Api.Database.Enums.AccountStatus)update.AccountStatus;
+            entity.Account.PasswordHash = passwordHash;
+            entity.Account.PasswordSalt = passwordSalt;
+
+            _repo.Update(_mapper.Map(update, entity));
             await _repo.Save();
             return _mapper.Map<EmployeeDto>(entity);
+             
+         }
 
-        }
 
     }
 }

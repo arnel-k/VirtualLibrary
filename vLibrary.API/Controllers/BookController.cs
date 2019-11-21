@@ -13,7 +13,7 @@ using vLibrary.Model.Requests;
 
 namespace vLibrary.API.Controllers
 {
-    [Helpers.AppRole(Role.Librarian)]
+    //[Helpers.AppRole(Role.Librarian)]
     public class BookController : BaseCRUDController<BookDto, BookSearchRequest, BookUpsertRequest, BookUpsertRequest>
     {
     

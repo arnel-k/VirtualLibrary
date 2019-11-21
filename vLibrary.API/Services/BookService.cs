@@ -66,7 +66,7 @@ namespace vLibrary.API.Services
             {
                 Guid = guid,
                 ISBN = insert.ISBN,
-                RackId  =  rack.Id,
+                RackId  =  rack.Id,  ///TODO : Modificirat
                 BookStatus = insert.BookStatus,
                 CategoryId = category.Id,
                 Image = insert.Image,

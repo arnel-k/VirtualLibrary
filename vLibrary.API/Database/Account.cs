@@ -16,6 +16,7 @@ namespace vLibrary.Api.Database
         public AccountStatus AccountStatus { get; set; }
         public LibraryCard LibraryCard { get; set; }
         public Member Member { get; set; }
+        public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
 
 

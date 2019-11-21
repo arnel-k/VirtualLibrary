@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,20 +23,26 @@ namespace vLibrary.WinUI.Employee
     {
         private Guid? _id = null;
         private Guid? _addressId = null;
+        private Guid? _accountId = null;
 
         private frmEmployees _frmEmployees = (frmEmployees)Application.OpenForms["frmEmployees"];
-        private readonly ApiService _employeeService = new ApiService("employee");
+        private readonly ApiService _employeeService = new ApiService("Employee");
         private readonly ApiService _libraryService = new ApiService("library");
         private readonly ApiService _addressService = new ApiService("address");
         private readonly ApiService _accountService = new ApiService("account");
         private bool _addButtonWasClicked = false;
         private Byte[] image;
         private string token = Helper.ToInsecureString(Helper.DecryptString(ConfigurationManager.AppSettings["token"]));
-        public frmEmplyeeDetails(Guid? id = null, Guid? addressId = null)
+
+        ILogger logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.Console().CreateLogger();
+
+        public delegate void RemoveTxt(object sender, EventArgs e);
+        public frmEmplyeeDetails(Guid? id = null, Guid? addressId = null, Guid? accountId = null)
         {
             InitializeComponent();
             _id = id;
             _addressId = addressId;
+            _accountId = accountId;
         }
 
         public static Image ByteToImage(byte[] bArray)
@@ -89,12 +98,74 @@ namespace vLibrary.WinUI.Employee
         }
         public async void LoadUpdateData()
         {
-            var addressData = await _addressService.GetById<AddressDto>(_addressId, token);
-
+            AddressDto addressData=null;
+            AccountDto accountData = null;
+            try
+            {
+                addressData = await _addressService.GetById<AddressDto>(_addressId, token);
+                accountData = await _accountService.GetById<AccountDto>(_accountId, token); ///TODO : serialization error 
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Proccessing error !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"Error : {e}");
+                this.Close();
+                return;
+            }
             txtStreet.Text = addressData.Street;
             txtCity.Text = addressData.City;
             txtZipCode.Text = addressData.ZipCode;
+            txtUserName.Text = accountData.UserName;
+            txtPassword.Text = "Set new password";
+            txtPsswdConfirm.Text = "Password confirmation";
+            txtUserName.Enabled = false;
+
+            txtPassword.GotFocus += RemovePassowrdText;
+            txtPassword.LostFocus += AddPasswordText;
+            txtPsswdConfirm.GotFocus += RemovePsswdConfirmationText;
+            txtPsswdConfirm.LostFocus += AddPasswdConfirmationText;
+
         }
+
+        public void RemovePassowrdText(object sender , EventArgs e)
+        {
+            if (txtPassword.Text == "Set new password")
+            {
+                txtPassword.Text = "";
+            }
+            
+        }
+        public void RemovePsswdConfirmationText(object sender, EventArgs e)
+        {
+            if(txtPsswdConfirm.Text == "Password confirmation")
+            {
+                txtPsswdConfirm.Text = "";
+            }
+        }
+
+        public void AddPasswordText(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                txtPassword.Text = "Set new password";
+            }
+               
+            
+        }
+
+        public void AddPasswdConfirmationText(object sender , EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtPsswdConfirm.Text))
+            {
+                txtPsswdConfirm.Text = "Password confirmation";
+            }
+        }
+
+        public void EmailCheck(object sender, EventArgs e)
+        {
+
+        }
+
         public void LoadDataIntoInsertForm()
         {
             
@@ -116,23 +187,30 @@ namespace vLibrary.WinUI.Employee
         {
             return b1.SequenceEqual(b2);
         }
-
+        public bool IsValidEmailAddress(string email)
+        {
+            try
+            {
+                MailAddress mail = new MailAddress(email);
+                return true;
+            }catch
+            {
+                return false;
+            }
+        }
         private async void btnSave_Click(object sender, EventArgs e)
         {
             EmployeeDto response = null;
             EmployeeDto employee = null;
-            AddressDto addressResponse = null;
-            AccountDto accountResponse = null;
+          
             if (_id.HasValue)
             {
                 employee = await _employeeService.GetById<EmployeeDto>(_id, token);
             }
-            var libraries = await _libraryService.Get<List<LibraryDto>>(null, token);
-            var addresses = await _libraryService.Get<List<AddressDto>>(null, token);
-            var accounts = await _accountService.Get<List<AccountDto>>(null, token);
+ 
             var request = new EmployeeUpsertRequest();
-            var address = new AddressUpsertRequest();
-            var account = new AccountUpsertRequest();
+          
+            DialogResult dialogInsert = new DialogResult();
             if (this.ValidateChildren())
             {
 
@@ -153,64 +231,55 @@ namespace vLibrary.WinUI.Employee
                     image = employee.Picture;
                 }
 
-                {
-                    address.Street = txtStreet.Text;
-                    address.City = txtCity.Text;
-                    address.ZipCode = txtZipCode.Text;
-                    account.UserName = txtUserName.Text;
-                    if(txtPassword.Text == txtPsswdConfirm.Text)
+                { 
+                    request.UserName = txtUserName.Text.Trim();
+                    if (IsValidEmailAddress(txtEmail.Text))
                     {
-                        account.Password = txtPassword.Text;
+                        request.Email = txtEmail.Text;
                     }
                     else
                     {
-                        MessageBox.Show("Password is not the same!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Email not valid, please provide valid email!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                     }
-                    account.Role = Role.Librarian;
-                    account.AccountStatus = AccountStatus.Active;
-                    
-                    if (_addressId.HasValue)
-                    {
-                        try
-                        {
-                            
-                            addressResponse = await _addressService.Update<AddressDto>(_addressId, address, token);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Address update error", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                    }
-                    else
-                    {
-                        try
-                        {
-                            addressResponse = await _addressService.Insert<AddressDto>(address,token);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Address insertion error", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                    }
-
-                    accountResponse = await _accountService.Insert<AccountDto>(account, token);
+                   
+                    request.Role = Role.Librarian;
+                    request.AccountStatus = AccountStatus.Active;
                     request.FirstName = txtFName.Text;
                     request.LastName = txtLName.Text;
                     request.BirthDate = dateTimeBirthDate.Value.Date;
                     request.Gender = (Gender)Enum.Parse(typeof(Gender), cmbGender.SelectedItem.ToString());
                     request.Picture = image;
-                    request.Email = txtEmail.Text;
+                   
                     request.Phone = txtPhone.Text;
-                    request.AccountDtoGuid = accountResponse.Guid;
-                    request.AddressDtoGuid = addressResponse.Guid;
-                    request.LibraryDtoGuid = libraries.Select(x => x.Guid).FirstOrDefault();
-                    
+                    request.Street = txtStreet.Text;
+                    request.City = txtCity.Text;
+                    request.ZipCode = txtZipCode.Text;
+                    if (txtPassword.Text == txtPsswdConfirm.Text)
+                    {
+                        request.Password = txtPassword.Text.Trim();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Password is not the same!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
                 };
                 
                 if (_id.HasValue )
                 {
                     
-                    response = await _employeeService.Update<EmployeeDto>(_id, request, token);
+                    try
+                    {
+                        response = await _employeeService.Update<EmployeeDto>(_id, request, token);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Insertion error "+ ex, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    
                     DialogResult dialogUpdate = MessageBox.Show("Employee details updated!", "Conforamtion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (response != null)
                     {
@@ -230,9 +299,16 @@ namespace vLibrary.WinUI.Employee
 
                 else
                 {
+                    try
+                    {
+                        response = await _employeeService.Insert<EmployeeDto>(request, token); 
+                        dialogInsert = MessageBox.Show("Employee details saved!\nAdd new employee?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    } catch (Exception err)
+                    {
+                        dialogInsert = MessageBox.Show("Employee not saved! " + err.Message,"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        
+                    }
                     
-                    response = await _employeeService.Insert<EmployeeDto>(request, token); ///TODO: error 500
-                    DialogResult dialogInsert = MessageBox.Show("Employee details saved!\nAdd new employee?", "Conforamtion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (response != null)
                     {
                         if (dialogInsert == DialogResult.Yes)
@@ -343,6 +419,16 @@ namespace vLibrary.WinUI.Employee
         private void txtUserName_Validating(object sender, CancelEventArgs e)
         {
             HelperMethods.Helper.TextBoxValidation(sender, e, errorEmployeeDetailsProvider, txtUserName);
+        }
+
+        private void txtPassword_Click(object sender, EventArgs e)
+        {
+            txtPassword.Text = "";
+        }
+
+        private void txtPsswdConfirm_Click(object sender, EventArgs e)
+        {
+            txtPsswdConfirm.Text = "";
         }
     }
 

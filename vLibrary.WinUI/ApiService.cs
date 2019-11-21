@@ -45,6 +45,7 @@ namespace vLibrary.WinUI
             var url = $"{Properties.Settings.Default.APIUrl}/{_route}";
             return await url.WithOAuthBearerToken(token).PostJsonAsync(request).ReceiveJson<T>();
         }
+      
 
         public async Task<T> Update<T>(object id, object request, string token)
         {

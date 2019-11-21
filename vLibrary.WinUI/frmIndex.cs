@@ -134,8 +134,8 @@ namespace vLibrary.WinUI
 
         private void FrmIndex_Load(object sender, EventArgs e)
         {
-            frmLogin frm = new frmLogin();
-            frm.ShowDialog(this);
+            //frmLogin frm = new frmLogin(); ///TODO: enable login form
+            //frm.ShowDialog(this);
             
         }
 

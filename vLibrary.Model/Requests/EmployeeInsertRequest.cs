@@ -23,11 +23,13 @@ namespace vLibrary.Model.Requests
         public DateTime? BirthDate { get; set; }
         [Required(ErrorMessage = "Gender is required!")]
         public Gender Gender { get; set; }
-        [Required(ErrorMessage = "Address is required!")]
-        public int AddressId { get; set; }
-        [Required(ErrorMessage = "Library is required!")]
-        public int LibraryId { get; set; }
-        [Required(ErrorMessage = "Account is required!")]
-        public int AccountId { get; set; }
+        //[Required(ErrorMessage = "Address is required!")]
+        //public int AddressId { get; set; }
+        //[Required(ErrorMessage = "Library is required!")]
+        //public int LibraryId { get; set; }
+        //[Required(ErrorMessage = "Account is required!")]
+        //public int AccountId { get; set; }
+        
+        
     }
 }

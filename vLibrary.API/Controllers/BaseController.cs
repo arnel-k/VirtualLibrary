@@ -10,7 +10,7 @@ using vLibrary.Model.Enums;
 
 namespace vLibrary.API.Controllers
 {
-    [Authorize]
+    //[Authorize] ///TODOD: reenable
     [Route("api/[controller]")]
     [ApiController]
     public class BaseController<T, TSearch> : ControllerBase

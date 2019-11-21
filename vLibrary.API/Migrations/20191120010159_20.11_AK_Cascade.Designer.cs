@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vLibrary.API.Context;
 
 namespace vLibrary.API.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20191120010159_20.11_AK_Cascade")]
+    partial class _2011_AK_Cascade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,8 +29,6 @@ namespace vLibrary.API.Migrations
 
                     b.Property<int>("AccountStatus");
 
-                    b.Property<int>("EmployeeId");
-
                     b.Property<Guid>("Guid");
 
                     b.Property<bool>("IsDeleted");
@@ -43,9 +43,6 @@ namespace vLibrary.API.Migrations
                     b.Property<string>("UserName");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
 
                     b.ToTable("Accounts");
                 });
@@ -198,6 +195,8 @@ namespace vLibrary.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccountId");
+
                     b.Property<int>("AddressId");
 
                     b.Property<DateTime>("BirthDate");
@@ -222,6 +221,9 @@ namespace vLibrary.API.Migrations
                     b.Property<byte[]>("Picture");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AccountId")
+                        .IsUnique();
 
                     b.HasIndex("AddressId");
 
@@ -401,14 +403,6 @@ namespace vLibrary.API.Migrations
                     b.ToTable("Racks");
                 });
 
-            modelBuilder.Entity("vLibrary.Api.Database.Account", b =>
-                {
-                    b.HasOne("vLibrary.Api.Database.Employee", "Employee")
-                        .WithOne("Account")
-                        .HasForeignKey("vLibrary.Api.Database.Account", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("vLibrary.Api.Database.Book", b =>
                 {
                     b.HasOne("vLibrary.Api.Database.Category", "Category")
@@ -464,6 +458,11 @@ namespace vLibrary.API.Migrations
 
             modelBuilder.Entity("vLibrary.Api.Database.Employee", b =>
                 {
+                    b.HasOne("vLibrary.Api.Database.Account", "Account")
+                        .WithOne("Employee")
+                        .HasForeignKey("vLibrary.Api.Database.Employee", "AccountId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("vLibrary.Api.Database.Address", "Address")
                         .WithMany("Employees")
                         .HasForeignKey("AddressId")

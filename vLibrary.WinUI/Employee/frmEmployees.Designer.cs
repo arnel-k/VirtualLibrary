@@ -38,6 +38,7 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AuthorId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AddressId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LibraryGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,6 +94,7 @@
             this.dgvEmployees.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AuthorId,
             this.AddressId,
+            this.AccountId,
             this.LibraryGuid,
             this.FirstName,
             this.LastName,
@@ -147,6 +149,14 @@
             this.AddressId.ReadOnly = true;
             this.AddressId.Visible = false;
             // 
+            // AccountId
+            // 
+            this.AccountId.DataPropertyName = "AccountDtoGuid";
+            this.AccountId.HeaderText = "AccountId";
+            this.AccountId.Name = "AccountId";
+            this.AccountId.ReadOnly = true;
+            this.AccountId.Visible = false;
+            // 
             // LibraryGuid
             // 
             this.LibraryGuid.DataPropertyName = "LibraryDtoGuid";
@@ -182,6 +192,7 @@
             // BirthDate
             // 
             this.BirthDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.BirthDate.DataPropertyName = "BirthDate";
             this.BirthDate.HeaderText = "BirthDate";
             this.BirthDate.Name = "BirthDate";
             this.BirthDate.ReadOnly = true;
@@ -223,6 +234,7 @@
             this.Name = "frmEmployees";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Search - Employees";
+            this.Load += new System.EventHandler(this.frmEmployees_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
             this.ctxMenu.ResumeLayout(false);
@@ -242,6 +254,7 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn AuthorId;
         private System.Windows.Forms.DataGridViewTextBoxColumn AddressId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountId;
         private System.Windows.Forms.DataGridViewTextBoxColumn LibraryGuid;
         private System.Windows.Forms.DataGridViewTextBoxColumn FirstName;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastName;

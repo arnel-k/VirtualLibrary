@@ -81,7 +81,8 @@ namespace vLibrary.WinUI.Employee
             {
                 var id = dgvEmployees.SelectedRows[0].Cells[0].Value;
                 var addressId = dgvEmployees.SelectedRows[0].Cells[1].Value;
-                frmEmplyeeDetails frm = new frmEmplyeeDetails(Guid.Parse(id.ToString()), Guid.Parse(addressId.ToString()));
+                var accountId = dgvEmployees.SelectedRows[0].Cells[2].Value;
+                frmEmplyeeDetails frm = new frmEmplyeeDetails(Guid.Parse(id.ToString()), Guid.Parse(addressId.ToString()),Guid.Parse(accountId.ToString()));
                 frm.LoadUpdateData();
                 frm.Show();
             }
@@ -107,6 +108,11 @@ namespace vLibrary.WinUI.Employee
             {
                 GetSearchData();
             }
+        }
+
+        private void frmEmployees_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

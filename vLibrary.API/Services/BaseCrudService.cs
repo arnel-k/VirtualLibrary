@@ -13,7 +13,7 @@ namespace vLibrary.API.Services
         {
         }
 
-        public async Task<TModel> Delete(Guid guid)
+        public virtual async Task<TModel> Delete(Guid guid)
         {
             var entity = await _repo.GetById(guid);
             _repo.Delete(entity);

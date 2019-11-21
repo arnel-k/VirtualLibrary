@@ -47,6 +47,8 @@ namespace vLibrary.API.Context
             modelBuilder.Entity<Publisher>().HasMany(x => x.Books).WithOne(x => x.Publisher).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Address>().HasMany(x => x.Employees).WithOne(x => x.Address).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Address>().HasMany(x => x.Member).WithOne(x => x.Address).OnDelete(DeleteBehavior.Restrict);
+            //modelBuilder.Entity<Employee>().HasOne(a => a.Account).WithOne(e => e.Employee).OnDelete(DeleteBehavior.Cascade);
+            
         }
     }
     

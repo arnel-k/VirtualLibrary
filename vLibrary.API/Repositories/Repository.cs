@@ -34,8 +34,9 @@ namespace vLibrary.API.Repositories
             return await _set.FindAsync(guid);
         }
 
-        public virtual void Insert(T obj)
+        public virtual void Insert(T obj) ///TODO: ovo pogledat
         {
+            obj.GetType().GetProperty("Guid").SetValue(obj, Guid.NewGuid());
             _set.Add(obj);
             
         }

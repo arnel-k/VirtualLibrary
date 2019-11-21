@@ -78,7 +78,7 @@
             this.btnAddImage.Location = new System.Drawing.Point(638, 298);
             this.btnAddImage.Name = "btnAddImage";
             this.btnAddImage.Size = new System.Drawing.Size(75, 23);
-            this.btnAddImage.TabIndex = 35;
+            this.btnAddImage.TabIndex = 12;
             this.btnAddImage.Text = "Add Image";
             this.btnAddImage.UseVisualStyleBackColor = true;
             this.btnAddImage.Click += new System.EventHandler(this.btnAddImage_Click);
@@ -89,7 +89,7 @@
             this.grpEmployeePicture.Location = new System.Drawing.Point(441, 39);
             this.grpEmployeePicture.Name = "grpEmployeePicture";
             this.grpEmployeePicture.Size = new System.Drawing.Size(272, 237);
-            this.grpEmployeePicture.TabIndex = 36;
+            this.grpEmployeePicture.TabIndex = 100;
             this.grpEmployeePicture.TabStop = false;
             this.grpEmployeePicture.Text = "Employee Picture";
             // 
@@ -106,7 +106,7 @@
             this.btnSave.Location = new System.Drawing.Point(638, 687);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 39;
+            this.btnSave.TabIndex = 18;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -132,7 +132,7 @@
             this.groupBox1.Location = new System.Drawing.Point(76, 28);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(330, 400);
-            this.groupBox1.TabIndex = 49;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Employee ";
             // 
@@ -141,7 +141,7 @@
             this.dateTimeBirthDate.Location = new System.Drawing.Point(19, 286);
             this.dateTimeBirthDate.Name = "dateTimeBirthDate";
             this.dateTimeBirthDate.Size = new System.Drawing.Size(200, 20);
-            this.dateTimeBirthDate.TabIndex = 53;
+            this.dateTimeBirthDate.TabIndex = 7;
             // 
             // label4
             // 
@@ -158,7 +158,7 @@
             this.cmbGender.Location = new System.Drawing.Point(19, 227);
             this.cmbGender.Name = "cmbGender";
             this.cmbGender.Size = new System.Drawing.Size(240, 21);
-            this.cmbGender.TabIndex = 50;
+            this.cmbGender.TabIndex = 6;
             this.cmbGender.Validating += new System.ComponentModel.CancelEventHandler(this.cmbGender_Validating);
             // 
             // label8
@@ -175,7 +175,7 @@
             this.txtPhone.Location = new System.Drawing.Point(19, 178);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(240, 20);
-            this.txtPhone.TabIndex = 49;
+            this.txtPhone.TabIndex = 5;
             this.txtPhone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPhone_KeyPress);
             this.txtPhone.Validating += new System.ComponentModel.CancelEventHandler(this.txtPhone_Validating);
             // 
@@ -193,7 +193,7 @@
             this.txtEmail.Location = new System.Drawing.Point(19, 129);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(240, 20);
-            this.txtEmail.TabIndex = 47;
+            this.txtEmail.TabIndex = 4;
             this.txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmail_Validating);
             // 
             // label3
@@ -210,7 +210,7 @@
             this.txtLName.Location = new System.Drawing.Point(19, 85);
             this.txtLName.Name = "txtLName";
             this.txtLName.Size = new System.Drawing.Size(240, 20);
-            this.txtLName.TabIndex = 45;
+            this.txtLName.TabIndex = 3;
             this.txtLName.Validating += new System.ComponentModel.CancelEventHandler(this.txtLName_Validating);
             // 
             // label2
@@ -227,7 +227,7 @@
             this.txtFName.Location = new System.Drawing.Point(19, 40);
             this.txtFName.Name = "txtFName";
             this.txtFName.Size = new System.Drawing.Size(240, 20);
-            this.txtFName.TabIndex = 43;
+            this.txtFName.TabIndex = 2;
             this.txtFName.Validating += new System.ComponentModel.CancelEventHandler(this.txtFName_Validating);
             // 
             // label1
@@ -250,7 +250,7 @@
             this.grpAddress.Location = new System.Drawing.Point(76, 455);
             this.grpAddress.Name = "grpAddress";
             this.grpAddress.Size = new System.Drawing.Size(330, 175);
-            this.grpAddress.TabIndex = 50;
+            this.grpAddress.TabIndex = 8;
             this.grpAddress.TabStop = false;
             this.grpAddress.Text = "Address";
             // 
@@ -259,7 +259,7 @@
             this.txtZipCode.Location = new System.Drawing.Point(19, 136);
             this.txtZipCode.Name = "txtZipCode";
             this.txtZipCode.Size = new System.Drawing.Size(240, 20);
-            this.txtZipCode.TabIndex = 54;
+            this.txtZipCode.TabIndex = 11;
             this.txtZipCode.Validating += new System.ComponentModel.CancelEventHandler(this.txtZipCode_Validating);
             // 
             // label5
@@ -276,7 +276,7 @@
             this.txtCity.Location = new System.Drawing.Point(19, 87);
             this.txtCity.Name = "txtCity";
             this.txtCity.Size = new System.Drawing.Size(240, 20);
-            this.txtCity.TabIndex = 52;
+            this.txtCity.TabIndex = 10;
             this.txtCity.Validating += new System.ComponentModel.CancelEventHandler(this.txtCity_Validating);
             // 
             // label7
@@ -293,7 +293,7 @@
             this.txtStreet.Location = new System.Drawing.Point(19, 38);
             this.txtStreet.Name = "txtStreet";
             this.txtStreet.Size = new System.Drawing.Size(240, 20);
-            this.txtStreet.TabIndex = 50;
+            this.txtStreet.TabIndex = 9;
             this.txtStreet.Validating += new System.ComponentModel.CancelEventHandler(this.txtStreet_Validating);
             // 
             // label9
@@ -315,7 +315,7 @@
             this.groupBox2.Location = new System.Drawing.Point(412, 455);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(301, 175);
-            this.groupBox2.TabIndex = 51;
+            this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Password";
             // 
@@ -324,7 +324,8 @@
             this.txtPsswdConfirm.Location = new System.Drawing.Point(29, 90);
             this.txtPsswdConfirm.Name = "txtPsswdConfirm";
             this.txtPsswdConfirm.Size = new System.Drawing.Size(240, 20);
-            this.txtPsswdConfirm.TabIndex = 56;
+            this.txtPsswdConfirm.TabIndex = 17;
+            this.txtPsswdConfirm.Click += new System.EventHandler(this.txtPsswdConfirm_Click);
             this.txtPsswdConfirm.Validating += new System.ComponentModel.CancelEventHandler(this.txtPsswdConfirm_Validating);
             // 
             // label10
@@ -341,7 +342,8 @@
             this.txtPassword.Location = new System.Drawing.Point(29, 41);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(240, 20);
-            this.txtPassword.TabIndex = 54;
+            this.txtPassword.TabIndex = 16;
+            this.txtPassword.Click += new System.EventHandler(this.txtPassword_Click);
             this.txtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txtPassword_Validating);
             // 
             // label11
@@ -361,7 +363,7 @@
             this.groupBox3.Location = new System.Drawing.Point(412, 328);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(301, 100);
-            this.groupBox3.TabIndex = 52;
+            this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Username";
             // 
@@ -370,7 +372,7 @@
             this.txtUserName.Location = new System.Drawing.Point(29, 44);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(240, 20);
-            this.txtUserName.TabIndex = 56;
+            this.txtUserName.TabIndex = 14;
             this.txtUserName.Validating += new System.ComponentModel.CancelEventHandler(this.txtUserName_Validating);
             // 
             // label12
