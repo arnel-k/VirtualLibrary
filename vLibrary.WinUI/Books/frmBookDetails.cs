@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.IO;
 using vLibrary.WinUI.HelperMethods;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace vLibrary.WinUI.Books
 {
@@ -179,6 +180,8 @@ namespace vLibrary.WinUI.Books
         }
         private async void BtnSave_Click(object sender, EventArgs e)
         {
+
+            Regex phonereg = new Regex("^ (\\(?\\+?[0 - 9] *\\) ?)?[0-9_\\- \\(\\)]*$");
             BookDto response = null;
             BookDto book = null;
             if (_id.HasValue)
@@ -347,5 +350,7 @@ namespace vLibrary.WinUI.Books
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
             
         }
+
+        
     }
 }

@@ -245,5 +245,11 @@
       <Name>vLibrary.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Members\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\t.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

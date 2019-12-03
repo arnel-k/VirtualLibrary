@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using vLibrary.Api.Database;
 using vLibrary.API.Context;
@@ -20,6 +21,13 @@ namespace vLibrary.API.Repositories
             return await _ctx.Member.FirstOrDefaultAsync(x => x.Guid == guid);
         }
 
+        public override void Delete(Member entity)
+        {
+            var member = _ctx.Member.Where(x => x.Id == entity.Id).Include(a => a.Account).FirstOrDefault();
+            _ctx.Remove(member.Account);
+            _ctx.Remove(member);
+            _ctx.SaveChanges();
+        }
 
     }
 }

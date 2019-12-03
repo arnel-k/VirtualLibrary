@@ -20,6 +20,7 @@ namespace vLibrary.Api.Database
         public Address Address { get; set; }
         public int LibraryId { get; set; }
         public Library Library { get; set; }
+        public int AccountId { get; set; }
         public Account Account { get; set; }
     }
 }

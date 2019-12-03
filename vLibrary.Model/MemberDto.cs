@@ -16,11 +16,11 @@ namespace vLibrary.Model
         public Gender Gender { get; set; }
         public DateTime DateOfMemberShip { get; set; }
         public int NumberOfBooksLoaned { get; set; }
-        public int AddressDtoId { get; set; }
-        public AddressDto AddressDto { get; set; }
-        public int AccountDtoId { get; set; }
-        public AccountDto AccountDto { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string ZipCode { get; set; }
+        public string Username { get; set; }
 
-        
+
     }
 }

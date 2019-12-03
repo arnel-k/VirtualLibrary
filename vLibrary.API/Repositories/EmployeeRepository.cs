@@ -21,7 +21,13 @@ namespace vLibrary.API.Repositories
         {
             return await _ctx.Employees.FirstOrDefaultAsync(x => x.Guid == guid);
         }
-
+        public override void Delete(Employee entity)
+        {
+            var employee = _ctx.Employees.Where(x => x.Id == entity.Id).Include(a => a.Account).FirstOrDefault();
+            _ctx.Remove(employee.Account);
+            _ctx.Remove(employee);
+            _ctx.SaveChanges();
+        }
 
     }
 }

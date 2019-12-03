@@ -134,9 +134,9 @@ namespace vLibrary.WinUI
 
         private void FrmIndex_Load(object sender, EventArgs e)
         {
-            //frmLogin frm = new frmLogin(); ///TODO: enable login form
-            //frm.ShowDialog(this);
-            
+            //BackgroundImage = Properties.Resources.t;
+            //this.BackColor = Color.Blue; 
+            ///TODO: dodati boju ili pozadinu
         }
 
         private void SearchToolStripMenuItem1_Click(object sender, EventArgs e)

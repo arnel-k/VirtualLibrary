@@ -57,6 +57,8 @@
             this.bindingBookRackLocation = new System.Windows.Forms.BindingSource(this.components);
             this.btnAddImage = new System.Windows.Forms.Button();
             this.errorBookDetailsProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.chckListBoxAuthors = new System.Windows.Forms.CheckedListBox();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.grpBookPicture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingBookStatus)).BeginInit();
@@ -177,7 +179,7 @@
             // 
             this.dateTimePublicationDate.Location = new System.Drawing.Point(367, 87);
             this.dateTimePublicationDate.Name = "dateTimePublicationDate";
-            this.dateTimePublicationDate.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePublicationDate.Size = new System.Drawing.Size(239, 20);
             this.dateTimePublicationDate.TabIndex = 22;
             // 
             // cmbPublisher
@@ -266,11 +268,30 @@
             // 
             this.errorBookDetailsProvider.ContainerControl = this;
             // 
+            // chckListBoxAuthors
+            // 
+            this.chckListBoxAuthors.FormattingEnabled = true;
+            this.chckListBoxAuthors.Location = new System.Drawing.Point(65, 344);
+            this.chckListBoxAuthors.Name = "chckListBoxAuthors";
+            this.chckListBoxAuthors.Size = new System.Drawing.Size(240, 169);
+            this.chckListBoxAuthors.TabIndex = 35;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(62, 328);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(49, 13);
+            this.label9.TabIndex = 36;
+            this.label9.Text = "Authors: ";
+            // 
             // frmBookDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 632);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.chckListBoxAuthors);
             this.Controls.Add(this.btnAddImage);
             this.Controls.Add(this.grpBookPicture);
             this.Controls.Add(this.cmbRackNumberLocation);
@@ -343,5 +364,7 @@
         private System.Windows.Forms.BindingSource bindingBookRackLocation;
         private System.Windows.Forms.Button btnAddImage;
         private System.Windows.Forms.ErrorProvider errorBookDetailsProvider;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckedListBox chckListBoxAuthors;
     }
 }

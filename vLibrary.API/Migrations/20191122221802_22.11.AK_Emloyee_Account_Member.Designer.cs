@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vLibrary.API.Context;
 
 namespace vLibrary.API.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20191122221802_22.11.AK_Emloyee_Account_Member")]
+    partial class _2211AK_Emloyee_Account_Member
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,10 +164,6 @@ namespace vLibrary.API.Migrations
                     b.Property<int>("BookId");
 
                     b.Property<int>("AuthorId");
-
-                    b.Property<Guid>("AuthorGuid");
-
-                    b.Property<Guid>("BookGuid");
 
                     b.HasKey("BookId", "AuthorId");
 

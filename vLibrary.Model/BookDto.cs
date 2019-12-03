@@ -24,5 +24,6 @@ namespace vLibrary.Model
         public string RackLocation { get; set; }
 
 
+
     }
 }

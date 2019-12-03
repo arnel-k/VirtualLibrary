@@ -3,7 +3,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2"/>
+    <Compile Remove="Requests\AccountInsertRequest.cs" />
+    <Compile Remove="Requests\EmployeeInsertRequest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.ComponentModel.Annotations">

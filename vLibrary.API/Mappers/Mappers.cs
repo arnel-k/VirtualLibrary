@@ -44,6 +44,7 @@ namespace vLibrary.API.Mappers
 
             CreateMap<Member, MemberDto>();
             CreateMap<Member, MemberSearchRequest>();
+            CreateMap<Member, MemberUpsertRequests>().ReverseMap();
 
             CreateMap<Employee, EmployeeDto>()
                 .ForMember(dest => dest.AddressDtoGuid, opt => opt.MapFrom(src => src.Address.Guid))
